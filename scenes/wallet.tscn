@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3 uid="uid://batpjibabamyc"]
+
+[ext_resource type="Script" path="res://scenes/wallet.gd" id="1_chx0s"]
+
+[node name="wallet" type="Control" node_paths=PackedStringArray("create_wallet_button", "create_wallet_dialogue")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_chx0s")
+create_wallet_button = NodePath("create_wallet")
+create_wallet_dialogue = NodePath("create_wallet_dialogue")
+
+[node name="create_wallet" type="Button" parent="."]
+layout_mode = 0
+offset_top = 96.0
+offset_right = 146.0
+offset_bottom = 127.0
+text = "CREATE A WALLET"
+
+[node name="recover_wallet" type="Button" parent="."]
+layout_mode = 1
+offset_left = 152.0
+offset_top = 96.0
+offset_right = 298.0
+offset_bottom = 127.0
+text = "RECOVER WALLET"
+
+[node name="wallet_list_container" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 69.0
+
+[node name="Label" type="Label" parent="wallet_list_container"]
+layout_mode = 2
+offset_right = 266.0
+offset_bottom = 26.0
+text = "WALLETS"
+horizontal_alignment = 1
+
+[node name="wallet" type="HBoxContainer" parent="wallet_list_container"]
+layout_mode = 2
+offset_top = 30.0
+offset_right = 266.0
+offset_bottom = 61.0
+
+[node name="Label" type="Label" parent="wallet_list_container/wallet"]
+layout_mode = 2
+offset_top = 2.0
+offset_right = 10.0
+offset_bottom = 28.0
+text = "1"
+
+[node name="Label2" type="Label" parent="wallet_list_container/wallet"]
+layout_mode = 2
+offset_left = 14.0
+offset_top = 2.0
+offset_right = 100.0
+offset_bottom = 28.0
+text = "Test Wallet"
+
+[node name="balance" type="Label" parent="wallet_list_container/wallet"]
+layout_mode = 2
+offset_left = 104.0
+offset_top = 2.0
+offset_right = 180.0
+offset_bottom = 28.0
+text = "1.345 ETH"
+
+[node name="Button" type="Button" parent="wallet_list_container/wallet"]
+layout_mode = 2
+offset_left = 184.0
+offset_right = 266.0
+offset_bottom = 31.0
+text = "withdraw"
+
+[node name="create_wallet_dialogue" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

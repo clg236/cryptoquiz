@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dpqdgq4yymk7q"]
+
+[node name="quiz_complete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CenterContainer"]
+offset_top = 7.0
+offset_right = 131.0
+offset_bottom = 33.0
+text = "QUIZ COMPLETE!"

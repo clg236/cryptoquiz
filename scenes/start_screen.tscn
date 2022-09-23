@@ -1,0 +1,155 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjtirufyto2i0"]
+
+[ext_resource type="Script" path="res://code/start_screen.gd" id="1_m6xs3"]
+[ext_resource type="Texture2D" uid="uid://dyeaupeyx2b5x" path="res://art/stars/Star 31.png" id="2_4fg04"]
+[ext_resource type="Texture2D" uid="uid://j045oflbcmf1" path="res://art/ui/logo.png" id="2_v50iy"]
+[ext_resource type="Texture2D" uid="uid://bga420qd4ttrf" path="res://art/stars/Star 13.png" id="3_evy7j"]
+
+[sub_resource type="Curve" id="Curve_cdr5j"]
+_data = [Vector2(0, 0.245399), 0.0, 0.0, 0, 0, Vector2(0.319066, 1), 1.14967, 1.14967, 0, 0, Vector2(0.719844, 0.98773), -0.869896, -0.869896, 0, 0, Vector2(1, 0.226994), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="start_screen" type="Control" node_paths=PackedStringArray("title_text", "body_text", "name_field", "faculty_checkbox", "enter_button", "sign_up_button", "accounts_list")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m6xs3")
+title_text = NodePath("VBoxContainer/title_text")
+body_text = NodePath("VBoxContainer/body_text")
+name_field = NodePath("VBoxContainer/name_field")
+faculty_checkbox = NodePath("VBoxContainer/faculty_checkbox")
+enter_button = NodePath("VBoxContainer/enter_button")
+sign_up_button = NodePath("VBoxContainer/sign_up_button")
+accounts_list = NodePath("VBoxContainer2/accounts_list")
+
+[node name="red_stars" type="CPUParticles2D" parent="."]
+texture_filter = 2
+position = Vector2(968, 496)
+lifetime = 15.0
+speed_scale = 3.0
+local_coords = true
+texture = ExtResource("2_4fg04")
+emission_shape = 3
+emission_rect_extents = Vector2(900, 450)
+direction = Vector2(100, 100)
+spread = 100.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_cdr5j")
+
+[node name="yellow_stars" type="CPUParticles2D" parent="."]
+texture_filter = 2
+position = Vector2(968, 496)
+lifetime = 15.0
+speed_scale = 3.0
+local_coords = true
+texture = ExtResource("3_evy7j")
+emission_shape = 3
+emission_rect_extents = Vector2(900, 450)
+direction = Vector2(100, 100)
+spread = 100.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_cdr5j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -36.5
+offset_right = 56.0
+offset_bottom = 36.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="logo" type="TextureRect" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 131.0
+offset_bottom = 100.0
+texture = ExtResource("2_v50iy")
+stretch_mode = 5
+
+[node name="title_text" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 110.0
+offset_right = 131.0
+offset_bottom = 136.0
+text = "CRYPTOQUIZ"
+horizontal_alignment = 1
+
+[node name="spacer" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2i(0, 50)
+layout_mode = 2
+anchors_preset = 0
+offset_top = 146.0
+offset_right = 131.0
+offset_bottom = 196.0
+
+[node name="body_text" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 206.0
+offset_right = 131.0
+offset_bottom = 232.0
+text = "welcome"
+
+[node name="name_field" type="TextEdit" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 242.0
+offset_right = 131.0
+offset_bottom = 277.0
+placeholder_text = "NAME"
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="faculty_checkbox" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 287.0
+offset_right = 131.0
+offset_bottom = 318.0
+text = "i am the boss"
+
+[node name="enter_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 328.0
+offset_right = 131.0
+offset_bottom = 359.0
+text = "LOGIN"
+
+[node name="sign_up_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 369.0
+offset_right = 131.0
+offset_bottom = 400.0
+text = "SIGN UP"
+flat = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 768.0
+offset_right = 1181.0
+offset_bottom = 808.0
+
+[node name="accounts_list_label" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+offset_right = 437.0
+offset_bottom = 26.0
+text = "FOUND THE FOLLOWING WALLETS. PLEASE CHOOSE ONE"
+
+[node name="accounts_list" type="ItemList" parent="VBoxContainer2"]
+layout_mode = 2
+offset_top = 30.0
+offset_right = 437.0
+offset_bottom = 38.0
+auto_height = true

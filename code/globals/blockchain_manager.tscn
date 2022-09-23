@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://df8j57tt068mu"]
+
+[ext_resource type="Script" path="res://code/globals/blockchain_manager.cs" id="1_j810r"]
+
+[node name="blockchain_manager" type="Node"]
+script = ExtResource("1_j810r")

@@ -1,0 +1,43 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="cq"
+run/main_scene="res://scenes/start_screen.tscn"
+config/features=PackedStringArray("4.0", "C#", "Vulkan Mobile")
+config/icon="res://icon.png"
+
+[autoload]
+
+NetworkManager="*res://code/globals/network_manager.gd"
+StateManager="*res://code/globals/state_manager.gd"
+DataParser="*res://code/globals/data_parser.gd"
+ParticipantManager="*res://code/globals/participant_manager.gd"
+PlayerManager="*res://code/globals/player_manager.gd"
+StatusOverlay="*res://scenes/globals/status_overlay.tscn"
+UIManager="*res://code/globals/ui_manager.gd"
+QuizManager="*res://code/globals/quiz_manager.gd"
+Header="*res://scenes/globals/header.tscn"
+BlockchainManager="*res://code/globals/blockchain_manager.tscn"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
+[dotnet]
+
+project/assembly_name="cq"
+
+[rendering]
+
+vulkan/rendering/back_end=1
+environment/defaults/default_clear_color=Color(0.0470588, 0.0235294, 0.121569, 1)

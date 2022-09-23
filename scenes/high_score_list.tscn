@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://code/high_score_list.gd" id="1_jya0o"]
+[ext_resource type="Texture2D" uid="uid://48kdb7r8etr2" path="res://art/ui/quiz_icon.png" id="1_nweel"]
+
+[node name="high_score_list" type="Control" node_paths=PackedStringArray("high_scores_list")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jya0o")
+high_scores_list = NodePath("CenterContainer/Panel/ScrollContainer/high_scores_list/high_score_list_container")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(500, 600)
+offset_left = 710.0
+offset_top = 240.0
+offset_right = 1210.0
+offset_bottom = 840.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="high_scores_list" type="VBoxContainer" parent="CenterContainer/Panel/ScrollContainer"]
+offset_right = 441.0
+offset_bottom = 68.0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list"]
+offset_right = 441.0
+offset_bottom = 26.0
+text = "SCORES"
+horizontal_alignment = 1
+
+[node name="header" type="HBoxContainer" parent="CenterContainer/Panel/ScrollContainer/high_scores_list"]
+offset_top = 30.0
+offset_right = 441.0
+offset_bottom = 56.0
+
+[node name="number" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
+custom_minimum_size = Vector2(25, 0)
+offset_right = 25.0
+offset_bottom = 26.0
+text = "#"
+
+[node name="avatar2" type="TextureRect" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
+custom_minimum_size = Vector2(25, 0)
+offset_left = 29.0
+offset_right = 54.0
+offset_bottom = 26.0
+texture = ExtResource("1_nweel")
+stretch_mode = 3
+
+[node name="name" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
+custom_minimum_size = Vector2(175, 0)
+offset_left = 58.0
+offset_right = 233.0
+offset_bottom = 26.0
+text = "Name"
+
+[node name="session_ether" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
+custom_minimum_size = Vector2(125, 0)
+offset_left = 237.0
+offset_right = 362.0
+offset_bottom = 26.0
+text = "Session ETH"
+
+[node name="total_ether" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
+custom_minimum_size = Vector2(75, 0)
+offset_left = 366.0
+offset_right = 441.0
+offset_bottom = 26.0
+text = "Total ETH"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/ScrollContainer/high_scores_list"]
+offset_top = 60.0
+offset_right = 441.0
+offset_bottom = 64.0
+
+[node name="high_score_list_container" type="VBoxContainer" parent="CenterContainer/Panel/ScrollContainer/high_scores_list"]
+offset_top = 68.0
+offset_right = 441.0
+offset_bottom = 68.0
