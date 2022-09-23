@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://ct41yjhcksxet"]
 
 [ext_resource type="Script" path="res://code/student_quiz_mode.gd" id="1_w2uy5"]
-[ext_resource type="PackedScene" path="res://scenes/high_score_list.tscn" id="2_jyr4q"]
+[ext_resource type="PackedScene" uid="uid://48ghr5fgdfwe" path="res://scenes/high_score_list.tscn" id="2_jyr4q"]
 
 [node name="student_quiz_mode" type="Control" node_paths=PackedStringArray("quiz_title", "num_questions", "score", "question_title", "question_time", "question_reward", "choice_container", "submit_button", "question_screen", "answer_screen", "answer_screen_text")]
 layout_mode = 3
@@ -111,7 +111,6 @@ offset_bottom = 97.0
 text = "SUBMIT ANSWER"
 
 [node name="answer_screen" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -138,7 +137,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Panel" type="Panel" parent="answer_screen"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2i(0, 50)
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0

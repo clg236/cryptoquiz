@@ -9,7 +9,6 @@ var quiz = {
 
 @export var start_button : Button
 
-
 func _ready():
 	
 	# show the header
@@ -47,5 +46,5 @@ func _on_get_quiz_button_pressed():
 	NetworkManager.list_single_quiz(quiz)
 
 func _on_quiz_started(quiz):
-	QuizManager.current_quiz = quiz
+	# QuizManager.current_quiz = quiz
 	UIManager.change_scene(UIManager.student_quiz_countdown)

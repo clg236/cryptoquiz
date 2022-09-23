@@ -33,7 +33,7 @@ func _ready():
 	submit_button.connect('pressed', _on_submit_button_pressed)
 	quiz = QuizManager.current_quiz
 	
-	# set the quiz title
+	# set the quiz title (fix this!)
 	quiz_title.text = quiz.quizTitle
 	
 	# number of questions

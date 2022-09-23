@@ -15,6 +15,7 @@ var sign_message_script = load("res://code/ethereum/sign_message.cs")
 var sign_message = sign_message_script.new()
 
 func _ready():
+	add_child(sign_message)
 	enter_button.connect("pressed", _on_enter_button_pressed)
 	sign_up_button.connect("pressed", _on_sign_up_button_pressed)
 	
@@ -71,15 +72,15 @@ func _on_name_text_changed():
 	body_text.text = 'welcome ' + name_field.text
 
 func _on_enter_button_pressed():
-	
-	# sign a message from our account (use the name)
-	sign_message.signMessage()
-	
-	
-	# attempt to log in to the server
-	
 	# update the player
 	PlayerManager.player.name = name_field.text
+	
+	# sign a message from our account (use the name)
+	PlayerManager.player.signature = sign_message.signMessage(PlayerManager.player.name)
+	print(PlayerManager.player.signature)
+	print(NetworkManager.websocket_test_url)
+	# attempt to log in to the server
+	NetworkManager.connect_to_server()
 	
 	if faculty_checkbox.button_pressed:
 		UIManager.change_scene(UIManager.faculty_app)

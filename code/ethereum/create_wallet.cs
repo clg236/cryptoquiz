@@ -12,6 +12,7 @@ using Nethereum.Web3.Accounts;
 using Newtonsoft.Json;
 using NBitcoin;
 using Rijndael256;
+using Nethereum.KeyStore.Model;
 
 namespace Wallets
     {
@@ -36,6 +37,10 @@ namespace Wallets
 
             // create our wallets directory. 
             System.IO.Directory.CreateDirectory(workingDirectory);
+
+            // our keystore
+            var keyStoreService = new Nethereum.KeyStore.KeyStoreScryptService();
+            var scryptParams = new ScryptParams {Dklen = 32, N = 262144, R = 1, P = 8};
 
             // try to save the wallet to our directory
             try 
@@ -62,9 +67,10 @@ namespace Wallets
         {
             string words = string.Join(" ", wallet.Words);
             string address = wallet.GetAccount(0).Address;
+            string privateKey = wallet.GetAccount(0).PrivateKey;
             var encryptedWords = Rijndael.Encrypt(words, password, KeySize.Aes256);
             string date = DateTime.Now.ToString();
-            var walletJsonData = new { address, encryptedWords = encryptedWords, date = date };
+            var walletJsonData = new { address, privateKey, encryptedWords = encryptedWords, date = date };
             string json = JsonConvert.SerializeObject(walletJsonData);
             Random random = new Random();
             var fileName =

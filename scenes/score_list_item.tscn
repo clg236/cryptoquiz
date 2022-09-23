@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://cd2bd58hdugtr"]
 
 [ext_resource type="Script" path="res://code/score_list_item.gd" id="1_exyer"]
 [ext_resource type="Texture2D" uid="uid://48kdb7r8etr2" path="res://art/ui/quiz_icon.png" id="1_rb635"]
@@ -14,13 +14,13 @@ session_eth = NodePath("session_eth")
 total_eth = NodePath("total_eth")
 
 [node name="number" type="Label" parent="."]
-custom_minimum_size = Vector2(25, 0)
+custom_minimum_size = Vector2i(25, 0)
 offset_right = 25.0
 offset_bottom = 26.0
 text = "1"
 
 [node name="avatar" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(25, 0)
+custom_minimum_size = Vector2i(25, 0)
 offset_left = 29.0
 offset_right = 54.0
 offset_bottom = 26.0
@@ -28,7 +28,7 @@ texture = ExtResource("1_rb635")
 stretch_mode = 3
 
 [node name="name" type="Label" parent="."]
-custom_minimum_size = Vector2(175, 0)
+custom_minimum_size = Vector2i(175, 0)
 offset_left = 58.0
 offset_right = 233.0
 offset_bottom = 26.0
@@ -37,7 +37,7 @@ clip_text = true
 text_overrun_behavior = 3
 
 [node name="session_eth" type="Label" parent="."]
-custom_minimum_size = Vector2(125, 0)
+custom_minimum_size = Vector2i(125, 0)
 offset_left = 237.0
 offset_right = 362.0
 offset_bottom = 26.0
@@ -45,7 +45,7 @@ text = ".01
 "
 
 [node name="total_eth" type="Label" parent="."]
-custom_minimum_size = Vector2(75, 0)
+custom_minimum_size = Vector2i(75, 0)
 offset_left = 366.0
 offset_right = 441.0
 offset_bottom = 26.0

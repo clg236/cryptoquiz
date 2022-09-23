@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://48ghr5fgdfwe"]
 
 [ext_resource type="Script" path="res://code/high_score_list.gd" id="1_jya0o"]
 [ext_resource type="Texture2D" uid="uid://48kdb7r8etr2" path="res://art/ui/quiz_icon.png" id="1_nweel"]
@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="CenterContainer"]
-custom_minimum_size = Vector2(500, 600)
+custom_minimum_size = Vector2i(500, 600)
 offset_left = 710.0
 offset_top = 240.0
 offset_right = 1210.0
@@ -54,13 +54,13 @@ offset_right = 441.0
 offset_bottom = 56.0
 
 [node name="number" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
-custom_minimum_size = Vector2(25, 0)
+custom_minimum_size = Vector2i(25, 0)
 offset_right = 25.0
 offset_bottom = 26.0
 text = "#"
 
 [node name="avatar2" type="TextureRect" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
-custom_minimum_size = Vector2(25, 0)
+custom_minimum_size = Vector2i(25, 0)
 offset_left = 29.0
 offset_right = 54.0
 offset_bottom = 26.0
@@ -68,21 +68,21 @@ texture = ExtResource("1_nweel")
 stretch_mode = 3
 
 [node name="name" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
-custom_minimum_size = Vector2(175, 0)
+custom_minimum_size = Vector2i(175, 0)
 offset_left = 58.0
 offset_right = 233.0
 offset_bottom = 26.0
 text = "Name"
 
 [node name="session_ether" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
-custom_minimum_size = Vector2(125, 0)
+custom_minimum_size = Vector2i(125, 0)
 offset_left = 237.0
 offset_right = 362.0
 offset_bottom = 26.0
 text = "Session ETH"
 
 [node name="total_ether" type="Label" parent="CenterContainer/Panel/ScrollContainer/high_scores_list/header"]
-custom_minimum_size = Vector2(75, 0)
+custom_minimum_size = Vector2i(75, 0)
 offset_left = 366.0
 offset_right = 441.0
 offset_bottom = 26.0

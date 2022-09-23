@@ -11,19 +11,19 @@ signal participant_exited(participant)
 signal participant_updated(participant)
 
 func _ready():
-	websocket_test_url = 'wss://3uswb60jt4.execute-api.us-east-1.amazonaws.com/Prod?address=' + PlayerManager.player.eth_address + "&message=" + PlayerManager.player.secret + "&signature=" + PlayerManager.player.signature + "&token=123456"
 	_client.connect("connection_closed", _closed)
 	_client.connect("connection_error", _closed)
 	_client.connect("connection_established", _connected)
 	_client.connect("data_received", _on_data)
 	_client.connect("server_close_request", _close_request)
 	
+func connect_to_server():
+	websocket_test_url = 'wss://3uswb60jt4.execute-api.us-east-1.amazonaws.com/Prod?address=' + PlayerManager.player.eth_address + "&message=" + PlayerManager.player.name + "&signature=" + PlayerManager.player.signature + "&token=123456"
 	var err = _client.connect_to_url(websocket_test_url)
 
 	if err != OK:
 		print('unable to connect to server')
 		set_process(false)
-	
 
 func _close_request(code, reason):
 	print("closed with code: ", code, " and reason: ", reason)

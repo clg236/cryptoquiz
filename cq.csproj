@@ -9,6 +9,7 @@
     <PackageReference Include="Nethereum.BlockchainProcessing" Version="4.8.0" />
     <PackageReference Include="Nethereum.HdWallet" Version="4.8.0" />
     <PackageReference Include="Nethereum.Hex" Version="4.8.0" />
+    <PackageReference Include="Nethereum.KeyStore" Version="4.8.0" />
     <PackageReference Include="Nethereum.Signer" Version="4.8.0" />
     <PackageReference Include="Nethereum.Web3" Version="4.8.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
