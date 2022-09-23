@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://bbx6hjtom6hqc"]
 
 [ext_resource type="Script" path="res://code/student_app.gd" id="1_prw1c"]
 
-[node name="student_app" type="Control"]
+[node name="student_app" type="Control" node_paths=PackedStringArray("start_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,8 +10,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_prw1c")
+start_button = NodePath("start_button")
 
 [node name="start_quiz_button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 112.0
 offset_right = 107.0
@@ -19,8 +21,15 @@ offset_bottom = 143.0
 text = "START QUIZ"
 
 [node name="get_quiz_button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 64.0
 offset_right = 89.0
 offset_bottom = 95.0
 text = "GET QUIZ"
+
+[node name="start_button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "START!"
