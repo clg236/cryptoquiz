@@ -112,25 +112,34 @@ placeholder_text = "NAME"
 scroll_fit_content_height = true
 caret_blink = true
 
-[node name="faculty_checkbox" type="CheckBox" parent="VBoxContainer"]
+[node name="name_field2" type="TextEdit" parent="VBoxContainer"]
 layout_mode = 2
 offset_top = 287.0
 offset_right = 131.0
-offset_bottom = 318.0
+offset_bottom = 322.0
+placeholder_text = "WALLET PASSWORD"
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="faculty_checkbox" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 332.0
+offset_right = 131.0
+offset_bottom = 363.0
 text = "i am the boss"
 
 [node name="enter_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-offset_top = 328.0
+offset_top = 373.0
 offset_right = 131.0
-offset_bottom = 359.0
+offset_bottom = 404.0
 text = "LOGIN"
 
 [node name="sign_up_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-offset_top = 369.0
+offset_top = 414.0
 offset_right = 131.0
-offset_bottom = 400.0
+offset_bottom = 445.0
 text = "SIGN UP"
 flat = true
 

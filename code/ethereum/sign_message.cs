@@ -10,14 +10,15 @@ using Nethereum.ABI.Encoders;
 public partial class sign_message : Node
 {
 
-    public string signMessage(string message) 
+    public string signMessage(string message, string key) 
     {
         var playerManager = GetNode<Node>("/root/PlayerManager");
         var address = playerManager.Call("get_address");
 
-        var privateKey = "0xd7acaa8b621eb2b27a5f5b9d4489c2cf84d3f60659ece30718e07baaaa532fce";
+        var privateKey = key;
         var signer = new EthereumMessageSigner();
         var signature = signer.EncodeUTF8AndSign(message, new EthECKey(privateKey));
+        GD.Print(signature);
         return signature;
     }
 

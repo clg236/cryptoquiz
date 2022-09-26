@@ -18,6 +18,9 @@ func _ready():
 	_client.connect("server_close_request", _close_request)
 	
 func connect_to_server():
+	print(PlayerManager.player.eth_address)
+	print(PlayerManager.player.name)
+	print(PlayerManager.player.signature)
 	websocket_test_url = 'wss://3uswb60jt4.execute-api.us-east-1.amazonaws.com/Prod?address=' + PlayerManager.player.eth_address + "&message=" + PlayerManager.player.name + "&signature=" + PlayerManager.player.signature + "&token=123456"
 	var err = _client.connect_to_url(websocket_test_url)
 

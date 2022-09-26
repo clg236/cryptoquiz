@@ -1,15 +1,13 @@
 extends Node
 
 var player = {
-	'id' : 'clg236',
-	'role' : 'faculty',
-	'name' : 'Christian Grewell',
-	'total_eth' : 10,
+	'id' : '',
+	'role' : '',
+	'name' : '',
+	'total_eth' : 0,
 	'session_eth' : 0,
-	'eth_address' : '0x1bAFE96A7c853359cA5e73243D3742935a4250b9',
-	'private_key' : '',
+	'eth_address' : '',
 	'signature' : '',
-	'secret' : 'hello!',
 	'avatar' : {
 		'color' : '#FE00E7',
 	}

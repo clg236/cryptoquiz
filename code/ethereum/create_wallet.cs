@@ -83,7 +83,6 @@ namespace Wallets
                 + DateTime.Now.Second + "-"
                 + random.Next(0, 1000) + ".json";
             System.IO.File.WriteAllText(Path.Combine(filepath, fileName), json);
-            GD.Print(fileName);
             return fileName;
         }
     }
