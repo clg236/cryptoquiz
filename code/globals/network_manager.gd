@@ -197,6 +197,20 @@ func send_quiz_participant():
 	})
 	_send_data(data)
 
+func ready_for_quiz():
+	var json = JSON.new()
+	var data = json.stringify({
+		"action" : "class",
+		"op" : "broadcast",
+		"payload" : {
+			"data" : {
+				"action" : "send_quiz_participant",
+				"participant" : PlayerManager.player
+			}
+		}
+	})
+	_send_data(data)
+
 func update_score(score):
 	var json = JSON.new()
 	var data = json.stringify({

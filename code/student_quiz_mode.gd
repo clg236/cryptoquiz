@@ -30,8 +30,8 @@ func _ready():
 	# hide the header
 	Header.show_header(false)
 	
-	# tell everyone that we are playing the quiz!
-	NetworkManager.send_quiz_participant()
+	# tell the faculty that we're ready for the quiz
+	NetworkManager.broadcast_to_individual(PlayerManager.current_faculty.address, "ready_for_quiz")
 	
 	submit_button.connect('pressed', _on_submit_button_pressed)
 	quiz = QuizManager.current_quiz

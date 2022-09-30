@@ -13,6 +13,11 @@ var player = {
 	}
 }
 
+var current_faculty = {
+	'name' : '',
+	'address' : ''
+}
+
 func get_address() -> String:
 	return player.eth_address
 
