@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbx6hjtom6hqc"]
+[gd_scene load_steps=3 format=3 uid="uid://ch33c218o3c77"]
 
 [ext_resource type="Script" path="res://code/student_app.gd" id="1_prw1c"]
+[ext_resource type="Script" path="res://code/wallet_component.gd" id="2_43a1v"]
 
-[node name="student_app" type="Control" node_paths=PackedStringArray("start_button")]
+[node name="student_app" type="Control" node_paths=PackedStringArray("start_button", "home", "classes", "wallet", "get_quiz_button", "start_quiz_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,23 +11,157 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_prw1c")
-start_button = NodePath("start_button")
+start_button = NodePath("home/start_button")
+home = NodePath("home")
+classes = NodePath("classes")
+wallet = NodePath("wallet")
+get_quiz_button = NodePath("home/get_quiz_button")
+start_quiz_button = NodePath("home/start_quiz_button")
 
-[node name="start_quiz_button" type="Button" parent="."]
+[node name="home" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="start_quiz_button" type="Button" parent="home"]
 offset_left = 8.0
 offset_top = 112.0
 offset_right = 107.0
 offset_bottom = 143.0
 text = "START QUIZ"
 
-[node name="get_quiz_button" type="Button" parent="."]
+[node name="get_quiz_button" type="Button" parent="home"]
 offset_left = 8.0
 offset_top = 64.0
 offset_right = 89.0
 offset_bottom = 95.0
 text = "GET QUIZ"
 
-[node name="start_button" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="start_button" type="Button" parent="home"]
+offset_left = 8.0
+offset_top = 152.0
+offset_right = 69.0
+offset_bottom = 183.0
 text = "START!"
+
+[node name="classes" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="wallet" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="wallet_component" type="Control" parent="wallet" node_paths=PackedStringArray("wallet_list", "balance", "account", "wallet_info", "to_address", "send_amount", "send_button")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 680.0
+offset_top = 240.0
+offset_right = 1760.0
+offset_bottom = 720.0
+script = ExtResource("2_43a1v")
+wallet_list = NodePath("wallet/wallet_container/wallet list")
+balance = NodePath("wallet/wallet_info/VBoxContainer/balance/balance")
+account = NodePath("wallet/wallet_info/VBoxContainer/account/account")
+wallet_info = NodePath("wallet/wallet_info")
+to_address = NodePath("transaction_container/to_address")
+send_amount = NodePath("transaction_container/send_amount")
+send_button = NodePath("transaction_container/send_button")
+
+[node name="wallet" type="HBoxContainer" parent="wallet/wallet_component"]
+offset_top = 48.0
+offset_right = 796.0
+offset_bottom = 134.0
+
+[node name="wallet_container" type="VBoxContainer" parent="wallet/wallet_component/wallet"]
+custom_minimum_size = Vector2i(400, 0)
+offset_right = 400.0
+offset_bottom = 86.0
+
+[node name="wallet list" type="ItemList" parent="wallet/wallet_component/wallet/wallet_container"]
+offset_right = 400.0
+offset_bottom = 8.0
+auto_height = true
+fixed_column_width = 300
+
+[node name="wallet_info" type="VBoxContainer" parent="wallet/wallet_component/wallet"]
+offset_left = 404.0
+offset_right = 599.0
+offset_bottom = 86.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="wallet/wallet_component/wallet/wallet_info"]
+offset_right = 195.0
+offset_bottom = 86.0
+
+[node name="header" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer"]
+offset_right = 195.0
+offset_bottom = 26.0
+text = "WALLET INFORMATION"
+
+[node name="account" type="HBoxContainer" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer"]
+offset_top = 30.0
+offset_right = 195.0
+offset_bottom = 56.0
+
+[node name="account_label" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer/account"]
+offset_right = 71.0
+offset_bottom = 26.0
+text = "account: "
+
+[node name="account" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer/account"]
+offset_left = 75.0
+offset_right = 195.0
+offset_bottom = 26.0
+text = "1X21245059235"
+horizontal_alignment = 1
+
+[node name="balance" type="HBoxContainer" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer"]
+offset_top = 60.0
+offset_right = 195.0
+offset_bottom = 86.0
+
+[node name="balance_label" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer/balance"]
+offset_right = 69.0
+offset_bottom = 26.0
+text = "balance: "
+
+[node name="balance" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer/balance"]
+offset_left = 73.0
+offset_right = 96.0
+offset_bottom = 26.0
+text = "1.0"
+horizontal_alignment = 1
+
+[node name="transaction_container" type="HBoxContainer" parent="wallet/wallet_component"]
+offset_top = 176.0
+offset_right = 677.0
+offset_bottom = 207.0
+
+[node name="to_address" type="LineEdit" parent="wallet/wallet_component/transaction_container"]
+custom_minimum_size = Vector2i(300, 0)
+offset_right = 300.0
+offset_bottom = 31.0
+placeholder_text = "to address"
+
+[node name="send_amount" type="LineEdit" parent="wallet/wallet_component/transaction_container"]
+custom_minimum_size = Vector2i(100, 0)
+offset_left = 304.0
+offset_right = 404.0
+offset_bottom = 31.0
+placeholder_text = "amount"
+
+[node name="send_button" type="Button" parent="wallet/wallet_component/transaction_container"]
+offset_left = 408.0
+offset_right = 459.0
+offset_bottom = 31.0
+text = "SEND"

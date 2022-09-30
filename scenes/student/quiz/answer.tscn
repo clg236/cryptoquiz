@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://chpc4hs4wraaj"]
 
 [ext_resource type="Script" path="res://code/answer.gd" id="1_1pqk4"]
 
 [node name="choice_1" type="RichTextLabel" node_paths=PackedStringArray("button")]
-custom_minimum_size = Vector2(100, 25)
+custom_minimum_size = Vector2i(100, 25)
 offset_right = 100.0
 offset_bottom = 25.0
 bbcode_enabled = true

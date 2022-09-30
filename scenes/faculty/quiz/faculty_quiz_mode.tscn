@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://r0in87hjrxps"]
+[gd_scene load_steps=3 format=3 uid="uid://r0in87hjrxps"]
 
 [ext_resource type="Script" path="res://code/faculty_quiz_mode.gd" id="1_1qh75"]
+[ext_resource type="PackedScene" uid="uid://48ghr5fgdfwe" path="res://scenes/high_score_list.tscn" id="2_ojgjt"]
 
-[node name="quiz_mode" type="Control"]
+[node name="quiz_mode" type="Control" node_paths=PackedStringArray("countdown_screen", "quiz_screen", "score_screen", "countdown_time_label", "quiz_title", "num_questions", "question_title", "question_time", "question_reward", "choice_container", "answer_screen")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,3 +11,264 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1qh75")
+countdown_screen = NodePath("countdown_screen")
+quiz_screen = NodePath("quiz_screen")
+score_screen = NodePath("score_screen")
+countdown_time_label = NodePath("countdown_screen/center/VBoxContainer/countdown_time")
+quiz_title = NodePath("quiz_screen/header/quiz_title")
+num_questions = NodePath("quiz_screen/header/question_number")
+question_title = NodePath("quiz_screen/question_screen/center/question_container/question_title")
+question_time = NodePath("quiz_screen/question_screen/center/question_container/question_time")
+question_reward = NodePath("quiz_screen/question_screen/center/question_container/reward")
+choice_container = NodePath("quiz_screen/question_screen/center/question_container/choice_container")
+answer_screen = NodePath("score_screen/answer_screen")
+
+[node name="countdown_screen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="center" type="CenterContainer" parent="countdown_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="countdown_screen/center"]
+offset_left = 885.0
+offset_top = 512.0
+offset_right = 1035.0
+offset_bottom = 568.0
+
+[node name="countdown" type="Label" parent="countdown_screen/center/VBoxContainer"]
+offset_right = 150.0
+offset_bottom = 26.0
+text = "QUIZ STARTING IN: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="countdown_time" type="Label" parent="countdown_screen/center/VBoxContainer"]
+offset_top = 30.0
+offset_right = 150.0
+offset_bottom = 56.0
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="retry_quiz_button" type="Button" parent="countdown_screen/center/VBoxContainer"]
+visible = false
+offset_top = 60.0
+offset_right = 150.0
+offset_bottom = 91.0
+text = "RETRY"
+
+[node name="cancel_button" type="Button" parent="countdown_screen/center/VBoxContainer"]
+visible = false
+offset_top = 60.0
+offset_right = 150.0
+offset_bottom = 91.0
+text = "CANCEL"
+
+[node name="quiz_screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="header" type="HBoxContainer" parent="quiz_screen"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+
+[node name="question_number" type="Label" parent="quiz_screen/header"]
+offset_right = 637.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "1 OF 12"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quiz_title" type="Label" parent="quiz_screen/header"]
+offset_left = 641.0
+offset_right = 1278.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "QUIZ TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score" type="Label" parent="quiz_screen/header"]
+offset_left = 1282.0
+offset_right = 1920.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "TOTAL SCORE: 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="question_screen" type="Control" parent="quiz_screen"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="center" type="CenterContainer" parent="quiz_screen/question_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="question_container" type="VBoxContainer" parent="quiz_screen/question_screen/center"]
+offset_left = 958.0
+offset_top = 279.0
+offset_right = 962.0
+offset_bottom = 801.0
+
+[node name="question_title" type="RichTextLabel" parent="quiz_screen/question_screen/center/question_container"]
+offset_right = 4.0
+offset_bottom = 322.0
+bbcode_enabled = true
+text = "[center]QUESTION TITLE[/center]"
+fit_content_height = true
+
+[node name="question_time" type="ProgressBar" parent="quiz_screen/question_screen/center/question_container"]
+offset_top = 326.0
+offset_right = 4.0
+offset_bottom = 330.0
+show_percentage = false
+
+[node name="reward" type="RichTextLabel" parent="quiz_screen/question_screen/center/question_container"]
+offset_top = 334.0
+offset_right = 4.0
+offset_bottom = 518.0
+bbcode_enabled = true
+text = "[center] REWARD [/center]"
+fit_content_height = true
+
+[node name="choice_container" type="GridContainer" parent="quiz_screen/question_screen/center/question_container"]
+offset_top = 522.0
+offset_right = 4.0
+offset_bottom = 522.0
+columns = 2
+
+[node name="answer_screen" type="Control" parent="quiz_screen"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="quiz_screen/answer_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="high_score_list" parent="quiz_screen/answer_screen/CenterContainer" instance=ExtResource("2_ojgjt")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Panel" type="Panel" parent="quiz_screen/answer_screen"]
+custom_minimum_size = Vector2i(0, 50)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="answer" type="Label" parent="quiz_screen/answer_screen/Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -13.0
+offset_right = 38.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CORRECT!"
+
+[node name="score_screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="score_screen"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "SCORE SCREEN"
+
+[node name="answer_screen" type="Control" parent="score_screen"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="score_screen/answer_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="high_score_list" parent="score_screen/answer_screen/CenterContainer" instance=ExtResource("2_ojgjt")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Panel" type="Panel" parent="score_screen/answer_screen"]
+custom_minimum_size = Vector2i(0, 50)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="answer" type="Label" parent="score_screen/answer_screen/Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -13.0
+offset_right = 38.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CORRECT!"

@@ -29,7 +29,7 @@ func create_menu():
 		page_heading.text = 'HOME'
 		menu.add_icon_item(home_icon, 'HOME')
 		menu.add_icon_item(classes_icon, 'CLASSES')
-		menu.add_icon_item(financials_icon, 'FINANCIALS')
+		menu.add_icon_item(financials_icon, 'WALLET')
 	
 func _on_menu_selected(index):
 	page_heading.text = menu.get_item_text(index)

@@ -9,7 +9,7 @@ var countdown_timer
 var countdown_time = 2
 
 func _ready():
-	print('countdown entered with quiz: ', QuizManager.current_quiz)
+
 	DataParser.connect("start_quiz", _on_quiz_started)
 	retry_button.visible = false
 	cancel_button.visible = false
@@ -44,4 +44,5 @@ func _on_cancel_button_pressed():
 	UIManager.change_scene(UIManager.student_app)
 	
 func _on_quiz_started(quiz):
+	print('quiz started:', quiz)
 	QuizManager.current_quiz = quiz

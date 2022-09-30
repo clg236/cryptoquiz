@@ -72,6 +72,7 @@ func _on_quiz_item_selected(index):
 
 func _on_start_button_pressed():
 	NetworkManager.start_quiz(selected_quiz)
+	QuizManager.current_quiz = selected_quiz
 	
 	# change to quiz mode
 	UIManager.change_scene(UIManager.faculty_quiz_mode)

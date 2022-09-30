@@ -21,7 +21,7 @@ financials = NodePath("financials")
 
 [node name="home" type="Control" parent="."]
 visible = false
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,7 +29,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="home"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -37,7 +36,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="home/CenterContainer"]
-layout_mode = 2
 offset_left = 903.0
 offset_top = 527.0
 offset_right = 1016.0
@@ -45,7 +43,7 @@ offset_bottom = 553.0
 text = "HOME SCREEN"
 
 [node name="classes" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -53,7 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="class_list" type="Control" parent="classes" node_paths=PackedStringArray("create_class_button", "class_code_field", "class_name_field")]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -67,7 +65,6 @@ class_code_field = NodePath("create_class/class_code_field")
 class_name_field = NodePath("create_class/class_name_field")
 
 [node name="class_list_panel" type="Panel" parent="classes/class_list"]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -81,7 +78,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="classes/class_list/class_list_panel"]
-layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
@@ -90,52 +86,44 @@ text = "CLASSES"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="classes/class_list/class_list_panel"]
-layout_mode = 0
 offset_left = 8.0
 offset_top = 30.0
 offset_right = 568.0
 offset_bottom = 184.0
 
 [node name="class_list" type="VBoxContainer" parent="classes/class_list/class_list_panel/ScrollContainer"]
-layout_mode = 2
 offset_right = 556.0
 offset_bottom = 69.0
 
 [node name="header" type="HBoxContainer" parent="classes/class_list/class_list_panel/ScrollContainer/class_list"]
-layout_mode = 2
 offset_right = 556.0
 offset_bottom = 26.0
 
 [node name="name" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/header"]
 custom_minimum_size = Vector2i(200, 0)
-layout_mode = 2
 offset_right = 200.0
 offset_bottom = 26.0
 text = "CLASS NAME"
 
 [node name="participants" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/header"]
 custom_minimum_size = Vector2i(150, 0)
-layout_mode = 2
 offset_left = 204.0
 offset_right = 354.0
 offset_bottom = 26.0
 text = "PARTICIPANTS"
 
 [node name="# online" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/header"]
-layout_mode = 2
 offset_left = 358.0
 offset_right = 419.0
 offset_bottom = 26.0
 text = "ONLINE"
 
 [node name="HSeparator" type="HSeparator" parent="classes/class_list/class_list_panel/ScrollContainer/class_list"]
-layout_mode = 2
 offset_top = 30.0
 offset_right = 556.0
 offset_bottom = 34.0
 
 [node name="class_item" type="HBoxContainer" parent="classes/class_list/class_list_panel/ScrollContainer/class_list"]
-layout_mode = 2
 offset_top = 38.0
 offset_right = 556.0
 offset_bottom = 69.0
@@ -143,7 +131,6 @@ theme_override_constants/separation = 4
 
 [node name="name" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
 custom_minimum_size = Vector2i(200, 0)
-layout_mode = 2
 offset_top = 2.0
 offset_right = 200.0
 offset_bottom = 28.0
@@ -154,7 +141,6 @@ text_overrun_behavior = 3
 
 [node name="participants" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
 custom_minimum_size = Vector2i(150, 0)
-layout_mode = 2
 offset_left = 204.0
 offset_top = 2.0
 offset_right = 354.0
@@ -162,7 +148,6 @@ offset_bottom = 28.0
 text = "50"
 
 [node name="# online" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
-layout_mode = 2
 offset_left = 358.0
 offset_top = 2.0
 offset_right = 377.0
@@ -170,7 +155,6 @@ offset_bottom = 28.0
 text = "24"
 
 [node name="TextureRect" type="TextureRect" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
-layout_mode = 2
 offset_left = 381.0
 offset_right = 395.0
 offset_bottom = 31.0
@@ -179,28 +163,25 @@ stretch_mode = 5
 
 [node name="spacer" type="Control" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
 custom_minimum_size = Vector2i(50, 0)
-layout_mode = 2
+layout_mode = 3
 anchors_preset = 0
 offset_left = 399.0
 offset_right = 449.0
 offset_bottom = 31.0
 
 [node name="edit_class_button" type="Button" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
-layout_mode = 2
 offset_left = 453.0
 offset_right = 496.0
 offset_bottom = 31.0
 text = "EDIT"
 
 [node name="start_class_button" type="Button" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
-layout_mode = 2
 offset_left = 500.0
 offset_right = 556.0
 offset_bottom = 31.0
 text = "START"
 
 [node name="create_class" type="HBoxContainer" parent="classes/class_list"]
-layout_mode = 0
 offset_left = -285.0
 offset_top = 116.0
 offset_right = 286.0
@@ -208,7 +189,6 @@ offset_bottom = 156.0
 
 [node name="class_name_field" type="TextEdit" parent="classes/class_list/create_class"]
 custom_minimum_size = Vector2i(200, 0)
-layout_mode = 2
 offset_right = 200.0
 offset_bottom = 40.0
 placeholder_text = "CLASS NAME"
@@ -216,7 +196,6 @@ scroll_fit_content_height = true
 
 [node name="class_code_field" type="TextEdit" parent="classes/class_list/create_class"]
 custom_minimum_size = Vector2i(150, 0)
-layout_mode = 2
 offset_left = 204.0
 offset_right = 354.0
 offset_bottom = 40.0
@@ -224,7 +203,7 @@ placeholder_text = "CLASS CODE"
 scroll_fit_content_height = true
 
 [node name="spacer" type="Control" parent="classes/class_list/create_class"]
-layout_mode = 2
+layout_mode = 3
 anchors_preset = 0
 offset_left = 358.0
 offset_right = 394.0
@@ -232,7 +211,6 @@ offset_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="create_class_button" type="Button" parent="classes/class_list/create_class"]
-layout_mode = 2
 offset_left = 398.0
 offset_right = 571.0
 offset_bottom = 40.0
@@ -240,7 +218,7 @@ text = "CREATE A NEW CLASS"
 
 [node name="quizzes" type="Control" parent="."]
 visible = false
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -248,7 +226,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="quizzes"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -256,7 +233,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="list_quizzes" parent="quizzes/CenterContainer" instance=ExtResource("2_rx7yi")]
-layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -269,7 +245,7 @@ grow_vertical = 2
 
 [node name="participants" type="Control" parent="."]
 visible = false
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -277,7 +253,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="participants"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -285,7 +260,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="participants/CenterContainer"]
-layout_mode = 2
 offset_left = 872.0
 offset_top = 527.0
 offset_right = 1047.0
@@ -294,7 +268,7 @@ text = "PARTICIPANTS SCREEN"
 
 [node name="financials" type="Control" parent="."]
 visible = false
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -302,7 +276,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="financials"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -310,7 +283,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="financials/CenterContainer"]
-layout_mode = 2
 offset_left = 882.0
 offset_top = 527.0
 offset_right = 1038.0

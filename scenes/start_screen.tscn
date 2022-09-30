@@ -9,7 +9,7 @@
 _data = [Vector2(0, 0.245399), 0.0, 0.0, 0, 0, Vector2(0.319066, 1), 1.14967, 1.14967, 0, 0, Vector2(0.719844, 0.98773), -0.869896, -0.869896, 0, 0, Vector2(1, 0.226994), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[node name="start_screen" type="Control" node_paths=PackedStringArray("title_text", "body_text", "name_field", "faculty_checkbox", "enter_button", "sign_up_button", "accounts_list")]
+[node name="start_screen" type="Control" node_paths=PackedStringArray("title_text", "body_text", "name_field", "faculty_checkbox", "enter_button", "sign_up_button", "accounts_list", "account_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +23,8 @@ name_field = NodePath("VBoxContainer/name_field")
 faculty_checkbox = NodePath("VBoxContainer/faculty_checkbox")
 enter_button = NodePath("VBoxContainer/enter_button")
 sign_up_button = NodePath("VBoxContainer/sign_up_button")
-accounts_list = NodePath("VBoxContainer2/accounts_list")
+accounts_list = NodePath("VBoxContainer/account_container/accounts_list")
+account_container = NodePath("VBoxContainer/account_container")
 
 [node name="red_stars" type="CPUParticles2D" parent="."]
 texture_filter = 2
@@ -64,10 +65,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -56.0
-offset_top = -36.5
-offset_right = 56.0
-offset_bottom = 36.5
+offset_left = -148.5
+offset_top = -222.5
+offset_right = 148.5
+offset_bottom = 222.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
@@ -75,7 +76,7 @@ theme_override_constants/separation = 10
 [node name="logo" type="TextureRect" parent="VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-offset_right = 131.0
+offset_right = 437.0
 offset_bottom = 100.0
 texture = ExtResource("2_v50iy")
 stretch_mode = 5
@@ -83,82 +84,89 @@ stretch_mode = 5
 [node name="title_text" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 offset_top = 110.0
-offset_right = 131.0
+offset_right = 437.0
 offset_bottom = 136.0
 text = "CRYPTOQUIZ"
 horizontal_alignment = 1
+
+[node name="account_container" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+offset_top = 146.0
+offset_right = 437.0
+offset_bottom = 184.0
+
+[node name="accounts_list_label" type="Label" parent="VBoxContainer/account_container"]
+layout_mode = 2
+offset_right = 437.0
+offset_bottom = 26.0
+text = "FOUND THE FOLLOWING WALLETS. PLEASE CHOOSE ONE"
+
+[node name="accounts_list" type="ItemList" parent="VBoxContainer/account_container"]
+layout_mode = 2
+offset_top = 30.0
+offset_right = 437.0
+offset_bottom = 38.0
+auto_height = true
 
 [node name="spacer" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2i(0, 50)
 layout_mode = 2
 anchors_preset = 0
-offset_top = 146.0
-offset_right = 131.0
-offset_bottom = 196.0
+offset_top = 194.0
+offset_right = 437.0
+offset_bottom = 244.0
 
 [node name="body_text" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-offset_top = 206.0
-offset_right = 131.0
-offset_bottom = 232.0
+offset_top = 254.0
+offset_right = 437.0
+offset_bottom = 280.0
 text = "welcome"
 
 [node name="name_field" type="TextEdit" parent="VBoxContainer"]
 layout_mode = 2
-offset_top = 242.0
-offset_right = 131.0
-offset_bottom = 277.0
+offset_top = 290.0
+offset_right = 437.0
+offset_bottom = 325.0
 placeholder_text = "NAME"
 scroll_fit_content_height = true
 caret_blink = true
 
 [node name="name_field2" type="TextEdit" parent="VBoxContainer"]
 layout_mode = 2
-offset_top = 287.0
-offset_right = 131.0
-offset_bottom = 322.0
+offset_top = 335.0
+offset_right = 437.0
+offset_bottom = 370.0
 placeholder_text = "WALLET PASSWORD"
 scroll_fit_content_height = true
 caret_blink = true
 
 [node name="faculty_checkbox" type="CheckBox" parent="VBoxContainer"]
 layout_mode = 2
-offset_top = 332.0
-offset_right = 131.0
-offset_bottom = 363.0
+offset_top = 380.0
+offset_right = 437.0
+offset_bottom = 411.0
 text = "i am the boss"
 
 [node name="enter_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-offset_top = 373.0
-offset_right = 131.0
-offset_bottom = 404.0
+offset_top = 421.0
+offset_right = 437.0
+offset_bottom = 452.0
 text = "LOGIN"
 
 [node name="sign_up_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-offset_top = 414.0
-offset_right = 131.0
-offset_bottom = 445.0
+offset_top = 462.0
+offset_right = 437.0
+offset_bottom = 493.0
 text = "SIGN UP"
 flat = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 744.0
-offset_top = 768.0
-offset_right = 1181.0
-offset_bottom = 808.0
-
-[node name="accounts_list_label" type="Label" parent="VBoxContainer2"]
+[node name="sign_up_button2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+offset_top = 503.0
 offset_right = 437.0
-offset_bottom = 26.0
-text = "FOUND THE FOLLOWING WALLETS. PLEASE CHOOSE ONE"
-
-[node name="accounts_list" type="ItemList" parent="VBoxContainer2"]
-layout_mode = 2
-offset_top = 30.0
-offset_right = 437.0
-offset_bottom = 38.0
-auto_height = true
+offset_bottom = 534.0
+text = "RECOVER LOST WALLET"
+flat = true

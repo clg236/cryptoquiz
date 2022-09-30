@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://8ol401mystxl"]
 
 [ext_resource type="Script" path="res://code/student_quiz_countdown.gd" id="1_4e24i"]
 

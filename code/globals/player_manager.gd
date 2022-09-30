@@ -13,8 +13,11 @@ var player = {
 	}
 }
 
-func get_address():
+func get_address() -> String:
 	return player.eth_address
+
+func set_address(balance):
+	print('here is our balance:', balance) 
 	
 func _test():
 	print('test')

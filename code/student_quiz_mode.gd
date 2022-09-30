@@ -13,7 +13,7 @@ extends Control
 @export var answer_screen : Control
 @export var answer_screen_text : Label
 
-@export var quiz_timeout : int
+@export var quiz_timeout : int = 1
 
 var answer_scene = preload("res://scenes/student/quiz/answer.tscn")
 var current_question 
@@ -27,6 +27,9 @@ var question_timer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	# hide the header
+	Header.show_header(false)
+	
 	# tell everyone that we are playing the quiz!
 	NetworkManager.send_quiz_participant()
 	
@@ -38,7 +41,6 @@ func _ready():
 	
 	# number of questions
 	num_questions.text = str(current_question_num) + ' OF ' + str(quiz.questions.size())
-	
 	
 	submit_button.disabled = true
 	# populate our question
@@ -73,8 +75,8 @@ func _on_answer_chosen(index):
 			choice_container.get_child(answer).button.button_pressed = false
 
 func _on_submit_button_pressed():
-	# check what they chose
-	check_answer()
+	# disable the button
+	submit_button.disabled = true
 		
 func check_answer():
 	current_question_num += 1

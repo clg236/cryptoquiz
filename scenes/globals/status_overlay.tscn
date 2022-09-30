@@ -1,11 +1,12 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://7r3fpmqf21c5"]
 
 [ext_resource type="Script" path="res://code/globals/status_overlay.gd" id="1_u0ogw"]
 
-[node name="status_overlay" type="CanvasLayer" node_paths=PackedStringArray("status_label", "participants_label")]
+[node name="status_overlay" type="CanvasLayer" node_paths=PackedStringArray("status_label", "balance_label", "account_label")]
 script = ExtResource("1_u0ogw")
-status_label = NodePath("status_panel/HBoxContainer/status_label")
-participants_label = NodePath("status_panel/HBoxContainer/participants_label")
+status_label = NodePath("status_panel/status_label")
+balance_label = NodePath("status_panel/balance_label")
+account_label = NodePath("status_panel/account_label")
 
 [node name="status_panel" type="Panel" parent="."]
 anchors_preset = -1
@@ -14,58 +15,44 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="status_panel"]
-anchors_preset = 12
+[node name="status_label" type="Label" parent="status_panel"]
+custom_minimum_size = Vector2i(150, 0)
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -26.0
-grow_horizontal = 2
+offset_right = 150.0
 grow_vertical = 0
-theme_override_constants/separation = 25
-
-[node name="status_label" type="Label" parent="status_panel/HBoxContainer"]
-offset_right = 119.0
-offset_bottom = 26.0
-grow_horizontal = 2
-grow_vertical = 2
 size_flags_horizontal = 0
 text = "CONNECTING..."
 vertical_alignment = 1
 metadata/_edit_layout_mode = 1
 
-[node name="spacer" type="Control" parent="status_panel/HBoxContainer"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 144.0
-offset_right = 862.0
-offset_bottom = 26.0
-size_flags_horizontal = 3
-
-[node name="participants_label" type="Label" parent="status_panel/HBoxContainer"]
-offset_left = 887.0
-offset_right = 989.0
-offset_bottom = 26.0
+[node name="account_label" type="Label" parent="status_panel"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -82.5
+offset_top = -26.0
+offset_right = 82.5
 grow_horizontal = 2
-grow_vertical = 2
-text = "# ONLINE: 25"
+grow_vertical = 0
+text = "SELECTED ACCOUNT: "
 vertical_alignment = 1
 metadata/_edit_layout_mode = 1
 
-[node name="spacer2" type="Control" parent="status_panel/HBoxContainer"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1014.0
-offset_right = 1733.0
-offset_bottom = 26.0
-size_flags_horizontal = 3
-
-[node name="balance_label" type="Label" parent="status_panel/HBoxContainer"]
-offset_left = 1758.0
-offset_right = 1920.0
-offset_bottom = 26.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="balance_label" type="Label" parent="status_panel"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -162.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "MY BALANCE: 10 ETH"
 vertical_alignment = 1
 metadata/_edit_layout_mode = 1

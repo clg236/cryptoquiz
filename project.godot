@@ -26,7 +26,7 @@ StatusOverlay="*res://scenes/globals/status_overlay.tscn"
 UIManager="*res://code/globals/ui_manager.gd"
 QuizManager="*res://code/globals/quiz_manager.gd"
 Header="*res://scenes/globals/header.tscn"
-BlockchainManager="*res://code/globals/blockchain_manager.tscn"
+WalletOperations="*res://code/ethereum/wallet_operations.tscn"
 
 [display]
 

@@ -9,7 +9,7 @@ extends Control
 func _ready():
 	Header.connect('menu_changed', _on_menu_changed)
 	UIManager.current_scene = get_tree().get_current_scene()
-
+	PlayerManager.player.role = "faculty"
 	# show the header
 	Header.show_header(true)
 	Header.create_menu()

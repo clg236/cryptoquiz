@@ -17,19 +17,14 @@ public partial class blockchain_manager : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var player = GetNode<Node>("/root/PlayerManager");
-		player.Call("get_address");
+		//var player = GetNode<Node>("/root/PlayerManager");
+		//player.Call("get_address");
 		ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
       	web3 = new Web3("https://ropsten.infura.io/v3/efcca7a01a1c4e0e9e28e8a311332a56");
       	processor = web3.Processing.Logs.CreateProcessor(log => GD.Print(log.ToString()));
 		//task = web3.Eth.GetBalance.SendRequestAsync(player);
       	task = web3.Eth.GetBalance.SendRequestAsync("0x556E1fE6491036be98023B714390f1d4940Aaf45");
-      	GD.Print(player);
-	}
-
-	public string create_wallet()
-	{
-		return "gotcha!";
+      	//GD.Print(player);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

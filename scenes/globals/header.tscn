@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=7 format=3 uid="uid://cgucys47b6xw"]
 
 [ext_resource type="Script" path="res://code/globals/header.gd" id="1_v2pyv"]
 [ext_resource type="Texture2D" uid="uid://dkoem41n7uq83" path="res://art/ui/home_icon.png" id="2_lknwu"]
@@ -20,7 +20,7 @@ students_icon = ExtResource("6_qkq5o")
 
 [node name="header" type="HBoxContainer" parent="."]
 texture_filter = 2
-custom_minimum_size = Vector2(0, 25)
+custom_minimum_size = Vector2i(0, 25)
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
