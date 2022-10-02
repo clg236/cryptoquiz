@@ -6,7 +6,11 @@ extends Control
 @export var participants : Control
 @export var financials : Control
 
+@export var get_participants_button : Button
+
 func _ready():
+	
+	get_participants_button.connect('pressed', _get_participants)
 	Header.connect('menu_changed', _on_menu_changed)
 	UIManager.current_scene = get_tree().get_current_scene()
 	PlayerManager.player.role = "faculty"
@@ -20,6 +24,10 @@ func _ready():
 	quizzes.visible = false
 	participants.visible = false
 	financials.visible = false
+
+func _get_participants():
+	# this is a test function to see if we can grab participants
+	NetworkManager.get_event('XUTEST01')
 
 func _on_menu_changed(item):
 	match item:

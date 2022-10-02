@@ -2,13 +2,16 @@ extends Node
 
 var websocket_test_url
 var _client = WebSocketClient.new()
+var event_code
 
 var timeout_timer = Timer.new()
+
 
 # signals
 signal participant_entered(participant)
 signal participant_exited(participant)
 signal participant_updated(participant)
+signal connected()
 
 func _ready():
 	_client.connect("connection_closed", _closed)
@@ -17,10 +20,8 @@ func _ready():
 	_client.connect("data_received", _on_data)
 	_client.connect("server_close_request", _close_request)
 	
-func connect_to_server():
-	print(PlayerManager.player.eth_address)
-	print(PlayerManager.player.name)
-	print(PlayerManager.player.signature)
+func connect_to_server(code):
+	event_code = code
 	websocket_test_url = 'wss://3uswb60jt4.execute-api.us-east-1.amazonaws.com/Prod?address=' + PlayerManager.player.eth_address + "&message=" + PlayerManager.player.name + "&signature=" + PlayerManager.player.signature + "&token=123456"
 	var err = _client.connect_to_url(websocket_test_url)
 
@@ -48,6 +49,12 @@ func _connected(proto):
 	
 	# update our network state to connected
 	StateManager.change_network_state(StateManager.NETWORK_STATE.CONNECTED)
+	
+	emit_signal("connected")
+	
+	# join our event
+	join_event(event_code)
+	
 
 func _closed(was_clean_close = false):
 	print('connection closed', was_clean_close)
@@ -70,10 +77,14 @@ func _on_data():
 		return
 	data = json.get_data()
 	
-	# print("server sent data: ", data)
+	print("server sent data: ", data)
 	# has data
+	if !data.success:
+		return
+	
 	if 'data' in data.keys() and data.data != null:
 		DataParser.parse_data(data.data)
+
 
 # ping function: ensures clients are connected. If they do not recieve a return ping within 15 seconds, they will switch to a disconnected state
 func _on_ping_timer_timeout():
@@ -97,11 +108,8 @@ func _send_data(data):
 	# print('sending data: ', data)
 	_client.get_peer(1).put_packet(data.to_ascii_buffer())
 	
-
-
 ### CLASS NETWORK FUNCTIONS ###
-
-func create_class(code, title):
+func create_event(code, title):
 	var json = JSON.new()
 	var data = json.stringify({
 		"action" : "class",
@@ -113,7 +121,19 @@ func create_class(code, title):
 	})
 	_send_data(data)
 
-func list_class(code):
+func join_event(code):
+	var json = JSON.new()
+	var data = json.stringify({
+		"action" : "class",
+		"op" : "join",
+		"class" : {
+			'classCode' : code,
+			'participant' : PlayerManager.player
+		}
+	})
+	_send_data(data)
+
+func get_event(code):
 	var json = JSON.new()
 	var data = json.stringify({
 		"action" : "class",
@@ -123,6 +143,8 @@ func list_class(code):
 		}
 	})
 	_send_data(data)
+	
+
 	
 ### QUIZ NETWORK FUNCTIONS ###
 func start_quiz(quiz):
@@ -234,7 +256,7 @@ func participant_joined(participant):
 		"action" : "class",
 		"op" : "join",
 		"class" : {
-				"participants" : participant
+				"participants" : PlayerManager.player
 			}
 	})
 	_send_data(data)

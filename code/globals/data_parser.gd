@@ -8,8 +8,9 @@ signal class_recieved(clazz)
 signal class_created(clazz)
 
 func parse_data(data):
-	# print('parsing data: ', data)
-	# ping action: client is connected to the server, keep our state as connected
+	var data_size = data.values()
+	if data_size.size() == 0:
+		return
 	match data.action:
 		
 		# we receive a ping from the server, so we are connected

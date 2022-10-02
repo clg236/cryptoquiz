@@ -9,6 +9,7 @@ extends Control
 @export var choice_container : GridContainer
 @export var submit_button : Button
 
+@export var waiting_screen : Control
 @export var question_screen : Control
 @export var answer_screen : Control
 @export var answer_screen_text : Label
@@ -24,8 +25,12 @@ var quiz
 
 var question_timer
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	# hide screens
+	question_screen.visible = false
+	answer_screen.visible = false
+	waiting_screen.visible = true
 	
 	# hide the header
 	Header.show_header(false)

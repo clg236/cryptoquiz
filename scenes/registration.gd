@@ -1,13 +1,15 @@
 extends Control
 
-@export var role_select_panel : Panel
-@export var create_wallet_panel : Panel
+@export var home_screen : Control
+@export var create_wallet_screen : Control
 @export var wallet_created_panel : Panel
 
 # buttons
 @export var participant_button : Button
-@export var facilitator_button : Button
+@export var new_wallet_button : Button
 @export var create_wallet_button : Button
+@export var import_wallet_button : Button
+@export var home_button : Button
 
 @export var wallet_password_field : LineEdit
 @export var confirm_password_field : LineEdit
@@ -20,13 +22,14 @@ var create_wallet = create_wallet_script.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	role_select_panel.visible = true
-	create_wallet_panel.visible = false
+	home_screen.visible = true
+	
+	create_wallet_screen.visible = false
 	wallet_created_panel.visible = false
 	create_wallet_button.disabled = true
-	participant_button.connect('pressed', _on_participant_button_pressed)
-	facilitator_button.connect('pressed', _on_facilitator_button_pressed)
+	new_wallet_button.connect('pressed', _new_wallet_button_pressed)
 	create_wallet_button.connect('pressed', _create_wallet_button_pressed)
+	home_button.connect("pressed", _on_home_button_pressed)
 	confirm_password_field.connect('text_changed', _on_confirm_password_text_changed)
 
 func _on_confirm_password_text_changed(text):
@@ -34,21 +37,29 @@ func _on_confirm_password_text_changed(text):
 		create_wallet_button.disabled = false
 	else:
 		create_wallet_button.disabled = true
-		
+
+func _on_home_button_pressed():
+	if PlayerManager.player.role == 'student':
+		UIManager.change_scene(UIManager.join_event)
+	else: 
+		UIManager.change_scene(UIManager.create_event)
 
 func _on_participant_button_pressed():
-	role_select_panel.visible = false
-	create_wallet_panel.visible = true
+	create_wallet_screen.visible = true
 
 func _on_facilitator_button_pressed():
 	pass
+
+func _new_wallet_button_pressed():
+	home_screen.visible = false
+	create_wallet_screen.visible = true
 
 func _create_wallet_button_pressed():
 	# create a wallet
 	var result = await(create_wallet.createWallet(wallet_password_field.text))
 	# print(result)
 	
-	create_wallet_panel.visible = false
+	create_wallet_screen.visible = false
 	wallet_created_panel.visible = true
 	
 	#print out the seed words

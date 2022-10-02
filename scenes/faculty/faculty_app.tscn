@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d3dr1lukrkfok" path="res://art/ui/students_icon.png" id="2_qv1a0"]
 [ext_resource type="PackedScene" path="res://scenes/faculty/quiz/list_quizzes.tscn" id="2_rx7yi"]
 
-[node name="faculty_app" type="Control" node_paths=PackedStringArray("home", "classes", "quizzes", "participants", "financials")]
+[node name="faculty_app" type="Control" node_paths=PackedStringArray("home", "classes", "quizzes", "participants", "financials", "get_participants_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,9 +18,9 @@ classes = NodePath("classes")
 quizzes = NodePath("quizzes")
 participants = NodePath("participants")
 financials = NodePath("financials")
+get_participants_button = NodePath("home/CenterContainer/Button")
 
 [node name="home" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,14 +35,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="home/CenterContainer"]
-offset_left = 903.0
-offset_top = 527.0
-offset_right = 1016.0
-offset_bottom = 553.0
-text = "HOME SCREEN"
+[node name="Button" type="Button" parent="home/CenterContainer"]
+offset_left = 883.0
+offset_top = 524.0
+offset_right = 1036.0
+offset_bottom = 555.0
+text = "GET PARTICIPANTS"
 
 [node name="classes" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

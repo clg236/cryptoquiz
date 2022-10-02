@@ -53,6 +53,6 @@ offset_left = -162.0
 offset_top = -26.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "MY BALANCE: 10 ETH"
+text = "MY BALANCE: "
 vertical_alignment = 1
 metadata/_edit_layout_mode = 1

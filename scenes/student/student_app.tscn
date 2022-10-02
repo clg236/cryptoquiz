@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_prw1c")
-start_button = NodePath("home/start_button")
+start_button = NodePath("")
 home = NodePath("home")
 classes = NodePath("classes")
 wallet = NodePath("wallet")
@@ -38,13 +38,6 @@ offset_top = 64.0
 offset_right = 89.0
 offset_bottom = 95.0
 text = "GET QUIZ"
-
-[node name="start_button" type="Button" parent="home"]
-offset_left = 8.0
-offset_top = 152.0
-offset_right = 69.0
-offset_bottom = 183.0
-text = "START!"
 
 [node name="classes" type="Control" parent="."]
 visible = false

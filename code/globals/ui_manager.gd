@@ -12,6 +12,9 @@ extends Control
 @export var student_quiz_mode : String = "res://scenes/student/quiz/student_quiz_mode.tscn"
 @export var student_quiz_complete : String = "res://scenes/student/quiz/student_quiz_complete.tscn"
 @export var registration : String = "res://scenes/registration.tscn"
+@export var home : String = "res://scenes/start_screen.tscn"
+@export var create_event : String = "res://scenes/create_event.tscn"
+@export var join_event : String = "res://scenes/join_event.tscn"
 
 var logged_in : bool = false
 var current_scene

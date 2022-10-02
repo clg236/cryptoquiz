@@ -25,7 +25,6 @@ func _ready():
 	DataParser.connect("start_quiz", _on_quiz_started)
 	get_quiz_button.connect('pressed', _on_get_quiz_button_pressed)
 	start_quiz_button.connect('pressed', _on_start_quiz_button_pressed)
-	start_button.connect('pressed', _on_start_button_pressed)
 	
 	# if this is the first time we are here, register ourselves with the server and other clients
 	# NetworkManager.participant_joined(PlayerManager.player)
@@ -48,9 +47,6 @@ func _on_menu_changed(item):
 			classes.visible = false
 			wallet.visible = true
 	
-func _on_start_button_pressed():
-	print('do something!')
-
 func _on_game_state_changed(state):
 	pass
 	#if state == StateManager.GAME_STATE.QUIZ:

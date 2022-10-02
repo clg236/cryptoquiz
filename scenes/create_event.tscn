@@ -1,0 +1,131 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4aetha1fvb0f"]
+
+[ext_resource type="Script" path="res://code/create_event.gd" id="1_m3p5e"]
+
+[node name="create_event" type="Control" node_paths=PackedStringArray("name_field", "event_name", "event_code", "wallet_dropdown", "join_button", "cancel_button", "create_screen", "connecting_screen", "connecting_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_m3p5e")
+name_field = NodePath("create_screen/VBoxContainer/name_field")
+event_name = NodePath("create_screen/VBoxContainer/event_name")
+event_code = NodePath("create_screen/VBoxContainer/event_code")
+wallet_dropdown = NodePath("create_screen/VBoxContainer/wallet_dropdown")
+join_button = NodePath("create_screen/VBoxContainer/join_button")
+cancel_button = NodePath("create_screen/VBoxContainer/cancel_button")
+create_screen = NodePath("create_screen")
+connecting_screen = NodePath("connecting")
+connecting_label = NodePath("connecting/connecting_label")
+
+[node name="create_screen" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="create_screen"]
+layout_mode = 2
+offset_left = 887.0
+offset_top = 352.0
+offset_right = 1033.0
+offset_bottom = 727.0
+
+[node name="headers" type="Label" parent="create_screen/VBoxContainer"]
+layout_mode = 2
+offset_right = 146.0
+offset_bottom = 26.0
+text = "CREATE AN EVENT"
+horizontal_alignment = 1
+
+[node name="name_field" type="TextEdit" parent="create_screen/VBoxContainer"]
+layout_mode = 2
+offset_top = 30.0
+offset_right = 146.0
+offset_bottom = 65.0
+placeholder_text = "YOUR NAME"
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="event_name" type="TextEdit" parent="create_screen/VBoxContainer"]
+layout_mode = 2
+offset_top = 69.0
+offset_right = 146.0
+offset_bottom = 104.0
+placeholder_text = "EVENT NAME"
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="event_code" type="TextEdit" parent="create_screen/VBoxContainer"]
+layout_mode = 2
+offset_top = 108.0
+offset_right = 146.0
+offset_bottom = 143.0
+placeholder_text = "EVENT CODE"
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="spacer2" type="Control" parent="create_screen/VBoxContainer"]
+custom_minimum_size = Vector2i(0, 50)
+layout_mode = 2
+anchors_preset = 0
+offset_top = 147.0
+offset_right = 146.0
+offset_bottom = 197.0
+
+[node name="headers2" type="Label" parent="create_screen/VBoxContainer"]
+layout_mode = 2
+offset_top = 201.0
+offset_right = 146.0
+offset_bottom = 227.0
+text = "CHOOSE A WALLET"
+
+[node name="wallet_dropdown" type="OptionButton" parent="create_screen/VBoxContainer"]
+layout_mode = 2
+offset_top = 231.0
+offset_right = 146.0
+offset_bottom = 251.0
+
+[node name="spacer" type="Control" parent="create_screen/VBoxContainer"]
+custom_minimum_size = Vector2i(0, 50)
+layout_mode = 2
+anchors_preset = 0
+offset_top = 255.0
+offset_right = 146.0
+offset_bottom = 305.0
+
+[node name="join_button" type="Button" parent="create_screen/VBoxContainer"]
+layout_mode = 2
+offset_top = 309.0
+offset_right = 146.0
+offset_bottom = 340.0
+text = "CREATE"
+
+[node name="cancel_button" type="Button" parent="create_screen/VBoxContainer"]
+layout_mode = 2
+offset_top = 344.0
+offset_right = 146.0
+offset_bottom = 375.0
+text = "CANCEL"
+
+[node name="connecting" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="connecting_label" type="Label" parent="connecting"]
+custom_minimum_size = Vector2i(300, 0)
+layout_mode = 2
+offset_left = 810.0
+offset_top = 527.0
+offset_right = 1110.0
+offset_bottom = 553.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CONNECTING..."

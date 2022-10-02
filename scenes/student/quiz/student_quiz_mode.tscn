@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://code/student_quiz_mode.gd" id="1_w2uy5"]
 [ext_resource type="PackedScene" uid="uid://48ghr5fgdfwe" path="res://scenes/high_score_list.tscn" id="2_jyr4q"]
 
-[node name="student_quiz_mode" type="Control" node_paths=PackedStringArray("quiz_title", "num_questions", "score", "question_title", "question_time", "question_reward", "choice_container", "submit_button", "question_screen", "answer_screen", "answer_screen_text")]
+[node name="student_quiz_mode" type="Control" node_paths=PackedStringArray("quiz_title", "num_questions", "score", "question_title", "question_time", "question_reward", "choice_container", "submit_button", "waiting_screen", "question_screen", "answer_screen", "answer_screen_text")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,20 +19,19 @@ question_time = NodePath("question_screen/center/question_container/question_tim
 question_reward = NodePath("question_screen/center/question_container/reward")
 choice_container = NodePath("question_screen/center/question_container/choice_container")
 submit_button = NodePath("question_screen/center/question_container/submit_button")
+waiting_screen = NodePath("waiting_screen")
 question_screen = NodePath("question_screen")
 answer_screen = NodePath("score_screen")
 answer_screen_text = NodePath("score_screen/Panel/answer")
 quiz_timeout = 5
 
 [node name="header" type="HBoxContainer" parent="."]
-layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 26.0
 grow_horizontal = 2
 
 [node name="question_number" type="Label" parent="header"]
-layout_mode = 2
 offset_right = 637.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
@@ -41,7 +40,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="quiz_title" type="Label" parent="header"]
-layout_mode = 2
 offset_left = 641.0
 offset_right = 1278.0
 offset_bottom = 26.0
@@ -51,7 +49,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="score" type="Label" parent="header"]
-layout_mode = 2
 offset_left = 1282.0
 offset_right = 1920.0
 offset_bottom = 26.0
@@ -61,12 +58,32 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="waiting_screen" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="center" type="CenterContainer" parent="waiting_screen"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="waiting_screen/center"]
+offset_right = 138.0
+offset_bottom = 56.0
+
+[node name="waiting_label" type="Label" parent="waiting_screen/center/VBoxContainer"]
+offset_right = 138.0
+offset_bottom = 26.0
+text = "WAITING..."
+
+[node name="participant_count" type="Label" parent="waiting_screen/center/VBoxContainer"]
+offset_top = 30.0
+offset_right = 138.0
+offset_bottom = 56.0
+text = "PARTICIPANTS: 30"
+
 [node name="question_screen" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,7 +91,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="center" type="CenterContainer" parent="question_screen"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -82,14 +98,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="question_container" type="VBoxContainer" parent="question_screen/center"]
-layout_mode = 2
 offset_left = 890.0
 offset_top = 491.0
 offset_right = 1029.0
 offset_bottom = 588.0
 
 [node name="question_title" type="RichTextLabel" parent="question_screen/center/question_container"]
-layout_mode = 2
 offset_right = 139.0
 offset_bottom = 23.0
 bbcode_enabled = true
@@ -97,14 +111,12 @@ text = "[center]QUESTION TITLE[/center]"
 fit_content_height = true
 
 [node name="question_time" type="ProgressBar" parent="question_screen/center/question_container"]
-layout_mode = 2
 offset_top = 27.0
 offset_right = 139.0
 offset_bottom = 31.0
 show_percentage = false
 
 [node name="reward" type="RichTextLabel" parent="question_screen/center/question_container"]
-layout_mode = 2
 offset_top = 35.0
 offset_right = 139.0
 offset_bottom = 58.0
@@ -113,14 +125,12 @@ text = "[center] REWARD [/center]"
 fit_content_height = true
 
 [node name="choice_container" type="GridContainer" parent="question_screen/center/question_container"]
-layout_mode = 2
 offset_top = 62.0
 offset_right = 139.0
 offset_bottom = 62.0
 columns = 2
 
 [node name="submit_button" type="Button" parent="question_screen/center/question_container"]
-layout_mode = 2
 offset_top = 66.0
 offset_right = 139.0
 offset_bottom = 97.0
@@ -128,7 +138,7 @@ text = "SUBMIT ANSWER"
 
 [node name="score_screen" type="Control" parent="."]
 visible = false
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -136,7 +146,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="score_screen"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -144,7 +153,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="high_score_list" parent="score_screen/CenterContainer" instance=ExtResource("2_jyr4q")]
-layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -157,7 +165,6 @@ grow_vertical = 1
 
 [node name="Panel" type="Panel" parent="score_screen"]
 custom_minimum_size = Vector2i(0, 50)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -166,7 +173,6 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="answer" type="Label" parent="score_screen/Panel"]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
