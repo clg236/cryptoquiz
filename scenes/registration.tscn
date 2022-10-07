@@ -1,16 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfqcf3maywmn3"]
+[gd_scene load_steps=4 format=3 uid="uid://cfqcf3maywmn3"]
 
 [ext_resource type="Script" path="res://scenes/registration.gd" id="1_kwj3b"]
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="2_cei4k"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blruv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6lhtq"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.45098, 0.380392, 1, 1)
 draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.45098, 0.380392, 1, 1)
 
-[node name="registration" type="Control" node_paths=PackedStringArray("home_screen", "create_wallet_screen", "wallet_created_panel", "participant_button", "new_wallet_button", "create_wallet_button", "import_wallet_button", "home_button", "wallet_password_field", "confirm_password_field", "wallet_address_field", "word_list")]
+[node name="registration" type="Control" node_paths=PackedStringArray("home_screen", "create_wallet_screen", "wallet_created_screen", "participant_button", "new_wallet_button", "create_wallet_button", "import_wallet_button", "home_button", "wallet_password_field", "confirm_password_field", "wallet_address_field", "word_list", "reminder")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,16 +26,17 @@ grow_vertical = 2
 script = ExtResource("1_kwj3b")
 home_screen = NodePath("registration_home")
 create_wallet_screen = NodePath("create_wallet_screen")
-wallet_created_panel = NodePath("wallet_created")
+wallet_created_screen = NodePath("wallet_created_screen")
 participant_button = NodePath("")
 new_wallet_button = NodePath("registration_home/CenterContainer/VBoxContainer/HBoxContainer/new_wallet_button")
 create_wallet_button = NodePath("create_wallet_screen/CenterContainer/VBoxContainer/create_wallet_button")
 import_wallet_button = NodePath("registration_home/CenterContainer/VBoxContainer/HBoxContainer/import_wallet_button")
-home_button = NodePath("wallet_created/CenterContainer/VBoxContainer/login_button")
+home_button = NodePath("wallet_created_screen/CenterContainer/VBoxContainer/login_button")
 wallet_password_field = NodePath("create_wallet_screen/CenterContainer/VBoxContainer/wallet_password")
 confirm_password_field = NodePath("create_wallet_screen/CenterContainer/VBoxContainer/confirm_password")
-wallet_address_field = NodePath("wallet_created/CenterContainer/VBoxContainer/HBoxContainer/wallet_address")
-word_list = NodePath("wallet_created/CenterContainer/VBoxContainer/word_list")
+wallet_address_field = NodePath("wallet_created_screen/CenterContainer/VBoxContainer/HBoxContainer/wallet_address")
+word_list = NodePath("wallet_created_screen/CenterContainer/VBoxContainer/word_list")
+reminder = NodePath("wallet_created_screen/CenterContainer/VBoxContainer/reminder")
 
 [node name="registration_home" type="Control" parent="."]
 visible = false
@@ -48,32 +55,35 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="registration_home/CenterContainer"]
-offset_left = 785.0
-offset_top = 509.0
-offset_right = 1134.0
-offset_bottom = 570.0
+offset_left = 710.0
+offset_top = 498.0
+offset_right = 1209.0
+offset_bottom = 582.0
 
 [node name="Label" type="Label" parent="registration_home/CenterContainer/VBoxContainer"]
-offset_right = 349.0
-offset_bottom = 26.0
+offset_right = 499.0
+offset_bottom = 29.0
+theme = ExtResource("2_cei4k")
 text = "NO WALLET FOUND. CREATE OR IMPORT ONE"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="registration_home/CenterContainer/VBoxContainer"]
-offset_top = 30.0
-offset_right = 349.0
-offset_bottom = 61.0
+offset_top = 33.0
+offset_right = 499.0
+offset_bottom = 84.0
+theme = ExtResource("2_cei4k")
 alignment = 1
 
 [node name="new_wallet_button" type="Button" parent="registration_home/CenterContainer/VBoxContainer/HBoxContainer"]
-offset_left = 50.0
-offset_right = 160.0
-offset_bottom = 31.0
+offset_right = 219.0
+offset_bottom = 51.0
+theme = ExtResource("2_cei4k")
 text = "NEW WALLET"
 
 [node name="import_wallet_button" type="Button" parent="registration_home/CenterContainer/VBoxContainer/HBoxContainer"]
-offset_left = 164.0
-offset_right = 299.0
-offset_bottom = 31.0
+offset_left = 223.0
+offset_right = 499.0
+offset_bottom = 51.0
+theme = ExtResource("2_cei4k")
 text = "IMPORT WALLET"
 
 [node name="create_wallet_screen" type="Control" parent="."]
@@ -84,6 +94,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_cei4k")
 
 [node name="CenterContainer" type="CenterContainer" parent="create_wallet_screen"]
 anchors_preset = 15
@@ -95,144 +106,151 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="create_wallet_screen/CenterContainer"]
 custom_minimum_size = Vector2i(500, 0)
 offset_left = 710.0
-offset_top = 457.0
+offset_top = 423.0
 offset_right = 1210.0
-offset_bottom = 623.0
+offset_bottom = 656.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="title" type="Label" parent="create_wallet_screen/CenterContainer/VBoxContainer"]
 offset_right = 500.0
-offset_bottom = 26.0
+offset_bottom = 29.0
 text = "CREATE WALLET"
 horizontal_alignment = 1
 
 [node name="wallet_password" type="LineEdit" parent="create_wallet_screen/CenterContainer/VBoxContainer"]
-offset_top = 30.0
+offset_top = 33.0
 offset_right = 500.0
-offset_bottom = 61.0
+offset_bottom = 76.0
 placeholder_text = "ENTER A PASSWORD"
 secret = true
 secret_character = "🤫"
 
 [node name="confirm_password" type="LineEdit" parent="create_wallet_screen/CenterContainer/VBoxContainer"]
-offset_top = 65.0
+offset_top = 80.0
 offset_right = 500.0
-offset_bottom = 96.0
+offset_bottom = 123.0
 placeholder_text = "CONFIRM PASSWORD"
 secret = true
 secret_character = "🤫"
 
 [node name="create_wallet_button" type="Button" parent="create_wallet_screen/CenterContainer/VBoxContainer"]
-offset_top = 100.0
+offset_top = 127.0
 offset_right = 500.0
-offset_bottom = 131.0
+offset_bottom = 178.0
 text = "CREATE WALLET"
 
 [node name="close_button" type="Button" parent="create_wallet_screen/CenterContainer/VBoxContainer"]
-offset_top = 135.0
+offset_top = 182.0
 offset_right = 500.0
-offset_bottom = 166.0
+offset_bottom = 233.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "CANCEL"
 
-[node name="wallet_created" type="Panel" parent="."]
+[node name="wallet_created_screen" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="wallet_created"]
+[node name="CenterContainer" type="CenterContainer" parent="wallet_created_screen"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="wallet_created/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="wallet_created_screen/CenterContainer"]
 custom_minimum_size = Vector2i(500, 0)
 offset_left = 710.0
-offset_top = 387.0
+offset_top = 321.0
 offset_right = 1210.0
-offset_bottom = 692.0
+offset_bottom = 758.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="status" type="Label" parent="wallet_created/CenterContainer/VBoxContainer"]
+[node name="status" type="Label" parent="wallet_created_screen/CenterContainer/VBoxContainer"]
 offset_right = 500.0
-offset_bottom = 26.0
+offset_bottom = 29.0
+theme = ExtResource("2_cei4k")
 text = "WALLET CREATED!"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="wallet_created/CenterContainer/VBoxContainer"]
-offset_top = 30.0
+[node name="HBoxContainer" type="HBoxContainer" parent="wallet_created_screen/CenterContainer/VBoxContainer"]
+offset_top = 33.0
 offset_right = 500.0
-offset_bottom = 56.0
+offset_bottom = 62.0
 alignment = 1
 
-[node name="wallet_label" type="Label" parent="wallet_created/CenterContainer/VBoxContainer/HBoxContainer"]
-offset_left = 134.0
-offset_right = 210.0
-offset_bottom = 26.0
+[node name="wallet_label" type="Label" parent="wallet_created_screen/CenterContainer/VBoxContainer/HBoxContainer"]
+offset_left = 108.0
+offset_right = 196.0
+offset_bottom = 29.0
+theme = ExtResource("2_cei4k")
 text = "ADDRESS:"
 
-[node name="wallet_address" type="Label" parent="wallet_created/CenterContainer/VBoxContainer/HBoxContainer"]
-offset_left = 214.0
-offset_right = 366.0
-offset_bottom = 26.0
+[node name="wallet_address" type="Label" parent="wallet_created_screen/CenterContainer/VBoxContainer/HBoxContainer"]
+offset_left = 200.0
+offset_right = 392.0
+offset_bottom = 29.0
+theme = ExtResource("2_cei4k")
 theme_override_colors/font_color = Color(1, 0, 0.996078, 1)
 text = "0xE45476AB12456D"
 
-[node name="spacer" type="Control" parent="wallet_created/CenterContainer/VBoxContainer"]
+[node name="spacer" type="Control" parent="wallet_created_screen/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2i(0, 50)
 layout_mode = 3
 anchors_preset = 0
-offset_top = 60.0
+offset_top = 66.0
 offset_right = 500.0
-offset_bottom = 110.0
+offset_bottom = 116.0
 
-[node name="reminder" type="Label" parent="wallet_created/CenterContainer/VBoxContainer"]
-offset_top = 114.0
+[node name="reminder" type="Label" parent="wallet_created_screen/CenterContainer/VBoxContainer"]
+offset_top = 120.0
 offset_right = 500.0
-offset_bottom = 166.0
-theme_override_colors/font_color = Color(1, 0, 0.0941176, 1)
+offset_bottom = 178.0
+theme = ExtResource("2_cei4k")
+theme_override_colors/font_color = Color(0.45098, 0.380392, 1, 1)
 text = "PLEASE WRITE DOWN THESE WORDS, THEY WILL ALLOW YOU TO RECOVER YOUR WALLET"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="word_list" type="RichTextLabel" parent="wallet_created/CenterContainer/VBoxContainer"]
-offset_top = 170.0
+[node name="spacer3" type="Control" parent="wallet_created_screen/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2i(0, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 182.0
 offset_right = 500.0
-offset_bottom = 216.0
+offset_bottom = 232.0
+
+[node name="word_list" type="RichTextLabel" parent="wallet_created_screen/CenterContainer/VBoxContainer"]
+offset_top = 236.0
+offset_right = 500.0
+offset_bottom = 328.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_cei4k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6lhtq")
 bbcode_enabled = true
 text = "[center]HAPPY OTHERWISE SAD OKAY HILT ENGINE HAPPY OTHERWISE SAD OKAY HILT ENGINE[/center]"
 fit_content_height = true
 scroll_active = false
 autowrap_mode = 2
 
-[node name="Panel" type="Panel" parent="wallet_created/CenterContainer/VBoxContainer/word_list"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_blruv")
-
-[node name="spacer2" type="Control" parent="wallet_created/CenterContainer/VBoxContainer"]
+[node name="spacer2" type="Control" parent="wallet_created_screen/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2i(0, 50)
 layout_mode = 3
 anchors_preset = 0
-offset_top = 220.0
+offset_top = 332.0
 offset_right = 500.0
-offset_bottom = 270.0
+offset_bottom = 382.0
 
-[node name="login_button" type="Button" parent="wallet_created/CenterContainer/VBoxContainer"]
-offset_top = 274.0
+[node name="login_button" type="Button" parent="wallet_created_screen/CenterContainer/VBoxContainer"]
+offset_top = 386.0
 offset_right = 500.0
-offset_bottom = 305.0
+offset_bottom = 437.0
+theme = ExtResource("2_cei4k")
 text = "RETURN"

@@ -14,8 +14,7 @@ func _on_participant_recieved(participant):
 	for high_score in high_scores_list.get_children():
 		if high_score.player_name.text == participant.name:
 			participant_exists = true
-			high_score.session_eth.text = str(participant.session_eth)
-			high_score.total_eth.text = str(participant.total_eth)
+			high_score.session_eth.text = str(participant.treasure)
 		else:
 			participant_exists = false
 	
@@ -24,8 +23,7 @@ func _on_participant_recieved(participant):
 		var p = score_list_item.instantiate()
 		high_scores_list.add_child(p)
 		p.player_name.text = participant.name
-		p.session_eth.text = str(participant.session_eth)
-		p.total_eth.text = str(participant.total_eth)
+		p.session_eth.text = str(participant.treasure)
 	
 	
 	

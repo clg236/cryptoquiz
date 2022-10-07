@@ -10,13 +10,21 @@ extends Control
 
 func _ready():
 	
+	# we are faculty, so set it
+	PlayerManager.player.role = 'facilitator'
 	get_participants_button.connect('pressed', _get_participants)
 	Header.connect('menu_changed', _on_menu_changed)
-	UIManager.current_scene = get_tree().get_current_scene()
-	PlayerManager.player.role = "faculty"
+
+	# join our event one time and tell everyone we did. hax
+	if !PlayerManager.in_event:
+		print('joining event')
+		NetworkManager.join_event(PlayerManager.player.event_code)
+		NetworkManager.participant_joined(PlayerManager.player)
+		
 	# show the header
 	Header.show_header(true)
 	Header.create_menu()
+	StatusOverlay.show_status(true)
 	
 	# hide all of the screens
 	home.visible = true
@@ -27,7 +35,7 @@ func _ready():
 
 func _get_participants():
 	# this is a test function to see if we can grab participants
-	NetworkManager.get_event('XUTEST01')
+	NetworkManager.get_event(PlayerManager.player.event_code)
 
 func _on_menu_changed(item):
 	match item:

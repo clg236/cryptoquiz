@@ -1,15 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjtirufyto2i0"]
+[gd_scene load_steps=15 format=3 uid="uid://cjtirufyto2i0"]
 
 [ext_resource type="Script" path="res://code/start_screen.gd" id="1_m6xs3"]
 [ext_resource type="Texture2D" uid="uid://dyeaupeyx2b5x" path="res://art/stars/Star 31.png" id="2_4fg04"]
 [ext_resource type="Texture2D" uid="uid://j045oflbcmf1" path="res://art/ui/logo.png" id="2_v50iy"]
 [ext_resource type="Texture2D" uid="uid://bga420qd4ttrf" path="res://art/stars/Star 13.png" id="3_evy7j"]
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="5_j05gb"]
+[ext_resource type="FontFile" uid="uid://b0qm1quen1jfy" path="res://fonts/m5x7.ttf" id="6_3x0hi"]
+[ext_resource type="Shader" path="res://shaders/screentone_transition.gdshader" id="7_iy1qv"]
+[ext_resource type="Texture2D" uid="uid://d1nnckm6g8o6f" path="res://art/animated_characters/hermit_crawling.png" id="8_361td"]
+[ext_resource type="Script" path="res://code/player.gd" id="8_dlrc3"]
 
 [sub_resource type="Curve" id="Curve_cdr5j"]
 _data = [Vector2(0, 0.245399), 0.0, 0.0, 0, 0, Vector2(0.319066, 1), 1.14967, 1.14967, 0, 0, Vector2(0.719844, 0.98773), -0.869896, -0.869896, 0, 0, Vector2(1, 0.226994), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[node name="start_screen" type="Control" node_paths=PackedStringArray("title_text", "name_field", "faculty_checkbox", "enter_button", "sign_up_button", "accounts_list", "account_container", "event_code_field", "home_screen", "new_user_screen", "new_user_signup", "join_event_screen", "create_event_screen", "join_event_button", "create_event_button", "cancel_button", "create_cancel_button", "wallet_dropdown")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1cpy"]
+shader = ExtResource("7_iy1qv")
+shader_parameter/in_color = Color(0.113725, 0.0941176, 0.184314, 1)
+shader_parameter/in_out = 0.0
+shader_parameter/out_color = Color(0.113725, 0.0941176, 0.184314, 1)
+shader_parameter/position = 1.0
+shader_parameter/size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4tgsy"]
+atlas = ExtResource("8_361td")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kt45"]
+atlas = ExtResource("8_361td")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dk0ff"]
+animations = [{
+"frames": [SubResource("AtlasTexture_4tgsy"), SubResource("AtlasTexture_0kt45")],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="start_screen" type="Control" node_paths=PackedStringArray("title_text", "home_screen", "transition", "join_event_button", "create_event_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,26 +46,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m6xs3")
-title_text = NodePath("home_screen/VBoxContainer/title_text")
-name_field = NodePath("join_event_screen/CenterContainer/VBoxContainer/name_field")
-faculty_checkbox = NodePath("home_screen/VBoxContainer/faculty_checkbox")
-enter_button = NodePath("join_event_screen/CenterContainer/VBoxContainer/enter_button")
-sign_up_button = NodePath("home_screen/VBoxContainer/sign_up_button")
-accounts_list = NodePath("join_event_screen/account_container/accounts_list")
-account_container = NodePath("join_event_screen/account_container")
-event_code_field = NodePath("join_event_screen/CenterContainer/VBoxContainer/event_code")
-home_screen = NodePath("home_screen")
-new_user_screen = NodePath("new_user_screen")
-new_user_signup = NodePath("new_user_screen/VBoxContainer/create_wallet_button")
-join_event_screen = NodePath("join_event_screen")
-create_event_screen = NodePath("create_event_screen")
-join_event_button = NodePath("home_screen/VBoxContainer/HBoxContainer/join_event_button")
-create_event_button = NodePath("home_screen/VBoxContainer/HBoxContainer/create_event_button")
-cancel_button = NodePath("join_event_screen/CenterContainer/VBoxContainer/cancel_button")
-create_cancel_button = NodePath("create_event_screen/CenterContainer/VBoxContainer/cancel_button")
-wallet_dropdown = NodePath("join_event_screen/CenterContainer/VBoxContainer/wallet_dropdown")
+title_text = NodePath("CanvasLayer/home_screen/VBoxContainer/title_text")
+home_screen = NodePath("CanvasLayer/home_screen")
+transition = NodePath("CanvasLayer/transition")
+join_event_button = NodePath("CanvasLayer/home_screen/VBoxContainer/HBoxContainer/join_event_button")
+create_event_button = NodePath("CanvasLayer/home_screen/VBoxContainer/HBoxContainer/create_event_button")
 
-[node name="red_stars" type="CPUParticles2D" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1920, 0)
+
+[node name="red_stars" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer"]
 texture_filter = 2
 position = Vector2(968, 496)
 lifetime = 15.0
@@ -52,7 +73,11 @@ scale_amount_min = 0.5
 scale_amount_max = 0.5
 scale_amount_curve = SubResource("Curve_cdr5j")
 
-[node name="yellow_stars" type="CPUParticles2D" parent="."]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.75, 0.75)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="yellow_stars" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer2"]
 texture_filter = 2
 position = Vector2(968, 496)
 lifetime = 15.0
@@ -68,15 +93,16 @@ scale_amount_min = 0.5
 scale_amount_max = 0.5
 scale_amount_curve = SubResource("Curve_cdr5j")
 
-[node name="home_screen" type="Control" parent="."]
-visible = false
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="home_screen" type="Control" parent="CanvasLayer"]
+texture_filter = 1
+layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="home_screen"]
-layout_mode = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/home_screen"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -90,339 +116,76 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="logo" type="TextureRect" parent="home_screen/VBoxContainer"]
+[node name="logo" type="TextureRect" parent="CanvasLayer/home_screen/VBoxContainer"]
 texture_filter = 1
-layout_mode = 2
-offset_right = 437.0
-offset_bottom = 100.0
+custom_minimum_size = Vector2i(200, 200)
+offset_right = 625.0
+offset_bottom = 200.0
 texture = ExtResource("2_v50iy")
 stretch_mode = 5
 
-[node name="title_text" type="Label" parent="home_screen/VBoxContainer"]
-layout_mode = 2
-offset_top = 110.0
-offset_right = 437.0
-offset_bottom = 136.0
+[node name="title_text" type="Label" parent="CanvasLayer/home_screen/VBoxContainer"]
+offset_top = 210.0
+offset_right = 625.0
+offset_bottom = 270.0
+theme = ExtResource("5_j05gb")
+theme_override_fonts/font = ExtResource("6_3x0hi")
+theme_override_font_sizes/font_size = 72
 text = "CRYPTOQUIZ"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="home_screen/VBoxContainer"]
-layout_mode = 2
-offset_top = 146.0
-offset_right = 437.0
-offset_bottom = 177.0
+[node name="spacer" type="Control" parent="CanvasLayer/home_screen/VBoxContainer"]
+custom_minimum_size = Vector2i(0, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 280.0
+offset_right = 625.0
+offset_bottom = 330.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/home_screen/VBoxContainer"]
+offset_top = 340.0
+offset_right = 625.0
+offset_bottom = 391.0
+theme_override_constants/separation = 25
 alignment = 1
 
-[node name="join_event_button" type="Button" parent="home_screen/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-offset_left = 81.0
-offset_right = 205.0
-offset_bottom = 31.0
-text = "JOIN AN EVENT"
+[node name="join_event_button" type="Button" parent="CanvasLayer/home_screen/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2i(300, 0)
+offset_right = 300.0
+offset_bottom = 51.0
+focus_mode = 0
+theme = ExtResource("5_j05gb")
+text = "JOIN EVENT"
 
-[node name="create_event_button" type="Button" parent="home_screen/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-offset_left = 209.0
-offset_right = 356.0
-offset_bottom = 31.0
-text = "CREATE AN EVENT"
+[node name="create_event_button" type="Button" parent="CanvasLayer/home_screen/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2i(300, 0)
+offset_left = 325.0
+offset_right = 625.0
+offset_bottom = 51.0
+focus_mode = 0
+theme = ExtResource("5_j05gb")
+text = "CREATE EVENT"
 
-[node name="spacer" type="Control" parent="home_screen/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2i(0, 50)
-layout_mode = 2
-anchors_preset = 0
-offset_top = 187.0
-offset_right = 437.0
-offset_bottom = 237.0
-
-[node name="faculty_checkbox" type="CheckBox" parent="home_screen/VBoxContainer"]
-visible = false
-layout_mode = 2
-offset_top = 187.0
-offset_right = 437.0
-offset_bottom = 218.0
-text = "i am the boss"
-
-[node name="sign_up_button" type="Button" parent="home_screen/VBoxContainer"]
-visible = false
-layout_mode = 2
-offset_top = 187.0
-offset_right = 437.0
-offset_bottom = 218.0
-text = "SIGN UP"
-flat = true
-
-[node name="recover_wallet_button" type="Button" parent="home_screen/VBoxContainer"]
-visible = false
-layout_mode = 2
-offset_top = 187.0
-offset_right = 437.0
-offset_bottom = 218.0
-text = "RECOVER LOST WALLET"
-flat = true
-
-[node name="new_user_screen" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="new_user_screen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 721.5
-offset_top = 271.0
-offset_right = 1158.5
-offset_bottom = 769.0
+[node name="transition" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_q1cpy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
+mouse_filter = 2
 
-[node name="logo" type="TextureRect" parent="new_user_screen/VBoxContainer"]
+[node name="player" type="CharacterBody2D" parent="."]
 texture_filter = 1
-layout_mode = 2
-offset_right = 437.0
-offset_bottom = 100.0
-texture = ExtResource("2_v50iy")
-stretch_mode = 5
+position = Vector2(680, 856)
+script = ExtResource("8_dlrc3")
 
-[node name="title_text" type="Label" parent="new_user_screen/VBoxContainer"]
-layout_mode = 2
-offset_top = 110.0
-offset_right = 437.0
-offset_bottom = 136.0
-text = "CRYPTOQUIZ"
-horizontal_alignment = 1
+[node name="Camera2d" type="Camera2D" parent="player"]
+position = Vector2(0, -104)
+current = true
+zoom = Vector2(2, 2)
 
-[node name="create_wallet_button" type="Button" parent="new_user_screen/VBoxContainer"]
-layout_mode = 2
-offset_top = 146.0
-offset_right = 437.0
-offset_bottom = 177.0
-text = "CREATE A WALLET"
-
-[node name="recover_wallet_button" type="Button" parent="new_user_screen/VBoxContainer"]
-layout_mode = 2
-offset_top = 187.0
-offset_right = 437.0
-offset_bottom = 218.0
-text = "IMPORT OR RECOVER WALLET"
-
-[node name="join_event_screen" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="account_container" type="VBoxContainer" parent="join_event_screen"]
-visible = false
-layout_mode = 0
-offset_left = 741.5
-offset_top = 478.0
-offset_right = 1178.5
-offset_bottom = 516.0
-
-[node name="accounts_list_label" type="Label" parent="join_event_screen/account_container"]
-layout_mode = 2
-offset_right = 437.0
-offset_bottom = 26.0
-text = "FOUND THE FOLLOWING WALLETS. PLEASE CHOOSE ONE"
-
-[node name="accounts_list" type="ItemList" parent="join_event_screen/account_container"]
-layout_mode = 2
-offset_top = 30.0
-offset_right = 437.0
-offset_bottom = 38.0
-auto_height = true
-
-[node name="CenterContainer" type="CenterContainer" parent="join_event_screen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="join_event_screen/CenterContainer"]
-layout_mode = 2
-offset_left = 887.0
-offset_top = 399.0
-offset_right = 1033.0
-offset_bottom = 681.0
-
-[node name="headers" type="Label" parent="join_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_right = 146.0
-offset_bottom = 26.0
-text = "JOIN AN EVENT"
-horizontal_alignment = 1
-
-[node name="name_field" type="TextEdit" parent="join_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 30.0
-offset_right = 146.0
-offset_bottom = 65.0
-placeholder_text = "YOUR NAME"
-scroll_fit_content_height = true
-caret_blink = true
-
-[node name="event_code" type="TextEdit" parent="join_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 69.0
-offset_right = 146.0
-offset_bottom = 104.0
-placeholder_text = "EVENT CODE"
-scroll_fit_content_height = true
-caret_blink = true
-
-[node name="spacer2" type="Control" parent="join_event_screen/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2i(0, 50)
-layout_mode = 2
-anchors_preset = 0
-offset_top = 108.0
-offset_right = 146.0
-offset_bottom = 158.0
-
-[node name="headers2" type="Label" parent="join_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 162.0
-offset_right = 146.0
-offset_bottom = 188.0
-text = "CHOOSE A WALLET"
-
-[node name="wallet_dropdown" type="OptionButton" parent="join_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 192.0
-offset_right = 146.0
-offset_bottom = 212.0
-
-[node name="spacer" type="Control" parent="join_event_screen/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2i(0, 50)
-layout_mode = 2
-anchors_preset = 0
-offset_top = 216.0
-offset_right = 146.0
-offset_bottom = 266.0
-
-[node name="enter_button" type="Button" parent="join_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 270.0
-offset_right = 146.0
-offset_bottom = 301.0
-text = "JOIN"
-
-[node name="cancel_button" type="Button" parent="join_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 305.0
-offset_right = 146.0
-offset_bottom = 336.0
-text = "CANCEL"
-
-[node name="create_event_screen" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="create_event_screen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="create_event_screen/CenterContainer"]
-layout_mode = 2
-offset_left = 887.0
-offset_top = 352.0
-offset_right = 1033.0
-offset_bottom = 727.0
-
-[node name="headers" type="Label" parent="create_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_right = 146.0
-offset_bottom = 26.0
-text = "CREATE AN EVENT"
-horizontal_alignment = 1
-
-[node name="name_field" type="TextEdit" parent="create_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 30.0
-offset_right = 146.0
-offset_bottom = 65.0
-placeholder_text = "YOUR NAME"
-scroll_fit_content_height = true
-caret_blink = true
-
-[node name="event_name" type="TextEdit" parent="create_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 69.0
-offset_right = 146.0
-offset_bottom = 104.0
-placeholder_text = "EVENT CODE"
-scroll_fit_content_height = true
-caret_blink = true
-
-[node name="event_code" type="TextEdit" parent="create_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 108.0
-offset_right = 146.0
-offset_bottom = 143.0
-placeholder_text = "EVENT CODE"
-scroll_fit_content_height = true
-caret_blink = true
-
-[node name="spacer2" type="Control" parent="create_event_screen/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2i(0, 50)
-layout_mode = 2
-anchors_preset = 0
-offset_top = 147.0
-offset_right = 146.0
-offset_bottom = 197.0
-
-[node name="headers2" type="Label" parent="create_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 201.0
-offset_right = 146.0
-offset_bottom = 227.0
-text = "CHOOSE A WALLET"
-
-[node name="wallet_dropdown" type="OptionButton" parent="create_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 231.0
-offset_right = 146.0
-offset_bottom = 251.0
-
-[node name="spacer" type="Control" parent="create_event_screen/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2i(0, 50)
-layout_mode = 2
-anchors_preset = 0
-offset_top = 255.0
-offset_right = 146.0
-offset_bottom = 305.0
-
-[node name="enter_button" type="Button" parent="create_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 309.0
-offset_right = 146.0
-offset_bottom = 340.0
-text = "CREATE"
-
-[node name="cancel_button" type="Button" parent="create_event_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_top = 344.0
-offset_right = 146.0
-offset_bottom = 375.0
-text = "CANCEL"
+[node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="player"]
+frames = SubResource("SpriteFrames_dk0ff")
+speed_scale = 2.0
+playing = true

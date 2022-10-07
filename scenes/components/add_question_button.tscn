@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cobphjtg8p551"]
+
+[node name="add_question_button" type="Button"]
+offset_top = 525.0
+offset_right = 500.0
+offset_bottom = 576.0
+text = "ADD QUESTION"

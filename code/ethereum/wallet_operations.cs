@@ -19,7 +19,7 @@ public partial class wallet_operations : Node
     var walletOperations = GetNode<Node>("/root/WalletOperations");
 
     Task.Run(async () => {
-      	var web3 = new Web3("https://ropsten.infura.io/v3/efcca7a01a1c4e0e9e28e8a311332a56");
+      	var web3 = new Web3("https://goerli.infura.io/v3/efcca7a01a1c4e0e9e28e8a311332a56");
       	var balance = await web3.Eth.GetBalance.SendRequestAsync(address);
         var etherAmount = Web3.Convert.FromWei(balance.Value);
         walletOperations.Call("set_balance", (double)etherAmount);
@@ -28,19 +28,23 @@ public partial class wallet_operations : Node
     }
 
     // send ether
-    public void sendEther(string key, string to)
+    public void sendEther(string key, string to, float amount)
     {
         var walletOperations = GetNode<Node>("/root/WalletOperations");
-  
+        var convertedAmount = (decimal)amount;
+        GD.Print("sending eth");
+        
         Task.Run(async () => {
-            var network = "https://ropsten.infura.io/v3/efcca7a01a1c4e0e9e28e8a311332a56";
+            GD.Print("sending...");
+            var network = "https://goerli.infura.io/v3/efcca7a01a1c4e0e9e28e8a311332a56";
             var privateKey = key;
             var account = new Account(privateKey);
             var web3 = new Web3(account, network);
             var toAddress = to;
             var transaction = await web3.Eth.GetEtherTransferService()
-                .TransferEtherAndWaitForReceiptAsync(to, .1m);
+                .TransferEtherAndWaitForReceiptAsync(to, convertedAmount); //amount: .1m
             walletOperations.Call("send_ether");
+            GD.Print(transaction);
     });
 
     }

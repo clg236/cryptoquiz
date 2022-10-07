@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgucys47b6xw"]
+[gd_scene load_steps=8 format=3 uid="uid://cgucys47b6xw"]
 
 [ext_resource type="Script" path="res://code/globals/header.gd" id="1_v2pyv"]
 [ext_resource type="Texture2D" uid="uid://dkoem41n7uq83" path="res://art/ui/home_icon.png" id="2_lknwu"]
@@ -6,60 +6,83 @@
 [ext_resource type="Texture2D" uid="uid://c2dp0pjxghcnr" path="res://art/ui/quizzes_icon.png" id="4_eol3c"]
 [ext_resource type="Texture2D" uid="uid://c684xq6fms7vu" path="res://art/ui/financial_icon.png" id="5_dy7xj"]
 [ext_resource type="Texture2D" uid="uid://d3dr1lukrkfok" path="res://art/ui/students_icon.png" id="6_qkq5o"]
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="7_e1wdh"]
 
 [node name="header" type="CanvasLayer" node_paths=PackedStringArray("logout_button", "page_heading", "menu")]
 script = ExtResource("1_v2pyv")
-logout_button = NodePath("header/logout_button")
-page_heading = NodePath("header/page_heading")
-menu = NodePath("header/MenuBar/c|q")
+logout_button = NodePath("MarginContainer/header/logout_button")
+page_heading = NodePath("MarginContainer/header/page_heading")
+menu = NodePath("MarginContainer/header/MenuBar/MENU")
 home_icon = ExtResource("2_lknwu")
 classes_icon = ExtResource("3_5oou7")
 quizzes_icon = ExtResource("4_eol3c")
 financials_icon = ExtResource("5_dy7xj")
 students_icon = ExtResource("6_qkq5o")
 
-[node name="header" type="HBoxContainer" parent="."]
-texture_filter = 2
-custom_minimum_size = Vector2i(0, 25)
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 51.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="header" type="HBoxContainer" parent="MarginContainer"]
+texture_filter = 2
+custom_minimum_size = Vector2i(0, 25)
+layout_mode = 2
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 1905.0
+offset_bottom = 86.0
 grow_horizontal = 2
 
-[node name="MenuBar" type="MenuBar" parent="header"]
-offset_right = 35.0
-offset_bottom = 31.0
+[node name="MenuBar" type="MenuBar" parent="MarginContainer/header"]
+custom_minimum_size = Vector2i(100, 0)
+layout_mode = 2
+offset_right = 144.0
+offset_bottom = 71.0
+theme = ExtResource("7_e1wdh")
 
-[node name="c|q" type="PopupMenu" parent="header/MenuBar"]
+[node name="MENU" type="PopupMenu" parent="MarginContainer/header/MenuBar"]
 extend_to_title = true
+theme = ExtResource("7_e1wdh")
 hide_on_state_item_selection = true
 
-[node name="spacer" type="Control" parent="header"]
-layout_mode = 3
+[node name="spacer" type="Control" parent="MarginContainer/header"]
+layout_mode = 2
 anchors_preset = 0
-offset_left = 39.0
-offset_right = 861.0
-offset_bottom = 31.0
+offset_left = 148.0
+offset_right = 853.0
+offset_bottom = 71.0
 size_flags_horizontal = 3
 
-[node name="page_heading" type="Label" parent="header"]
-offset_left = 865.0
-offset_top = 2.0
-offset_right = 1014.0
-offset_bottom = 28.0
+[node name="page_heading" type="Label" parent="MarginContainer/header"]
+layout_mode = 2
+offset_left = 857.0
+offset_top = 21.0
+offset_right = 1043.0
+offset_bottom = 50.0
+theme = ExtResource("7_e1wdh")
 text = "CHRISTIAN'S HOME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="spacer2" type="Control" parent="header"]
-layout_mode = 3
+[node name="spacer2" type="Control" parent="MarginContainer/header"]
+layout_mode = 2
 anchors_preset = 0
-offset_left = 1018.0
-offset_right = 1841.0
-offset_bottom = 31.0
+offset_left = 1047.0
+offset_right = 1752.0
+offset_bottom = 71.0
 size_flags_horizontal = 3
 
-[node name="logout_button" type="Button" parent="header"]
-offset_left = 1845.0
-offset_right = 1920.0
-offset_bottom = 31.0
+[node name="logout_button" type="Button" parent="MarginContainer/header"]
+layout_mode = 2
+offset_left = 1756.0
+offset_right = 1890.0
+offset_bottom = 71.0
+theme = ExtResource("7_e1wdh")
 text = "LOGOUT"

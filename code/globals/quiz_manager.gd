@@ -1,5 +1,6 @@
 extends Node
 
+var quiz_title 
 var current_quiz
 var quiz_info = {
 	'stats' : {
@@ -9,7 +10,7 @@ var quiz_info = {
 }
 
 func _ready():
-	DataParser.connect('quiz_recieved', _on_quiz_recieved)
+	#DataParser.connect('quiz_recieved', _on_quiz_recieved)
 	DataParser.connect('quiz_participant_recieved', update_participant)
 	DataParser.connect('quiz_score_updated', update_score)
 

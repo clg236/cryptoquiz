@@ -1,12 +1,18 @@
 extends Control
 
-@export var countdown_screen : Control
+@export var waiting_screen : Control
 @export var quiz_screen : Control
 @export var score_screen : Control
-@export var countdown_time_label : Label
+@export var quiz_over_screen : Control
+
+@export var ready_participant_container : VBoxContainer
+@export var not_ready_participant_container : VBoxContainer
 
 @export var quiz_title : Label
 @export var num_questions : Label
+
+@export var start_quiz_button : Button
+@export var return_button : Button
 
 @export var question_title : RichTextLabel
 @export var question_time : ProgressBar
@@ -20,61 +26,93 @@ var quiz
 var current_question_num = 1
 var current_question
 var answer_scene = preload("res://scenes/student/quiz/answer.tscn")
+var quiz_participant_row = preload("res://scenes/components/quiz_participant.tscn")
 var question_timer
 var chosen_answer_index
 var in_quiz : bool = false
+var ready_to_quiz : bool = false
 
-@export var question_pause_time : int = 1
+@export var question_pause_time : int = 5
 
 func _ready():
-	DataParser.connect("start_quiz", _on_quiz_started)
+	DataParser.connect("participant_ready", _on_participant_ready)
+	DataParser.connect('quiz_recieved', _on_quiz_recieved)
+	start_quiz_button.connect("pressed", _on_start_quiz_pressed)
+	return_button.connect('pressed', _on_return_button_pressed)
 	Header.show_header(false)
-	countdown_screen.visible = true
+	waiting_screen.visible = true
 	quiz_screen.visible = false
+	quiz_over_screen.visible = false
 	
-	# set up our counter
-	countdown_timer = Timer.new()
-	add_child(countdown_timer)
-	countdown_timer.start(countdown_time)
-	countdown_timer.connect("timeout", _on_countdown_timer_timeout)
+	# populate our not ready container with participants
+	for participant in ParticipantManager.participants.participants:
+		if ParticipantManager.participants.participants[participant].role != 'facilitator':
+			var p = quiz_participant_row.instantiate()
+			not_ready_participant_container.add_child(p)
+			p.participant_name.text = ParticipantManager.participants.participants[participant].name
+			p.participant_address.text = participant
+			
+	# send all participants the ready_quiz broadcast
+	for participant in ParticipantManager.participants.participants:
+		if ParticipantManager.participants.participants[participant].role != 'facilitator':
+			var message = {
+				'action' : 'ready_quiz',
+				'quiz_title' : QuizManager.quiz_title
+				}
+			NetworkManager.broadcast_to_individual(participant, message)
 	
-	quiz = QuizManager.current_quiz
-	
-	# set the quiz title
-	quiz_title.text = quiz.quizTitle
-	
-	# number of questions
-	num_questions.text = str(current_question_num) + ' OF ' + str(quiz.questions.size())
+	NetworkManager.list_single_quiz(QuizManager.quiz_title)
 
+func _on_quiz_recieved(quiz):
+	print('recieved a quiz: ', quiz)
+	ready_to_quiz = true
+	QuizManager.current_quiz = quiz
+	
+func _on_start_quiz_pressed():
+	print('pressed!')
+	if ready_to_quiz:
+		# send all participants the start_quiz broadcast
+		for participant in ParticipantManager.participants.participants:
+			if ParticipantManager.participants.participants[participant].role != 'facilitator':
+				var message = {
+					'action' : 'start_quiz',
+					}
+				NetworkManager.broadcast_to_individual(participant, message)
+		# hide the waiting screen
+		in_quiz = true
+		waiting_screen.visible = false
+		quiz_screen.visible = true
+		populate_question()
+	
 func _process(_delta):
-	if !in_quiz:
-		# TO DO: state machine so we don't do this all the time...
-		countdown_time_label.text = str(floor(countdown_timer.time_left))
-	else:
+	if in_quiz:
 		question_time.value = question_timer.time_left
 	
-func _on_quiz_started(quiz):
-	# star the countdown
-	print('quiz has begun')
-
-func _on_countdown_timer_timeout():
-	countdown_timer.stop()
-	countdown_screen.visible = false
-	quiz_screen.visible = true
+func _on_participant_ready(participant):
+	for _participant in ParticipantManager.participants.participants:
+		if _participant == participant:
+			var p = quiz_participant_row.instantiate()
+			ready_participant_container.add_child(p)
+			p.participant_name.text = ParticipantManager.participants.participants[participant].name
+			p.participant_address.text = participant
+	print('a participanty is ready: ', participant)
 	
-	# start the quiz...
-	in_quiz = true
-	populate_question()
+	# remove the corresponding participant from our not ready container
+	for not_ready in not_ready_participant_container.get_children():
+		if not_ready.participant_address.text == participant:
+			not_ready.queue_free()
 
 func populate_question():
-
+	quiz_screen.visible = true
+	score_screen.visible = false
 	# if we have answers, kill them off
 	for answer in choice_container.get_children():
 		answer.queue_free()
-	current_question = quiz.questions[current_question_num - 1]
+	current_question = QuizManager.current_quiz.questions[current_question_num - 1]
 	question_title.text = current_question.title
 	question_reward.text = 'REWARD: ' + str(current_question.reward)
 	for answer in current_question.answers:
+		print('answer in current answers: ', answer)
 		var a = answer_scene.instantiate()
 		choice_container.add_child(a)
 		a.text = '[center]' + answer.title + '[/center]'
@@ -84,17 +122,30 @@ func populate_question():
 	question_timer.wait_time = current_question.time
 	question_time.max_value = current_question.time
 	question_timer.start()
+	question_timer.one_shot = true
 	question_timer.connect('timeout', _on_question_timer_timeout)
 			
 func _on_question_timer_timeout():
 	# hightlight the correct answer for a bit
-	
 	for answer in current_question.answers.size():
 		if !current_question.answers[answer].correct:
 			choice_container.get_child(answer).get_child(0).disabled = true
 		else:
-			pass # highlight the correct answer
-		
-	#quiz_screen.visible = false
+			choice_container.get_child(answer).modulate = Color("#ff0077")
+	
+	question_timer.stop()
 	await get_tree().create_timer(question_pause_time).timeout
-	#score_screen.visible = true
+	#increase question number 
+	current_question_num += 1
+	
+	# if we do not have any more questions, the quiz is over
+	if current_question_num > QuizManager.current_quiz.questions.size():
+		in_quiz = false
+		quiz_screen.visible = false
+		score_screen.visible = false
+		quiz_over_screen.visible = true
+	else:
+		populate_question()
+
+func _on_return_button_pressed():
+	UIManager.change_scene(UIManager.faculty_app)

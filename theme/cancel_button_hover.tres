@@ -1,0 +1,8 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://s1t3t1q1vcaj"]
+
+[ext_resource type="Texture2D" uid="uid://c6uy5ahns0pho" path="res://art/ui/Pixel Buttons v1.0/2 Menu Buttons/White Shade/Red Menu Buttons/0.png" id="1_htccr"]
+
+[resource]
+texture = ExtResource("1_htccr")
+region_rect = Rect2(0, 0, 64, 32)
+modulate_color = Color(0.615686, 0.615686, 0.615686, 1)

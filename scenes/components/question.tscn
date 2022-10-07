@@ -1,0 +1,239 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccnwaw50wiv3h"]
+
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="1_alux4"]
+[ext_resource type="Script" path="res://scenes/components/question.gd" id="2_5udu3"]
+[ext_resource type="Texture2D" uid="uid://ci368mnnrhc5v" path="res://art/ui/trash.png" id="2_ttrmb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_146ou"]
+bg_color = Color(0.329412, 0, 1, 1)
+
+[node name="question" type="Panel" node_paths=PackedStringArray("question_number", "question_title", "question_reward", "question_time", "choice_1", "choice_2", "choice_3", "choice_4", "correct_1", "correct_2", "correct_3", "correct_4", "delete_button") groups=["question"]]
+custom_minimum_size = Vector2i(800, 375)
+anchors_preset = -1
+anchor_right = 0.408333
+anchor_bottom = 0.355556
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("1_alux4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_146ou")
+script = ExtResource("2_5udu3")
+question_number = NodePath("MarginContainer/VBoxContainer/question_number")
+question_title = NodePath("MarginContainer/VBoxContainer/question_title")
+question_reward = NodePath("MarginContainer/VBoxContainer/HBoxContainer/reward_amount")
+question_time = NodePath("MarginContainer/VBoxContainer/HBoxContainer/time_limit")
+choice_1 = NodePath("MarginContainer/VBoxContainer/HBoxContainer3/choice/choice_1")
+choice_2 = NodePath("MarginContainer/VBoxContainer/HBoxContainer3/choice2/choice_1")
+choice_3 = NodePath("MarginContainer/VBoxContainer/HBoxContainer4/choice3/choice_1")
+choice_4 = NodePath("MarginContainer/VBoxContainer/HBoxContainer4/choice4/choice_1")
+correct_1 = NodePath("MarginContainer/VBoxContainer/HBoxContainer3/choice/CheckBox")
+correct_2 = NodePath("MarginContainer/VBoxContainer/HBoxContainer3/choice2/CheckBox2")
+correct_3 = NodePath("MarginContainer/VBoxContainer/HBoxContainer4/choice3/CheckBox3")
+correct_4 = NodePath("MarginContainer/VBoxContainer/HBoxContainer4/choice4/CheckBox4")
+delete_button = NodePath("MarginContainer/VBoxContainer/delete")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 785.0
+offset_bottom = 383.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="question_number" type="Label" parent="MarginContainer/VBoxContainer"]
+offset_right = 770.0
+offset_bottom = 29.0
+grow_horizontal = 2
+theme = ExtResource("1_alux4")
+text = "QUESTION 1"
+horizontal_alignment = 1
+
+[node name="question_title" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+offset_top = 44.0
+offset_right = 770.0
+offset_bottom = 87.0
+placeholder_text = "QUESTION TITLE"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+offset_top = 102.0
+offset_right = 770.0
+offset_bottom = 145.0
+theme_override_constants/separation = 15
+
+[node name="time_limit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+offset_right = 66.0
+offset_bottom = 43.0
+placeholder_text = "TIME LIMIT"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+offset_left = 81.0
+offset_top = 7.0
+offset_right = 165.0
+offset_bottom = 36.0
+text = "SECONDS"
+
+[node name="spacer" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 180.0
+offset_right = 529.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+
+[node name="reward_amount" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2i(175, 0)
+offset_left = 544.0
+offset_right = 719.0
+offset_bottom = 43.0
+placeholder_text = "REWARD AMOUNT"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+offset_left = 734.0
+offset_top = 7.0
+offset_right = 770.0
+offset_bottom = 36.0
+text = "ETH"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+offset_top = 160.0
+offset_right = 770.0
+offset_bottom = 189.0
+
+[node name="choice_label3" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+offset_right = 84.0
+offset_bottom = 29.0
+text = "CHOICES"
+
+[node name="spacer2" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 88.0
+offset_right = 670.0
+offset_bottom = 29.0
+size_flags_horizontal = 3
+
+[node name="choice_label4" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+offset_left = 674.0
+offset_right = 770.0
+offset_bottom = 29.0
+text = "CORRECT?"
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+offset_top = 204.0
+offset_right = 770.0
+offset_bottom = 208.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+offset_top = 223.0
+offset_right = 770.0
+offset_bottom = 266.0
+
+[node name="choice" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+offset_right = 383.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+
+[node name="choice_1" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/choice"]
+offset_right = 343.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+placeholder_text = "CHOICE 1"
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer3/choice"]
+offset_left = 347.0
+offset_right = 383.0
+offset_bottom = 43.0
+focus_mode = 0
+flat = true
+
+[node name="choice2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+offset_left = 387.0
+offset_right = 770.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+
+[node name="choice_1" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/choice2"]
+offset_right = 343.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+placeholder_text = "CHOICE 2"
+
+[node name="CheckBox2" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer3/choice2"]
+offset_left = 347.0
+offset_right = 383.0
+offset_bottom = 43.0
+focus_mode = 0
+flat = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+offset_top = 281.0
+offset_right = 770.0
+offset_bottom = 324.0
+
+[node name="choice3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+offset_right = 383.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+
+[node name="choice_1" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer4/choice3"]
+offset_right = 343.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+placeholder_text = "CHOICE 3 (optional)"
+
+[node name="CheckBox3" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer4/choice3"]
+offset_left = 347.0
+offset_right = 383.0
+offset_bottom = 43.0
+focus_mode = 0
+flat = true
+
+[node name="choice4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+offset_left = 387.0
+offset_right = 770.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+
+[node name="choice_1" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer4/choice4"]
+offset_right = 343.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+placeholder_text = "CHOICE 4 (optional)"
+
+[node name="CheckBox4" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer4/choice4"]
+offset_left = 347.0
+offset_right = 383.0
+offset_bottom = 43.0
+focus_mode = 0
+flat = true
+
+[node name="delete" type="Button" parent="MarginContainer/VBoxContainer"]
+offset_left = 670.0
+offset_top = 339.0
+offset_right = 770.0
+offset_bottom = 368.0
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 24
+text = "DELETE "
+icon = ExtResource("2_ttrmb")
+flat = true
+alignment = 0
+icon_alignment = 2

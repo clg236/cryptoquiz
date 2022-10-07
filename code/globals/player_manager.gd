@@ -4,12 +4,17 @@ var player = {
 	'role' : '',
 	'name' : '',
 	'total_eth' : 0,
-	'session_eth' : 0,
+	'treasure' : 0,
 	'eth_address' : '',
+	'event_code' : null,
 	'avatar' : {
 		'color' : '#FE00E7',
 	}
 }
+
+var private_key
+
+var in_event : bool = false
 
 var current_faculty = {
 	'name' : '',

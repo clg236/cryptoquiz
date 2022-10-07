@@ -2,7 +2,7 @@ extends Control
 
 @export var home_screen : Control
 @export var create_wallet_screen : Control
-@export var wallet_created_panel : Panel
+@export var wallet_created_screen : Control
 
 # buttons
 @export var participant_button : Button
@@ -15,6 +15,7 @@ extends Control
 @export var confirm_password_field : LineEdit
 @export var wallet_address_field : Label
 @export var word_list : RichTextLabel
+@export var reminder : Label
 
 # create wallet script
 var create_wallet_script = load("res://code/ethereum/create_wallet.cs")
@@ -25,7 +26,7 @@ func _ready():
 	home_screen.visible = true
 	
 	create_wallet_screen.visible = false
-	wallet_created_panel.visible = false
+	wallet_created_screen.visible = false
 	create_wallet_button.disabled = true
 	new_wallet_button.connect('pressed', _new_wallet_button_pressed)
 	create_wallet_button.connect('pressed', _create_wallet_button_pressed)
@@ -60,7 +61,12 @@ func _create_wallet_button_pressed():
 	# print(result)
 	
 	create_wallet_screen.visible = false
-	wallet_created_panel.visible = true
+	wallet_created_screen.visible = true
+	
+	#flash our reminder
+	var reminder_tween = create_tween().set_loops()
+	reminder_tween.tween_property(reminder, "theme_override_colors/font_color", Color("#8dffd0"), .1)
+	reminder_tween.tween_property(reminder, "theme_override_colors/font_color", Color("#7361ff"), .1)
 	
 	#print out the seed words
 	word_list.text = create_wallet.seed_words

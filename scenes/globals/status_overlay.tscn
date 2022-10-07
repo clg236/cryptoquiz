@@ -1,18 +1,38 @@
-[gd_scene load_steps=2 format=3 uid="uid://7r3fpmqf21c5"]
+[gd_scene load_steps=8 format=3 uid="uid://7r3fpmqf21c5"]
 
 [ext_resource type="Script" path="res://code/globals/status_overlay.gd" id="1_u0ogw"]
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="2_lf605"]
+[ext_resource type="Texture2D" uid="uid://bvmhpablqiu4h" path="res://art/ui/chest_closed.png" id="2_oyg0f"]
+[ext_resource type="Texture2D" uid="uid://u085mqrve3je" path="res://art/ui/chest_open_empty.png" id="3_qe711"]
+[ext_resource type="Texture2D" uid="uid://ddoh2xent3cny" path="res://art/ui/chest_open_full.png" id="4_chhgw"]
+[ext_resource type="PackedScene" uid="uid://bsu2ydbcwlqm" path="res://scenes/components/wallet_popup.tscn" id="6_857cw"]
 
-[node name="status_overlay" type="CanvasLayer" node_paths=PackedStringArray("status_label", "balance_label", "account_label")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_mr5ft"]
+animations = [{
+"frames": [ExtResource("2_oyg0f"), ExtResource("4_chhgw")],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="status_overlay" type="CanvasLayer" node_paths=PackedStringArray("status_label", "balance_label", "account_label", "balance_change_label", "wallet_popup", "balance_updated_screen", "treasure_button", "chest")]
 script = ExtResource("1_u0ogw")
 status_label = NodePath("status_panel/status_label")
-balance_label = NodePath("status_panel/balance_label")
+balance_label = NodePath("status_panel/HBoxContainer/balance_label")
 account_label = NodePath("status_panel/account_label")
+balance_change_label = NodePath("balance_updated/balance_change_label")
+wallet_popup = NodePath("wallet_popup")
+balance_updated_screen = NodePath("balance_updated")
+treasure_button = NodePath("status_panel/HBoxContainer/treasure_button")
+chest = NodePath("balance_updated/chest")
 
 [node name="status_panel" type="Panel" parent="."]
+texture_filter = 1
 anchors_preset = -1
-anchor_top = 0.975926
+anchor_top = 0.948148
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource("2_lf605")
 metadata/_edit_use_anchors_ = true
 
 [node name="status_label" type="Label" parent="status_panel"]
@@ -20,8 +40,10 @@ custom_minimum_size = Vector2i(150, 0)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -26.0
-offset_right = 150.0
+offset_left = 16.0
+offset_top = -40.0
+offset_right = 166.0
+offset_bottom = -14.0
 grow_vertical = 0
 size_flags_horizontal = 0
 text = "CONNECTING..."
@@ -34,25 +56,82 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -82.5
-offset_top = -26.0
-offset_right = 82.5
+offset_left = -80.0
+offset_top = -40.0
+offset_right = 85.0
+offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "SELECTED ACCOUNT: "
 vertical_alignment = 1
 metadata/_edit_layout_mode = 1
 
-[node name="balance_label" type="Label" parent="status_panel"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -162.0
-offset_top = -26.0
+[node name="HBoxContainer" type="HBoxContainer" parent="status_panel"]
+offset_left = 1768.0
+offset_right = 1903.0
+offset_bottom = 56.0
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="treasure_button" type="TextureButton" parent="status_panel/HBoxContainer"]
+custom_minimum_size = Vector2i(48, 0)
+offset_right = 48.0
+offset_bottom = 56.0
+toggle_mode = true
+texture_normal = ExtResource("2_oyg0f")
+texture_pressed = ExtResource("3_qe711")
+texture_hover = ExtResource("2_oyg0f")
+stretch_mode = 5
+
+[node name="balance_label" type="Label" parent="status_panel/HBoxContainer"]
+custom_minimum_size = Vector2i(75, 0)
+offset_left = 63.0
+offset_top = 13.0
+offset_right = 138.0
+offset_bottom = 42.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "MY BALANCE: "
+text = "1.000"
+horizontal_alignment = 2
 vertical_alignment = 1
+text_overrun_behavior = 3
 metadata/_edit_layout_mode = 1
+
+[node name="balance_updated" type="Panel" parent="."]
+texture_filter = 1
+offset_left = 1608.0
+offset_top = 960.0
+offset_right = 1920.0
+offset_bottom = 1016.0
+
+[node name="Label" type="Label" parent="balance_updated"]
+offset_left = 96.0
+offset_right = 258.0
+offset_bottom = 26.0
+theme = ExtResource("2_lf605")
+theme_override_font_sizes/font_size = 24
+text = "TREASURE UPDATED!"
+horizontal_alignment = 2
+
+[node name="chest" type="AnimatedSprite2D" parent="balance_updated"]
+position = Vector2(33.6922, 28)
+scale = Vector2(3.17307, 3.07692)
+frames = SubResource("SpriteFrames_mr5ft")
+animation = &"open"
+frame = 1
+
+[node name="balance_change_label" type="Label" parent="balance_updated"]
+offset_left = 72.0
+offset_top = 16.0
+offset_right = 256.0
+offset_bottom = 45.0
+theme = ExtResource("2_lf605")
+text = "RECIEVED .01 ETH!"
+
+[node name="wallet_popup" parent="." instance=ExtResource("6_857cw")]
+visible = false
+offset_left = 496.0
+offset_top = 292.0
+offset_right = 496.0
+offset_bottom = 292.0
+metadata/_edit_use_anchors_ = true

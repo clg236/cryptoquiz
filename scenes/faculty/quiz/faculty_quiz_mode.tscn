@@ -1,29 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://r0in87hjrxps"]
+[gd_scene load_steps=4 format=3 uid="uid://r0in87hjrxps"]
 
 [ext_resource type="Script" path="res://code/faculty_quiz_mode.gd" id="1_1qh75"]
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="1_xnfdy"]
 [ext_resource type="PackedScene" uid="uid://48ghr5fgdfwe" path="res://scenes/high_score_list.tscn" id="2_ojgjt"]
 
-[node name="quiz_mode" type="Control" node_paths=PackedStringArray("countdown_screen", "quiz_screen", "score_screen", "countdown_time_label", "quiz_title", "num_questions", "question_title", "question_time", "question_reward", "choice_container", "answer_screen")]
+[node name="quiz_mode" type="Control" node_paths=PackedStringArray("waiting_screen", "quiz_screen", "score_screen", "quiz_over_screen", "ready_participant_container", "not_ready_participant_container", "quiz_title", "num_questions", "start_quiz_button", "return_button", "question_title", "question_time", "question_reward", "choice_container", "answer_screen")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_xnfdy")
 script = ExtResource("1_1qh75")
-countdown_screen = NodePath("countdown_screen")
+waiting_screen = NodePath("waiting_screen")
 quiz_screen = NodePath("quiz_screen")
 score_screen = NodePath("score_screen")
-countdown_time_label = NodePath("countdown_screen/center/VBoxContainer/countdown_time")
+quiz_over_screen = NodePath("quiz_over_screen")
+ready_participant_container = NodePath("waiting_screen/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer/ready_container")
+not_ready_participant_container = NodePath("waiting_screen/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/not_ready_container")
 quiz_title = NodePath("quiz_screen/header/quiz_title")
 num_questions = NodePath("quiz_screen/header/question_number")
+start_quiz_button = NodePath("waiting_screen/CenterContainer/VBoxContainer/start_quiz")
+return_button = NodePath("quiz_over_screen/answer_screen/return_button")
 question_title = NodePath("quiz_screen/question_screen/center/question_container/question_title")
 question_time = NodePath("quiz_screen/question_screen/center/question_container/question_time")
 question_reward = NodePath("quiz_screen/question_screen/center/question_container/reward")
 choice_container = NodePath("quiz_screen/question_screen/center/question_container/choice_container")
 answer_screen = NodePath("score_screen/answer_screen")
 
-[node name="countdown_screen" type="Control" parent="."]
+[node name="waiting_screen" type="Control" parent="."]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -32,49 +38,69 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="center" type="CenterContainer" parent="countdown_screen"]
+[node name="CenterContainer" type="CenterContainer" parent="waiting_screen"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="countdown_screen/center"]
-offset_left = 885.0
-offset_top = 512.0
-offset_right = 1035.0
-offset_bottom = 568.0
+[node name="VBoxContainer" type="VBoxContainer" parent="waiting_screen/CenterContainer"]
+offset_left = 410.0
+offset_top = 396.0
+offset_right = 1510.0
+offset_bottom = 684.0
 
-[node name="countdown" type="Label" parent="countdown_screen/center/VBoxContainer"]
-offset_right = 150.0
-offset_bottom = 26.0
-text = "QUIZ STARTING IN: "
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="HBoxContainer" type="HBoxContainer" parent="waiting_screen/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2i(500, 0)
+offset_right = 1100.0
+offset_bottom = 233.0
+theme_override_constants/separation = 100
 
-[node name="countdown_time" type="Label" parent="countdown_screen/center/VBoxContainer"]
-offset_top = 30.0
-offset_right = 150.0
-offset_bottom = 56.0
-text = "00:00"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="waiting_screen/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2i(400, 0)
+offset_right = 500.0
+offset_bottom = 233.0
 
-[node name="retry_quiz_button" type="Button" parent="countdown_screen/center/VBoxContainer"]
-visible = false
-offset_top = 60.0
-offset_right = 150.0
-offset_bottom = 91.0
-text = "RETRY"
+[node name="header" type="Label" parent="waiting_screen/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+offset_right = 500.0
+offset_bottom = 29.0
+text = "NOT READY"
 
-[node name="cancel_button" type="Button" parent="countdown_screen/center/VBoxContainer"]
-visible = false
-offset_top = 60.0
-offset_right = 150.0
-offset_bottom = 91.0
-text = "CANCEL"
+[node name="ScrollContainer" type="ScrollContainer" parent="waiting_screen/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2i(500, 200)
+offset_top = 33.0
+offset_right = 500.0
+offset_bottom = 233.0
+
+[node name="not_ready_container" type="VBoxContainer" parent="waiting_screen/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="waiting_screen/CenterContainer/VBoxContainer/HBoxContainer"]
+offset_left = 600.0
+offset_right = 1100.0
+offset_bottom = 233.0
+
+[node name="header" type="Label" parent="waiting_screen/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+offset_right = 500.0
+offset_bottom = 29.0
+text = "READY"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="waiting_screen/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2i(500, 200)
+offset_top = 33.0
+offset_right = 500.0
+offset_bottom = 233.0
+
+[node name="ready_container" type="VBoxContainer" parent="waiting_screen/CenterContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+
+[node name="start_quiz" type="Button" parent="waiting_screen/CenterContainer/VBoxContainer"]
+offset_top = 237.0
+offset_right = 1100.0
+offset_bottom = 288.0
+text = "START QUIZ"
 
 [node name="quiz_screen" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,9 +157,9 @@ grow_vertical = 2
 
 [node name="question_container" type="VBoxContainer" parent="quiz_screen/question_screen/center"]
 offset_left = 958.0
-offset_top = 279.0
+offset_top = 506.0
 offset_right = 962.0
-offset_bottom = 801.0
+offset_bottom = 574.0
 
 [node name="question_title" type="RichTextLabel" parent="quiz_screen/question_screen/center/question_container"]
 offset_right = 4.0
@@ -213,10 +239,13 @@ grow_vertical = 2
 text = "CORRECT!"
 
 [node name="score_screen" type="Control" parent="."]
+visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="score_screen"]
 offset_right = 40.0
@@ -224,7 +253,6 @@ offset_bottom = 23.0
 text = "SCORE SCREEN"
 
 [node name="answer_screen" type="Control" parent="score_screen"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -243,10 +271,10 @@ grow_vertical = 2
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 540.0
 grow_horizontal = 1
 grow_vertical = 1
 
@@ -272,3 +300,44 @@ offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "CORRECT!"
+
+[node name="quiz_over_screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="answer_screen" type="Control" parent="quiz_over_screen"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="quiz_over_screen/answer_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="high_score_list" parent="quiz_over_screen/answer_screen/CenterContainer" instance=ExtResource("2_ojgjt")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_horizontal = 4
+size_flags_vertical = 2
+
+[node name="return_button" type="Button" parent="quiz_over_screen/answer_screen"]
+offset_left = -200.0
+offset_top = 296.0
+offset_right = 200.0
+offset_bottom = 347.0
+text = "RETURN"

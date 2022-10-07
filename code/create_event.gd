@@ -1,16 +1,14 @@
 extends Control
 
-@export var name_field : TextEdit
-@export var event_name : TextEdit
-@export var event_code : TextEdit
+@export var name_field : LineEdit
+@export var event_name : LineEdit
+@export var event_code : LineEdit
 @export var wallet_dropdown : OptionButton
 @export var join_button : Button
 @export var cancel_button : Button
 
 @export var create_screen : CenterContainer
-@export var connecting_screen : CenterContainer
-
-@export var connecting_label : Label
+@export var connecting_screen : Control
 
 var accounts = []
 var connected : bool = false
@@ -32,7 +30,7 @@ func _ready():
 	var wallets = read_wallet_directory()
 	if wallets.size() == 0:
 		UIManager.change_scene(UIManager.registration)
-		PlayerManager.player.role = 'faculty'
+		# PlayerManager.player.role = 'faculty'
 		
 	# populate the wallet dropdown
 	accounts = wallets
@@ -74,12 +72,16 @@ func read_wallet_directory():
 func _on_join_button_pressed():
 	
 	# selected wallet
-	var selected_wallet = wallet_dropdown.selected - 1
+	var selected_wallet = wallet_dropdown.selected
+	
+	print('you selected ', selected_wallet)
 	# update the player
 	PlayerManager.player.name = name_field.text
 	
 	# set the players eth address to the selected address
 	PlayerManager.player.eth_address = accounts[selected_wallet].address
+	PlayerManager.private_key = accounts[selected_wallet].privateKey
+
 	WalletOperations.set_address(PlayerManager.player.eth_address)
 	WalletOperations.wallet_operations.getBalance(PlayerManager.player.eth_address)
 	
@@ -88,24 +90,18 @@ func _on_join_button_pressed():
 	
 	if event_code.text != '':
 		
-		# attempt to log in to the server
 		NetworkManager.connect_to_server(event_code.text)
-		
-		# create the event
-		NetworkManager.create_event(event_code.text, event_name.text)
-		
+
 		# wait until we are connected
 		create_screen.visible = false
 		connecting_screen.visible = true
-		var connecting_tween = create_tween().set_loops()
-		connecting_tween.tween_property(connecting_label, "text", "CONNECTING", .1)
-		connecting_tween.tween_property(connecting_label, "text", "CONNECTING.", .1)
-		connecting_tween.tween_property(connecting_label, "text", "CONNECTING..", .1)
-		connecting_tween.tween_property(connecting_label, "text", "CONNECTING...", .1)
-		
+
 func _on_network_connected():
+	# create the event
+	NetworkManager.create_event(event_code.text, event_name.text)
 	connected = true
 	UIManager.change_scene(UIManager.faculty_app)
+	PlayerManager.player.event_code = event_code.text
 	
 func _on_cancel_button_pressed():
 	UIManager.change_scene(UIManager.home)

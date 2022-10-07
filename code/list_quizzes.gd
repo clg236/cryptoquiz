@@ -20,6 +20,7 @@ func _ready():
 	create_quiz_button.connect("pressed", _on_create_quiz_button_pressed)
 	delete_button.connect("pressed", _on_delete_button_pressed)
 	quiz_list.connect("item_selected", _on_quiz_item_selected)
+	edit_button.connect('pressed', _on_edit_quiz_button_pressed)
 	
 	edit_button.visible = false
 	delete_button.visible = false
@@ -58,7 +59,6 @@ func _on_quiz_recieved(quizzes):
 		var icon = Texture2D.new()
 		icon = quiz_icon
 		quiz_list.add_item(quiz.quizTitle, icon)
-	
 
 func _on_quiz_item_selected(index):
 	# show our edit / delete buttons
@@ -71,8 +71,8 @@ func _on_quiz_item_selected(index):
 	delete_button.text = 'DELETE ' + selected_quiz.quizTitle.to_upper()
 
 func _on_start_button_pressed():
-	NetworkManager.start_quiz(selected_quiz)
-	QuizManager.current_quiz = selected_quiz
+	# NetworkManager.start_quiz(selected_quiz)
+	QuizManager.quiz_title = selected_quiz.quizTitle
 	
 	# change to quiz mode
 	UIManager.change_scene(UIManager.faculty_quiz_mode)
@@ -80,9 +80,14 @@ func _on_start_button_pressed():
 func _on_create_quiz_button_pressed():
 	UIManager.change_scene("res://scenes/faculty/quiz/create_quiz.tscn")
 
+func _on_edit_quiz_button_pressed():
+	QuizManager.current_quiz = selected_quiz
+	UIManager.change_scene(UIManager.edit_quiz)
+
 func _on_delete_button_pressed():
+	print('deleting quiz', selected_quiz)
 	if selected_quiz.quizTitle != '':
-		NetworkManager.delete_quiz(selected_quiz)
+		NetworkManager.delete_quiz(selected_quiz.quizTitle)
 		# clear all the items
 		quiz_list.clear()
 		# refresh the quiz list in 2 secs

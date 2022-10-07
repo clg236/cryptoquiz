@@ -8,13 +8,15 @@ extends Control
 @export var question_reward : RichTextLabel
 @export var choice_container : GridContainer
 @export var submit_button : Button
+@export var return_button : Button
 
 @export var waiting_screen : Control
 @export var question_screen : Control
+@export var quiz_over_screen : Control
 @export var answer_screen : Control
 @export var answer_screen_text : Label
 
-@export var quiz_timeout : int = 1
+@export var quiz_timeout : int = 5
 
 var answer_scene = preload("res://scenes/student/quiz/answer.tscn")
 var current_question 
@@ -22,44 +24,58 @@ var current_question_num = 1
 var chosen_answer_index
 var current_score = 0
 var quiz
+var in_quiz : bool = false
 
 var question_timer
 
 func _ready():
+	DataParser.connect('quiz_recieved', _on_quiz_recieved)
+	DataParser.connect("start_quiz", _on_start_quiz_recieved)
+	submit_button.connect('pressed', _on_submit_button_pressed)
+	return_button.connect('pressed', _on_return_button_pressed)
 	
 	# hide screens
+	waiting_screen.visible = true
 	question_screen.visible = false
 	answer_screen.visible = false
-	waiting_screen.visible = true
 	
 	# hide the header
 	Header.show_header(false)
 	
-	# tell the faculty that we're ready for the quiz
-	NetworkManager.broadcast_to_individual(PlayerManager.current_faculty.address, "ready_for_quiz")
-	
-	submit_button.connect('pressed', _on_submit_button_pressed)
-	quiz = QuizManager.current_quiz
-	
-	# set the quiz title (fix this!)
-	quiz_title.text = quiz.quizTitle
-	
-	# number of questions
-	num_questions.text = str(current_question_num) + ' OF ' + str(quiz.questions.size())
-	
+	# disabling our submit button
 	submit_button.disabled = true
-	# populate our question
-	populate_question()
 	
+	# download our quiz
+	NetworkManager.list_single_quiz(QuizManager.quiz_title)
+
+func _on_quiz_recieved(quiz):
+	print('recieved a quiz!!!!', quiz)
+	# tell the faculty that we're ready for the quiz
+	for participant in ParticipantManager.participants.participants:
+		if ParticipantManager.participants.participants[participant].role == 'facilitator':
+			var message = {
+				'action' : 'ready_to_be_quizzed',
+				'participant' : PlayerManager.player.eth_address
+				}
+			NetworkManager.broadcast_to_individual(participant, message)
+	QuizManager.current_quiz = quiz
+
+func _on_start_quiz_recieved():
+	in_quiz = true
+	waiting_screen.visible = false
+	question_screen.visible = true
+	populate_question()
+
 func populate_question():
 	question_screen.visible = true
 	# if we have answers, kill them off
 	for answer in choice_container.get_children():
 		answer.queue_free()
-	current_question = quiz.questions[current_question_num - 1]
+	current_question = QuizManager.current_quiz.questions[current_question_num - 1]
 	question_title.text = current_question.title
 	question_reward.text = 'REWARD: ' + str(current_question.reward)
 	for answer in current_question.answers:
+		print('answer in current answers: ', answer)
 		var a = answer_scene.instantiate()
 		choice_container.add_child(a)
 		a.text = '[center]' + answer.title + '[/center]'
@@ -70,6 +86,7 @@ func populate_question():
 	question_timer.wait_time = current_question.time
 	question_time.max_value = current_question.time
 	question_timer.start()
+	question_timer.one_shot = true
 	question_timer.connect('timeout', _on_question_timer_timeout)
 
 func _on_answer_chosen(index):
@@ -92,7 +109,7 @@ func check_answer():
 			answer_screen_text.text = 'CORRECT!'
 			
 			# increase the player's session_eth by the reward
-			PlayerManager.player.session_eth += current_question.reward
+			PlayerManager.player.treasure += current_question.reward
 			
 			# send an updated player list to connected clients
 			NetworkManager.send_quiz_participant()
@@ -110,8 +127,11 @@ func check_answer():
 	answer_screen.visible = false
 	
 	# if we do not have any more questions, the quiz is over
-	if current_question_num > quiz.questions.size():
-		UIManager.change_scene(UIManager.student_quiz_complete)
+	if current_question_num > QuizManager.current_quiz.questions.size():
+		in_quiz = false
+		question_screen.visible = false
+		answer_screen.visible = false
+		quiz_over_screen.visible = true
 	else:
 		populate_question()
 	
@@ -119,9 +139,12 @@ func _on_question_timer_timeout():
 	check_answer()
 
 func _process(_delta):
-	question_time.value = question_timer.time_left
+	if in_quiz:
+		question_time.value = question_timer.time_left
 
-	
+func _on_return_button_pressed():
+	NetworkManager.update_participant(PlayerManager.player.event_code)
+	UIManager.change_scene(UIManager.student_app)
 
 
 

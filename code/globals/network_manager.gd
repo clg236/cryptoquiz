@@ -12,6 +12,10 @@ signal participant_entered(participant)
 signal participant_exited(participant)
 signal participant_updated(participant)
 signal connected()
+signal valid_class(result)
+
+var searching_for_class : bool = false
+var event_valid : bool = false
 
 func _ready():
 	_client.connect("connection_closed", _closed)
@@ -28,6 +32,10 @@ func connect_to_server(code):
 	if err != OK:
 		print('unable to connect to server')
 		set_process(false)
+
+func disconnect_from_server():
+	_client.disconnect_from_host()
+	PlayerManager.in_event = false
 
 func _close_request(code, reason):
 	print("closed with code: ", code, " and reason: ", reason)
@@ -50,11 +58,10 @@ func _connected(proto):
 	# update our network state to connected
 	StateManager.change_network_state(StateManager.NETWORK_STATE.CONNECTED)
 	
-	emit_signal("connected")
+	# get the class
+	get_event(event_code)
 	
-	# join our event
-	join_event(event_code)
-	
+	searching_for_class = true
 
 func _closed(was_clean_close = false):
 	print('connection closed', was_clean_close)
@@ -79,12 +86,23 @@ func _on_data():
 	
 	print("server sent data: ", data)
 	# has data
-	if !data.success:
-		return
+	
+	if searching_for_class:
+		if data.data == null:
+			emit_signal("valid_class", false)
+			return
+		else:
+			join_event(event_code)
+			emit_signal("valid_class", true)
+		searching_for_class = false
+	
+	emit_signal("connected")
+			
+	#if !data.success:
+		#return
 	
 	if 'data' in data.keys() and data.data != null:
 		DataParser.parse_data(data.data)
-
 
 # ping function: ensures clients are connected. If they do not recieve a return ping within 15 seconds, they will switch to a disconnected state
 func _on_ping_timer_timeout():
@@ -132,12 +150,24 @@ func join_event(code):
 		}
 	})
 	_send_data(data)
+	
+func update_participant(code):
+	var json = JSON.new()
+	var data = json.stringify({
+		"action" : "class",
+		"op" : "join",
+		"class" : {
+			'classCode' : code,
+			'participant' : PlayerManager.player
+		}
+	})
+	_send_data(data)
 
 func get_event(code):
 	var json = JSON.new()
 	var data = json.stringify({
 		"action" : "class",
-		"op" : "list",
+		"op" : "get",
 		"class" : {
 			'classCode' : code,
 		}
@@ -145,7 +175,6 @@ func get_event(code):
 	_send_data(data)
 	
 
-	
 ### QUIZ NETWORK FUNCTIONS ###
 func start_quiz(quiz):
 	var json = JSON.new()
@@ -174,13 +203,13 @@ func save_quiz(quiz):
 	})
 	_send_data(data)
 
-func list_single_quiz(quiz):
+func list_single_quiz(quiz_title):
 	var json = JSON.new()
 	var data = json.stringify({
 		"action" : "quiz",
 		"op" : "get",
 		"quiz" : {
-			'title' : quiz.title,
+			'title' : quiz_title,
 		}
 	})
 	_send_data(data)
@@ -250,17 +279,17 @@ func update_score(score):
 	
 ### PARTICIPANT NETWORK FUNCTIONS
 func participant_joined(participant):
-	# send all clients the participant_joined action
 	var json = JSON.new()
 	var data = json.stringify({
 		"action" : "class",
-		"op" : "join",
-		"class" : {
-				"participants" : PlayerManager.player
+		"op" : "broadcast",
+		"payload" : {
+			"data" : {
+				"action" : "participant_joined",
 			}
+		}
 	})
 	_send_data(data)
-	emit_signal("participant_entered", participant)
 
 func participant_left(participant):
 	emit_signal("participant_exited", participant)

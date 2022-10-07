@@ -1,0 +1,166 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsu2ydbcwlqm"]
+
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="1_fm11r"]
+[ext_resource type="Script" path="res://scenes/components/wallet_popup.gd" id="2_6tmiq"]
+[ext_resource type="Texture2D" uid="uid://psafpad0gupl" path="res://art/ui/wallet_wizard.png" id="2_ko00o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gifxy"]
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.803922, 0.905882, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1awpv"]
+bg_color = Color(0.705882, 0.180392, 1, 1)
+
+[node name="wallet_popup" type="Control" node_paths=PackedStringArray("wallet_list", "balance", "send_status", "status_panel", "to_address", "send_amount", "send_button")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fm11r")
+script = ExtResource("2_6tmiq")
+wallet_list = NodePath("wallet_panel/address")
+balance = NodePath("wallet_panel/balance")
+send_status = NodePath("status_panel/Label")
+status_panel = NodePath("status_panel")
+to_address = NodePath("wallet_panel/to")
+send_amount = NodePath("wallet_panel/amount")
+send_button = NodePath("wallet_panel/send_button")
+
+[node name="wallet_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -456.0
+offset_top = -112.0
+offset_right = 456.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gifxy")
+
+[node name="TextureRect" type="TextureRect" parent="wallet_panel"]
+custom_minimum_size = Vector2i(32, 32)
+layout_mode = 0
+offset_left = 40.0
+offset_top = 24.0
+offset_right = 120.0
+offset_bottom = 117.0
+texture = ExtResource("2_ko00o")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="wallet_panel"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 19.0
+offset_right = 483.0
+offset_bottom = 79.0
+theme_override_font_sizes/font_size = 72
+text = "SEND TREASURE"
+
+[node name="to" type="LineEdit" parent="wallet_panel"]
+custom_minimum_size = Vector2i(400, 0)
+layout_mode = 0
+offset_left = 137.0
+offset_top = 96.0
+offset_right = 537.0
+offset_bottom = 147.0
+placeholder_text = "TO ADDRESS"
+
+[node name="amount" type="LineEdit" parent="wallet_panel"]
+custom_minimum_size = Vector2i(100, 0)
+layout_mode = 1
+offset_left = 560.0
+offset_top = 96.0
+offset_right = 668.0
+offset_bottom = 147.0
+placeholder_text = "AMOUNT"
+
+[node name="Label2" type="Label" parent="wallet_panel"]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 104.0
+offset_right = 716.0
+offset_bottom = 133.0
+text = "ETH"
+
+[node name="send_button" type="Button" parent="wallet_panel"]
+layout_mode = 0
+offset_left = 736.0
+offset_top = 96.0
+offset_right = 876.0
+offset_bottom = 147.0
+text = "SEND"
+
+[node name="Label3" type="Label" parent="wallet_panel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 164.0
+offset_right = 120.0
+offset_bottom = 193.0
+text = "WALLET:"
+
+[node name="address" type="OptionButton" parent="wallet_panel"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 160.0
+offset_right = 668.0
+offset_bottom = 196.0
+item_count = 1
+popup/item_0/text = "0x556E1fE6491036be98023B714390f1d4940Aaf45"
+popup/item_0/id = 0
+
+[node name="Label4" type="Label" parent="wallet_panel"]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 162.0
+offset_right = 768.0
+offset_bottom = 191.0
+text = "BALANCE:"
+
+[node name="balance" type="Label" parent="wallet_panel"]
+custom_minimum_size = Vector2i(60, 0)
+layout_mode = 1
+offset_left = 776.0
+offset_top = 163.0
+offset_right = 836.0
+offset_bottom = 192.0
+text = "..."
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Label5" type="Label" parent="wallet_panel"]
+layout_mode = 1
+offset_left = 840.0
+offset_top = 163.0
+offset_right = 876.0
+offset_bottom = 192.0
+text = "ETH"
+
+[node name="status_panel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1051.0
+offset_top = 377.0
+offset_right = 1219.0
+offset_bottom = 417.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1awpv")
+
+[node name="Label" type="Label" parent="status_panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 166.0
+offset_bottom = 40.0
+text = "SENDING..."
+vertical_alignment = 1

@@ -15,6 +15,7 @@ extends Control
 @export var home : String = "res://scenes/start_screen.tscn"
 @export var create_event : String = "res://scenes/create_event.tscn"
 @export var join_event : String = "res://scenes/join_event.tscn"
+@export var edit_quiz : String = "res://scenes/faculty/quiz/edit_quiz.tscn"
 
 var logged_in : bool = false
 var current_scene

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://code/score_list_item.gd" id="1_exyer"]
 [ext_resource type="Texture2D" uid="uid://48kdb7r8etr2" path="res://art/ui/quiz_icon.png" id="1_rb635"]
 
-[node name="score_list_item" type="HBoxContainer" node_paths=PackedStringArray("number", "player_name", "session_eth", "total_eth")]
+[node name="score_list_item" type="HBoxContainer" node_paths=PackedStringArray("number", "player_name", "session_eth")]
 offset_top = 68.0
 offset_right = 312.0
 offset_bottom = 94.0
@@ -11,7 +11,6 @@ script = ExtResource("1_exyer")
 number = NodePath("number")
 player_name = NodePath("name")
 session_eth = NodePath("session_eth")
-total_eth = NodePath("total_eth")
 
 [node name="number" type="Label" parent="."]
 custom_minimum_size = Vector2i(25, 0)
@@ -42,12 +41,4 @@ offset_left = 237.0
 offset_right = 362.0
 offset_bottom = 26.0
 text = ".01
-"
-
-[node name="total_eth" type="Label" parent="."]
-custom_minimum_size = Vector2i(75, 0)
-offset_left = 366.0
-offset_right = 441.0
-offset_bottom = 26.0
-text = "1.0
 "

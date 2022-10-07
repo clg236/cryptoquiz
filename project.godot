@@ -32,6 +32,8 @@ WalletOperations="*res://code/ethereum/wallet_operations.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+mouse_cursor/custom_image="res://art/ui/cursor.png"
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

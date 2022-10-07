@@ -1,25 +1,61 @@
-[gd_scene load_steps=2 format=3 uid="uid://vv7prbxwd2mx"]
+[gd_scene load_steps=8 format=3 uid="uid://vv7prbxwd2mx"]
 
 [ext_resource type="Script" path="res://code/join_event.gd" id="1_ns3n4"]
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="2_ficva"]
+[ext_resource type="Texture2D" uid="uid://d1nnckm6g8o6f" path="res://art/animated_characters/hermit_crawling.png" id="2_rryo7"]
 
-[node name="join_event" type="Control" node_paths=PackedStringArray("name_field", "event_code", "wallet_dropdown", "join_button", "cancel_button", "join_screen", "connecting_screen", "connecting_label")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_iddxv"]
+atlas = ExtResource("2_rryo7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cncdp"]
+atlas = ExtResource("2_rryo7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cbq4v"]
+animations = [{
+"frames": [SubResource("AtlasTexture_iddxv"), SubResource("AtlasTexture_cncdp")],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxj00"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="join_event" type="Control" node_paths=PackedStringArray("name_field", "event_code", "wallet_dropdown", "join_button", "cancel_button", "join_screen", "connecting_screen", "error_screen", "connecting_label", "bark_label", "retry_button")]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_ficva")
 script = ExtResource("1_ns3n4")
 name_field = NodePath("join/VBoxContainer/name_field")
-event_code = NodePath("join/VBoxContainer/event_code")
+event_code = NodePath("join/VBoxContainer/event_code_field")
 wallet_dropdown = NodePath("join/VBoxContainer/wallet_dropdown")
 join_button = NodePath("join/VBoxContainer/join_button")
 cancel_button = NodePath("join/VBoxContainer/cancel_button")
 join_screen = NodePath("join")
-connecting_screen = NodePath("connecting")
-connecting_label = NodePath("connecting/connecting_label")
+connecting_screen = NodePath("connecting_screen")
+error_screen = NodePath("error_screen")
+connecting_label = NodePath("connecting_screen/connecting_label")
+bark_label = NodePath("connecting_screen/bark")
+retry_button = NodePath("error_screen/CenterContainer/VBoxContainer/retry_button")
 
 [node name="join" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,86 +63,152 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="join"]
-offset_left = 887.0
-offset_top = 372.0
-offset_right = 1033.0
-offset_bottom = 708.0
+layout_mode = 2
+offset_left = 870.0
+offset_top = 340.0
+offset_right = 1050.0
+offset_bottom = 740.0
 
 [node name="headers" type="Label" parent="join/VBoxContainer"]
-offset_right = 146.0
-offset_bottom = 26.0
+layout_mode = 2
+offset_right = 180.0
+offset_bottom = 29.0
+theme = ExtResource("2_ficva")
 text = "JOIN AN EVENT"
 horizontal_alignment = 1
 
-[node name="name_field" type="TextEdit" parent="join/VBoxContainer"]
-offset_top = 30.0
-offset_right = 146.0
-offset_bottom = 65.0
-placeholder_text = "YOUR NAME"
-scroll_fit_content_height = true
-caret_blink = true
+[node name="name_field" type="LineEdit" parent="join/VBoxContainer"]
+layout_mode = 2
+offset_top = 33.0
+offset_right = 180.0
+offset_bottom = 76.0
+theme = ExtResource("2_ficva")
+placeholder_text = "name"
 
-[node name="event_code" type="TextEdit" parent="join/VBoxContainer"]
-offset_top = 69.0
-offset_right = 146.0
-offset_bottom = 104.0
-placeholder_text = "EVENT CODE"
-scroll_fit_content_height = true
-caret_blink = true
+[node name="event_code_field" type="LineEdit" parent="join/VBoxContainer"]
+layout_mode = 2
+offset_top = 80.0
+offset_right = 180.0
+offset_bottom = 123.0
+theme = ExtResource("2_ficva")
+placeholder_text = "event code"
 
 [node name="spacer2" type="Control" parent="join/VBoxContainer"]
 custom_minimum_size = Vector2i(0, 50)
-layout_mode = 3
+layout_mode = 2
 anchors_preset = 0
-offset_top = 108.0
-offset_right = 146.0
-offset_bottom = 158.0
+offset_top = 127.0
+offset_right = 180.0
+offset_bottom = 177.0
 
 [node name="headers2" type="Label" parent="join/VBoxContainer"]
-offset_top = 162.0
-offset_right = 146.0
-offset_bottom = 188.0
+layout_mode = 2
+offset_top = 181.0
+offset_right = 180.0
+offset_bottom = 210.0
+theme = ExtResource("2_ficva")
 text = "CHOOSE A WALLET"
 
 [node name="wallet_dropdown" type="OptionButton" parent="join/VBoxContainer"]
-offset_top = 192.0
-offset_right = 146.0
-offset_bottom = 212.0
+layout_mode = 2
+offset_top = 214.0
+offset_right = 180.0
+offset_bottom = 236.0
+theme = ExtResource("2_ficva")
 
 [node name="spacer" type="Control" parent="join/VBoxContainer"]
 custom_minimum_size = Vector2i(0, 50)
-layout_mode = 3
+layout_mode = 2
 anchors_preset = 0
-offset_top = 216.0
-offset_right = 146.0
-offset_bottom = 266.0
+offset_top = 240.0
+offset_right = 180.0
+offset_bottom = 290.0
 
 [node name="join_button" type="Button" parent="join/VBoxContainer"]
-offset_top = 270.0
-offset_right = 146.0
-offset_bottom = 301.0
+layout_mode = 2
+offset_top = 294.0
+offset_right = 180.0
+offset_bottom = 345.0
+theme = ExtResource("2_ficva")
 text = "JOIN"
 
 [node name="cancel_button" type="Button" parent="join/VBoxContainer"]
-offset_top = 305.0
-offset_right = 146.0
-offset_bottom = 336.0
+layout_mode = 2
+offset_top = 349.0
+offset_right = 180.0
+offset_bottom = 400.0
+theme = ExtResource("2_ficva")
 text = "CANCEL"
 
-[node name="connecting" type="CenterContainer" parent="."]
+[node name="connecting_screen" type="Control" parent="."]
 visible = false
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="connecting_label" type="Label" parent="connecting_screen"]
+custom_minimum_size = Vector2i(300, 0)
+layout_mode = 0
+offset_left = 72.0
+offset_top = 944.0
+offset_right = 372.0
+offset_bottom = 970.0
+theme = ExtResource("2_ficva")
+theme_override_font_sizes/font_size = 102
+text = "CONNECTING"
+
+[node name="hermit_crab" type="AnimatedSprite2D" parent="connecting_screen"]
+position = Vector2(512, 944)
+scale = Vector2(5, 5)
+frames = SubResource("SpriteFrames_cbq4v")
+playing = true
+
+[node name="bark" type="Label" parent="connecting_screen"]
+visible = false
+layout_mode = 0
+offset_left = 584.0
+offset_top = 944.0
+offset_right = 682.0
+offset_bottom = 970.0
+theme = ExtResource("2_ficva")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_lxj00")
+
+[node name="error_screen" type="Control" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="connecting_label" type="Label" parent="connecting"]
-custom_minimum_size = Vector2i(300, 0)
-offset_left = 810.0
-offset_top = 527.0
-offset_right = 1110.0
-offset_bottom = 553.0
+[node name="CenterContainer" type="CenterContainer" parent="error_screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "CONNECTING..."
+
+[node name="VBoxContainer" type="VBoxContainer" parent="error_screen/CenterContainer"]
+layout_mode = 2
+offset_left = 762.0
+offset_top = 483.0
+offset_right = 1158.0
+offset_bottom = 596.0
+
+[node name="Label" type="Label" parent="error_screen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+offset_right = 396.0
+offset_bottom = 58.0
+text = "OPPS! 
+NO EVENT WITH THAT CODE WAS FOUND."
+horizontal_alignment = 1
+
+[node name="retry_button" type="Button" parent="error_screen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+offset_top = 62.0
+offset_right = 396.0
+offset_bottom = 113.0
+text = "RETURN"
