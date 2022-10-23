@@ -85,7 +85,7 @@ func _on_edit_quiz_button_pressed():
 	UIManager.change_scene(UIManager.edit_quiz)
 
 func _on_delete_button_pressed():
-	print('deleting quiz', selected_quiz)
+	#print('deleting quiz', selected_quiz)
 	if selected_quiz.quizTitle != '':
 		NetworkManager.delete_quiz(selected_quiz.quizTitle)
 		# clear all the items

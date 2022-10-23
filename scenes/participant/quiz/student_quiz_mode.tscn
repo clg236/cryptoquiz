@@ -1,0 +1,234 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct41yjhcksxet"]
+
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="1_0jjoh"]
+[ext_resource type="Script" path="res://code/student_quiz_mode.gd" id="1_w2uy5"]
+[ext_resource type="PackedScene" uid="uid://48ghr5fgdfwe" path="res://scenes/high_score_list.tscn" id="2_jyr4q"]
+
+[node name="student_quiz_mode" type="Control" node_paths=PackedStringArray("quiz_title", "num_questions", "score", "question_title", "question_time", "question_reward", "choice_container", "submit_button", "return_button", "waiting_screen", "question_screen", "quiz_over_screen", "answer_screen", "answer_screen_text")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_0jjoh")
+script = ExtResource("1_w2uy5")
+quiz_title = NodePath("header/quiz_title")
+num_questions = NodePath("header/question_number")
+score = NodePath("header/score")
+question_title = NodePath("question_screen/center/question_container/question_title")
+question_time = NodePath("question_screen/center/question_container/question_time")
+question_reward = NodePath("question_screen/center/question_container/reward")
+choice_container = NodePath("question_screen/center/question_container/choice_container")
+submit_button = NodePath("question_screen/center/question_container/submit_button")
+return_button = NodePath("quiz_over_screen/return_button")
+waiting_screen = NodePath("waiting_screen")
+question_screen = NodePath("question_screen")
+quiz_over_screen = NodePath("quiz_over_screen")
+answer_screen = NodePath("score_screen")
+answer_screen_text = NodePath("score_screen/Panel/answer")
+
+[node name="header" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+
+[node name="question_number" type="Label" parent="header"]
+offset_right = 637.0
+offset_bottom = 29.0
+size_flags_horizontal = 3
+text = "1 OF 12"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quiz_title" type="Label" parent="header"]
+offset_left = 641.0
+offset_right = 1278.0
+offset_bottom = 29.0
+size_flags_horizontal = 3
+text = "QUIZ TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score" type="Label" parent="header"]
+offset_left = 1282.0
+offset_right = 1920.0
+offset_bottom = 29.0
+size_flags_horizontal = 3
+text = "TOTAL SCORE: 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="waiting_screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="center" type="CenterContainer" parent="waiting_screen"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="waiting_screen/center"]
+offset_right = 182.0
+offset_bottom = 62.0
+
+[node name="waiting_label" type="Label" parent="waiting_screen/center/VBoxContainer"]
+offset_right = 182.0
+offset_bottom = 29.0
+text = "WAITING..."
+
+[node name="participant_count" type="Label" parent="waiting_screen/center/VBoxContainer"]
+offset_top = 33.0
+offset_right = 182.0
+offset_bottom = 62.0
+text = "PARTICIPANTS: 30"
+
+[node name="question_screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="center" type="CenterContainer" parent="question_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="question_container" type="VBoxContainer" parent="question_screen/center"]
+offset_left = 822.0
+offset_top = 478.0
+offset_right = 1098.0
+offset_bottom = 601.0
+
+[node name="question_title" type="RichTextLabel" parent="question_screen/center/question_container"]
+offset_right = 276.0
+offset_bottom = 26.0
+bbcode_enabled = true
+text = "[center]QUESTION TITLE[/center]"
+fit_content_height = true
+
+[node name="question_time" type="ProgressBar" parent="question_screen/center/question_container"]
+offset_top = 30.0
+offset_right = 276.0
+offset_bottom = 34.0
+show_percentage = false
+
+[node name="reward" type="RichTextLabel" parent="question_screen/center/question_container"]
+offset_top = 38.0
+offset_right = 276.0
+offset_bottom = 64.0
+bbcode_enabled = true
+text = "[center] REWARD [/center]"
+fit_content_height = true
+
+[node name="choice_container" type="GridContainer" parent="question_screen/center/question_container"]
+offset_top = 68.0
+offset_right = 276.0
+offset_bottom = 68.0
+columns = 2
+
+[node name="submit_button" type="Button" parent="question_screen/center/question_container"]
+offset_top = 72.0
+offset_right = 276.0
+offset_bottom = 123.0
+text = "SUBMIT ANSWER"
+
+[node name="score_screen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="score_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="high_score_list" parent="score_screen/CenterContainer" instance=ExtResource("2_jyr4q")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Panel" type="Panel" parent="score_screen"]
+custom_minimum_size = Vector2i(0, 50)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="answer" type="Label" parent="score_screen/Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -13.0
+offset_right = 38.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CORRECT!"
+
+[node name="quiz_over_screen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="quiz_over_label" type="Label" parent="quiz_over_screen"]
+offset_left = 915.0
+offset_top = 208.0
+offset_right = 1004.0
+offset_bottom = 234.0
+text = "QUIZ OVER!"
+
+[node name="CenterContainer" type="CenterContainer" parent="quiz_over_screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="high_score_list" parent="quiz_over_screen/CenterContainer" instance=ExtResource("2_jyr4q")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_vertical = 4
+
+[node name="return_button" type="Button" parent="quiz_over_screen"]
+offset_left = 760.0
+offset_top = 840.0
+offset_right = 1160.0
+offset_bottom = 891.0
+text = "RETURN"

@@ -49,7 +49,7 @@ func _ready():
 	NetworkManager.list_single_quiz(QuizManager.quiz_title)
 
 func _on_quiz_recieved(quiz):
-	print('recieved a quiz!!!!', quiz)
+	#print('recieved a quiz!!!!', quiz)
 	# tell the faculty that we're ready for the quiz
 	for participant in ParticipantManager.participants.participants:
 		if ParticipantManager.participants.participants[participant].role == 'facilitator':
@@ -75,16 +75,16 @@ func populate_question():
 	question_title.text = current_question.title
 	question_reward.text = 'REWARD: ' + str(current_question.reward)
 	for answer in current_question.answers:
-		print('answer in current answers: ', answer)
+		#print('answer in current answers: ', answer)
 		var a = answer_scene.instantiate()
 		choice_container.add_child(a)
-		a.text = '[center]' + answer.title + '[/center]'
+		a.text = '[center]' + answer.answer + '[/center]'
 		a.connect("answer_chosen", _on_answer_chosen)
 	# start the timer
 	question_timer = Timer.new()
 	add_child(question_timer)
-	question_timer.wait_time = current_question.time
-	question_time.max_value = current_question.time
+	question_timer.wait_time = current_question.time.to_float()
+	question_time.max_value = current_question.time.to_float()
 	question_timer.start()
 	question_timer.one_shot = true
 	question_timer.connect('timeout', _on_question_timer_timeout)

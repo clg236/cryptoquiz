@@ -12,8 +12,8 @@ func _ready():
 	
 	# we are faculty, so set it
 	PlayerManager.player.role = 'facilitator'
-	get_participants_button.connect('pressed', _get_participants)
 	Header.connect('menu_changed', _on_menu_changed)
+	Header.connect('end_class', _on_class_ended)
 
 	# join our event one time and tell everyone we did. hax
 	if !PlayerManager.in_event:
@@ -44,29 +44,27 @@ func _on_menu_changed(item):
 			classes.visible = false
 			quizzes.visible = false
 			participants.visible = false
-			financials.visible = false
+
 		'CLASSES':
 			home.visible = false
 			classes.visible = true
 			quizzes.visible = false
 			participants.visible = false
-			financials.visible = false
+
 		'QUIZZES':
 			home.visible = false
 			classes.visible = false
 			quizzes.visible = true
 			participants.visible = false
-			financials.visible = false
+
 		'PARTICIPANTS':
 			home.visible = false
 			classes.visible = false
 			quizzes.visible = false
 			participants.visible = true
-			financials.visible = false
-		'FINANCIALS':
-			home.visible = false
-			classes.visible = false
-			quizzes.visible = false
-			participants.visible = false
-			financials.visible = true
 
+func _on_class_ended():
+	home.visible = false
+	classes.visible = false
+	quizzes.visible = false
+	participants.visible = true

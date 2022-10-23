@@ -11,10 +11,12 @@ func _ready():
 	DataParser.connect("class_created", _on_class_created)
 
 func _on_class_list_recieved(clazz):
-	print('got a class list: ', clazz)
+	pass
+	# print('got a class list: ', clazz)
 	
 func _on_class_created(clazz):
-	print('class created successfully: ', clazz)
+	pass
+	# print('class created successfully: ', clazz)
 	# update our class list
 	
 

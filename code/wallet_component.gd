@@ -38,7 +38,7 @@ func read_wallet_directory():
 		elif not file.begins_with('.'):
 			# read the file
 			var account = File.new()
-			print(file)
+			#print(file)
 			var error = account.open('res://Wallets/' + file,File.READ)
 			if error != OK:
 				printerr("Couldn't open file for read: %s, error code: %s." % [file, error])

@@ -15,7 +15,7 @@ func _create_wallet():
 	# show our create wallet dialogue
 	create_wallet_dialogue.visible = true
 	var result = create_wallet.createWallet('password')
-	print(result)
+	# print(result)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

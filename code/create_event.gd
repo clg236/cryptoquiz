@@ -71,6 +71,8 @@ func read_wallet_directory():
 
 func _on_join_button_pressed():
 	
+	PlayerManager.player.role = 'facilitator'
+	
 	# selected wallet
 	var selected_wallet = wallet_dropdown.selected
 	
@@ -98,6 +100,7 @@ func _on_join_button_pressed():
 
 func _on_network_connected():
 	# create the event
+	PlayerManager.player.role = 'facilitator'
 	NetworkManager.create_event(event_code.text, event_name.text)
 	connected = true
 	UIManager.change_scene(UIManager.faculty_app)

@@ -4,12 +4,9 @@ var quiz = {
 	'title' : 'test quiz'
 }
 
-@export var start_button : Button
 @export var home : Control
 @export var classes : Control
 @export var wallet : Control
-@export var get_quiz_button : Button
-@export var start_quiz_button : Button
 
 func _ready():
 	
@@ -27,13 +24,7 @@ func _ready():
 	
 	# when we recieve the ready_quiz broadcast, we'll switch to quiz mode
 	DataParser.connect("ready_quiz", _on_ready_quiz_recieved)
-	get_quiz_button.connect('pressed', _on_get_quiz_button_pressed)
-	start_quiz_button.connect('pressed', _on_start_quiz_button_pressed)
 	
-	
-	# if this is the first time we are here, register ourselves with the server and other clients
-	# NetworkManager.participant_joined(PlayerManager.player)
-	# NetworkManager.broadcast_to_individual('0x7e37Ddc63dF45172F22DFB9C08f0C41912F74d96', 'hello!')
 	StateManager.connect("game_state_changed", _on_game_state_changed)
 	StateManager.connect("network_state_changed", _on_network_state_changed)
 	
@@ -56,8 +47,6 @@ func _on_menu_changed(item):
 	
 func _on_game_state_changed(state):
 	pass
-	#if state == StateManager.GAME_STATE.QUIZ:
-		#UIManager.change_scene(UIManager.student_quiz_countdown)
 
 func _on_network_state_changed(state):
 	pass

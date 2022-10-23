@@ -64,12 +64,12 @@ func _ready():
 	NetworkManager.list_single_quiz(QuizManager.quiz_title)
 
 func _on_quiz_recieved(quiz):
-	print('recieved a quiz: ', quiz)
+	# print('recieved a quiz: ', quiz)
 	ready_to_quiz = true
 	QuizManager.current_quiz = quiz
 	
 func _on_start_quiz_pressed():
-	print('pressed!')
+	# print('pressed!')
 	if ready_to_quiz:
 		# send all participants the start_quiz broadcast
 		for participant in ParticipantManager.participants.participants:
@@ -95,7 +95,7 @@ func _on_participant_ready(participant):
 			ready_participant_container.add_child(p)
 			p.participant_name.text = ParticipantManager.participants.participants[participant].name
 			p.participant_address.text = participant
-	print('a participanty is ready: ', participant)
+	# print('a participanty is ready: ', participant)
 	
 	# remove the corresponding participant from our not ready container
 	for not_ready in not_ready_participant_container.get_children():
@@ -112,15 +112,16 @@ func populate_question():
 	question_title.text = current_question.title
 	question_reward.text = 'REWARD: ' + str(current_question.reward)
 	for answer in current_question.answers:
-		print('answer in current answers: ', answer)
+		#print('answer in current answers: ', answer)
 		var a = answer_scene.instantiate()
 		choice_container.add_child(a)
-		a.text = '[center]' + answer.title + '[/center]'
+		#print('answer: ', answer)
+		a.text = '[center]' + answer.answer + '[/center]'
 	# start the timer
 	question_timer = Timer.new()
 	add_child(question_timer)
-	question_timer.wait_time = current_question.time
-	question_time.max_value = current_question.time
+	question_timer.wait_time = current_question.time.to_float()
+	question_time.max_value = current_question.time.to_float()
 	question_timer.start()
 	question_timer.one_shot = true
 	question_timer.connect('timeout', _on_question_timer_timeout)

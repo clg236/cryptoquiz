@@ -10,6 +10,8 @@ signal joined_class()
 signal participant_joined()
 signal ready_quiz(quiz)
 signal participant_ready(participant)
+signal hand_raised(participant)
+signal comment_recieved(comment, participant)
 
 func parse_data(data):
 	#var data_size = data.values()
@@ -34,7 +36,11 @@ func parse_data(data):
 			emit_signal("class_recieved", data)
 			# keep our participant data in sync
 			ParticipantManager.participants = data
-			
+		'raise_hand':
+			emit_signal("hand_raised", data.value, data.participant)
+		'send_comment':
+			emit_signal("comment_recieved", data.comment, data.name)
+
 		## QUIZ FUNCTIONS
 		'quiz-list':
 			emit_signal("quiz_recieved", data.Items)
@@ -47,10 +53,8 @@ func parse_data(data):
 		'start_quiz':
 			StateManager.change_game_state(StateManager.GAME_STATE.QUIZ)
 			emit_signal("start_quiz")
-			
 		'send_quiz_participant':
 			emit_signal("quiz_participant_recieved", data.participant)
-			
 		'update_score':
 			emit_signal("quiz_score_updated", data.participant, data.score)
 	

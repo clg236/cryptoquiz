@@ -8,6 +8,7 @@ extends Control
 @export var to_address : LineEdit
 @export var send_amount : LineEdit
 @export var send_button : Button
+@export var close_button : Button
 
 var wallets
 var selected_balance
@@ -23,6 +24,7 @@ func _ready():
 		wallet_list.add_item(wallet.address)
 	wallet_list.connect("item_selected",_on_wallet_selected)
 	send_button.connect("pressed", _on_send_button_pressed)
+	close_button.connect("pressed", _on_close_button_pressed)
 	
 func read_wallet_directory():
 	var accounts = []
@@ -38,7 +40,7 @@ func read_wallet_directory():
 		elif not file.begins_with('.'):
 			# read the file
 			var account = File.new()
-			print(file)
+			#print(file)
 			var error = account.open('res://Wallets/' + file,File.READ)
 			if error != OK:
 				printerr("Couldn't open file for read: %s, error code: %s." % [file, error])
@@ -76,3 +78,5 @@ func _on_send_button_pressed():
 	send_status.text = 'sending...'
 	WalletOperations.wallet_operations.sendEther(wallets[selected_index].privateKey, to_address.text, send_amount.text.to_float())
 		
+func _on_close_button_pressed():
+	visible = false

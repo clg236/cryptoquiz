@@ -11,4 +11,3 @@ func _on_quiz_participants_recieved(participants):
 	for participant in QuizManager.quiz_info.participants:
 		if participant.name != '':
 			item_list.add_item(participant.name) # add their avatar later too
-	

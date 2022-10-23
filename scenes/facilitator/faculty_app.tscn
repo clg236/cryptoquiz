@@ -1,0 +1,471 @@
+[gd_scene load_steps=9 format=3 uid="uid://05t7yps045d0"]
+
+[ext_resource type="Script" path="res://code/faculty_app.gd" id="1_4radf"]
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="1_phtxo"]
+[ext_resource type="PackedScene" uid="uid://bayljkqutpa4d" path="res://scenes/components/participants_list.tscn" id="2_a8usr"]
+[ext_resource type="Texture2D" uid="uid://d3dr1lukrkfok" path="res://art/ui/students_icon.png" id="2_qv1a0"]
+[ext_resource type="PackedScene" uid="uid://cx0mijbgc4p32" path="res://scenes/facilitator/quiz/list_quizzes.tscn" id="2_rx7yi"]
+[ext_resource type="Script" path="res://scenes/facilitator/hand_raised_container.gd" id="3_mill4"]
+[ext_resource type="Script" path="res://scenes/facilitator/comment_panel.gd" id="4_ev3ny"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01sre"]
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+
+[node name="faculty_app" type="Control" node_paths=PackedStringArray("home", "classes", "quizzes", "participants", "financials", "get_participants_button")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_phtxo")
+script = ExtResource("1_4radf")
+home = NodePath("home")
+classes = NodePath("classes")
+quizzes = NodePath("quizzes")
+participants = NodePath("participants")
+financials = NodePath("financials")
+get_participants_button = NodePath("")
+
+[node name="home" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 112.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="home"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="home/MarginContainer"]
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1895.0
+offset_bottom = 871.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="home/MarginContainer/HBoxContainer"]
+offset_right = 933.0
+offset_bottom = 846.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="home/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_right = 933.0
+offset_bottom = 29.0
+text = "SUMMONED!"
+horizontal_alignment = 1
+
+[node name="hand_raised_container" type="CenterContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("participant_container")]
+offset_top = 33.0
+offset_right = 933.0
+offset_bottom = 846.0
+size_flags_vertical = 3
+script = ExtResource("3_mill4")
+participant_container = NodePath("ScrollContainer/GridContainer")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer/hand_raised_container"]
+custom_minimum_size = Vector2i(800, 800)
+offset_left = 66.0
+offset_top = 6.0
+offset_right = 866.0
+offset_bottom = 806.0
+
+[node name="GridContainer" type="GridContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer/hand_raised_container/ScrollContainer"]
+columns = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="home/MarginContainer/HBoxContainer"]
+offset_left = 937.0
+offset_right = 1870.0
+offset_bottom = 846.0
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+
+[node name="yes_panel" type="Panel" parent="home/MarginContainer/HBoxContainer/VBoxContainer2"]
+offset_right = 933.0
+offset_bottom = 248.0
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_01sre")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/yes_panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/yes_panel/VBoxContainer"]
+offset_right = 933.0
+offset_bottom = 29.0
+alignment = 1
+
+[node name="yes_label" type="Label" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/yes_panel/VBoxContainer/HBoxContainer"]
+offset_left = 420.0
+offset_right = 456.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "YES"
+
+[node name="yes_count" type="Label" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/yes_panel/VBoxContainer/HBoxContainer"]
+offset_left = 460.0
+offset_right = 472.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "5"
+
+[node name="yes_percent" type="Label" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/yes_panel/VBoxContainer/HBoxContainer"]
+offset_left = 476.0
+offset_right = 512.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "50%"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/yes_panel/VBoxContainer"]
+offset_top = 33.0
+offset_right = 933.0
+offset_bottom = 248.0
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/yes_panel/VBoxContainer/ScrollContainer"]
+offset_right = 933.0
+offset_bottom = 215.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="yes_container" type="GridContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/yes_panel/VBoxContainer/ScrollContainer/CenterContainer"]
+offset_left = 466.0
+offset_top = 107.0
+offset_right = 466.0
+offset_bottom = 107.0
+columns = 3
+
+[node name="no_panel" type="Panel" parent="home/MarginContainer/HBoxContainer/VBoxContainer2"]
+offset_top = 298.0
+offset_right = 933.0
+offset_bottom = 547.0
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_01sre")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/no_panel"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="no_label" type="Label" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/no_panel/HBoxContainer"]
+offset_left = 426.0
+offset_right = 450.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "NO"
+
+[node name="no_count" type="Label" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/no_panel/HBoxContainer"]
+offset_left = 454.0
+offset_right = 466.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "5"
+
+[node name="no_percent" type="Label" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/no_panel/HBoxContainer"]
+offset_left = 470.0
+offset_right = 506.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "50%"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/no_panel"]
+offset_top = 33.0
+offset_right = 933.0
+offset_bottom = 310.0
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/no_panel/ScrollContainer"]
+offset_right = 933.0
+offset_bottom = 277.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="no_container" type="GridContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/no_panel/ScrollContainer/CenterContainer"]
+offset_left = 466.0
+offset_top = 138.0
+offset_right = 466.0
+offset_bottom = 138.0
+columns = 3
+
+[node name="comment_panel" type="Panel" parent="home/MarginContainer/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("comment_container")]
+offset_top = 597.0
+offset_right = 933.0
+offset_bottom = 846.0
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_01sre")
+script = ExtResource("4_ev3ny")
+comment_container = NodePath("ScrollContainer/VBoxContainer")
+
+[node name="Label" type="Label" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/comment_panel"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "COMMENTS"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/comment_panel"]
+offset_left = 22.0
+offset_top = 33.0
+offset_right = 918.0
+offset_bottom = 226.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="home/MarginContainer/HBoxContainer/VBoxContainer2/comment_panel/ScrollContainer"]
+offset_right = 896.0
+size_flags_horizontal = 3
+
+[node name="classes" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="class_list" type="Control" parent="classes"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="class_list_panel" type="Panel" parent="classes/class_list"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.5
+offset_top = -96.0
+offset_right = 285.5
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="classes/class_list/class_list_panel"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "CLASSES"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="classes/class_list/class_list_panel"]
+offset_left = 8.0
+offset_top = 30.0
+offset_right = 568.0
+offset_bottom = 184.0
+
+[node name="class_list" type="VBoxContainer" parent="classes/class_list/class_list_panel/ScrollContainer"]
+offset_right = 673.0
+offset_bottom = 92.0
+
+[node name="header" type="HBoxContainer" parent="classes/class_list/class_list_panel/ScrollContainer/class_list"]
+offset_right = 673.0
+offset_bottom = 29.0
+
+[node name="name" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/header"]
+custom_minimum_size = Vector2i(200, 0)
+offset_right = 200.0
+offset_bottom = 29.0
+text = "CLASS NAME"
+
+[node name="participants" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/header"]
+custom_minimum_size = Vector2i(150, 0)
+offset_left = 204.0
+offset_right = 354.0
+offset_bottom = 29.0
+text = "PARTICIPANTS"
+
+[node name="# online" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/header"]
+offset_left = 358.0
+offset_right = 430.0
+offset_bottom = 29.0
+text = "ONLINE"
+
+[node name="HSeparator" type="HSeparator" parent="classes/class_list/class_list_panel/ScrollContainer/class_list"]
+offset_top = 33.0
+offset_right = 673.0
+offset_bottom = 37.0
+
+[node name="class_item" type="HBoxContainer" parent="classes/class_list/class_list_panel/ScrollContainer/class_list"]
+offset_top = 41.0
+offset_right = 673.0
+offset_bottom = 92.0
+theme_override_constants/separation = 4
+
+[node name="name" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
+custom_minimum_size = Vector2i(200, 0)
+offset_top = 11.0
+offset_right = 200.0
+offset_bottom = 40.0
+tooltip_text = "Technology Fundamentals - UB101"
+mouse_filter = 1
+text = "Technology Fundamentals"
+text_overrun_behavior = 3
+
+[node name="participants" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
+custom_minimum_size = Vector2i(150, 0)
+offset_left = 204.0
+offset_top = 11.0
+offset_right = 354.0
+offset_bottom = 40.0
+text = "50"
+
+[node name="# online" type="Label" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
+offset_left = 358.0
+offset_top = 11.0
+offset_right = 382.0
+offset_bottom = 40.0
+text = "24"
+
+[node name="TextureRect" type="TextureRect" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
+offset_left = 386.0
+offset_right = 400.0
+offset_bottom = 51.0
+texture = ExtResource("2_qv1a0")
+stretch_mode = 5
+
+[node name="spacer" type="Control" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
+custom_minimum_size = Vector2i(50, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 404.0
+offset_right = 454.0
+offset_bottom = 51.0
+
+[node name="edit_class_button" type="Button" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
+offset_left = 458.0
+offset_right = 554.0
+offset_bottom = 51.0
+text = "EDIT"
+
+[node name="start_class_button" type="Button" parent="classes/class_list/class_list_panel/ScrollContainer/class_list/class_item"]
+offset_left = 558.0
+offset_right = 673.0
+offset_bottom = 51.0
+text = "START"
+
+[node name="create_class" type="HBoxContainer" parent="classes/class_list"]
+offset_left = -285.0
+offset_top = 116.0
+offset_right = 286.0
+offset_bottom = 156.0
+
+[node name="class_name_field" type="TextEdit" parent="classes/class_list/create_class"]
+custom_minimum_size = Vector2i(200, 0)
+offset_right = 200.0
+offset_bottom = 51.0
+placeholder_text = "CLASS NAME"
+scroll_fit_content_height = true
+
+[node name="class_code_field" type="TextEdit" parent="classes/class_list/create_class"]
+custom_minimum_size = Vector2i(150, 0)
+offset_left = 204.0
+offset_right = 354.0
+offset_bottom = 51.0
+placeholder_text = "CLASS CODE"
+scroll_fit_content_height = true
+
+[node name="spacer" type="Control" parent="classes/class_list/create_class"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 358.0
+offset_right = 358.0
+offset_bottom = 51.0
+size_flags_horizontal = 3
+
+[node name="create_class_button" type="Button" parent="classes/class_list/create_class"]
+offset_left = 362.0
+offset_right = 721.0
+offset_bottom = 51.0
+text = "CREATE A NEW CLASS"
+
+[node name="quizzes" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="quizzes"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="list_quizzes" parent="quizzes/CenterContainer" instance=ExtResource("2_rx7yi")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="participants" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="participants_list" parent="participants" instance=ExtResource("2_a8usr")]
+
+[node name="financials" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="financials"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="financials/CenterContainer"]
+offset_left = 859.0
+offset_top = 525.0
+offset_right = 1061.0
+offset_bottom = 554.0
+text = "FINANCIALS SCREEN"

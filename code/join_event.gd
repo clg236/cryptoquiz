@@ -63,7 +63,7 @@ func read_wallet_directory():
 		elif not file.begins_with('.'):
 			# read the file
 			var account = File.new()
-			print(file)
+			#print(file)
 			var error = account.open('res://Wallets/' + file,File.READ)
 			if error != OK:
 				printerr("Couldn't open file for read: %s, error code: %s." % [file, error])
@@ -84,6 +84,8 @@ func _on_join_button_pressed():
 	var selected_wallet = wallet_dropdown.selected
 	# update the player
 	PlayerManager.player.name = name_field.text
+	
+	PlayerManager.player.role = 'participant'
 	
 	# set the players eth address to the selected address
 	PlayerManager.player.eth_address = accounts[selected_wallet].address
@@ -128,7 +130,9 @@ func _on_valid_class(result):
 func _on_class_joined():
 	connected = true
 	PlayerManager.in_event = true
-	PlayerManager.player.event_code = event_code.text
+	PlayerManager.player.role = 'participant'
+	print('setting participant')
+	NetworkManager.update_participant(event_code.text)
 	UIManager.change_scene(UIManager.student_app)
 	
 func _on_cancel_button_pressed():

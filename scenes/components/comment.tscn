@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://i32wbd55qb6n"]
+
+[ext_resource type="Script" path="res://scenes/components/comment.gd" id="1_pvpje"]
+
+[node name="comment" type="HBoxContainer" node_paths=PackedStringArray("participant_name", "comment_text")]
+offset_right = 896.0
+offset_bottom = 58.0
+script = ExtResource("1_pvpje")
+participant_name = NodePath("participant_name")
+comment_text = NodePath("comment_text")
+
+[node name="participant_name" type="Label" parent="."]
+offset_right = 92.0
+offset_bottom = 26.0
+size_flags_vertical = 0
+text = "CHRISTIAN: "
+
+[node name="comment_text" type="Label" parent="."]
+offset_left = 96.0
+offset_top = 3.0
+offset_right = 424.0
+offset_bottom = 55.0
+text = "THIS IS VERY INTERESTING
+I WONDER WHAT A NEW LINE LOOKS LIKE?"

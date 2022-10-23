@@ -24,9 +24,8 @@ public partial class wallet_operations : Node
         var etherAmount = Web3.Convert.FromWei(balance.Value);
         walletOperations.Call("set_balance", (double)etherAmount);
     });
-
     }
-
+    
     // send ether
     public void sendEther(string key, string to, float amount)
     {
@@ -41,10 +40,14 @@ public partial class wallet_operations : Node
             var account = new Account(privateKey);
             var web3 = new Web3(account, network);
             var toAddress = to;
-            var transaction = await web3.Eth.GetEtherTransferService()
-                .TransferEtherAndWaitForReceiptAsync(to, convertedAmount); //amount: .1m
-            walletOperations.Call("send_ether");
-            GD.Print(transaction);
+            try {
+                var transaction = await web3.Eth.GetEtherTransferService()
+                .TransferEtherAndWaitForReceiptAsync(to, convertedAmount);
+                walletOperations.Call("send_ether");
+            } catch (Exception e) 
+            {
+                GD.Print(e);
+            }
     });
 
     }

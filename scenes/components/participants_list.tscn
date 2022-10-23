@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bayljkqutpa4d"]
+[gd_scene load_steps=5 format=3 uid="uid://bayljkqutpa4d"]
 
 [ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="1_017km"]
 [ext_resource type="Script" path="res://scenes/components/participants_list.gd" id="1_vw63r"]
@@ -7,7 +7,19 @@
 content_margin_left = 15.0
 bg_color = Color(0.101961, 0.639216, 0.764706, 1)
 
-[node name="participants_list" type="Control" node_paths=PackedStringArray("participant_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6vcj"]
+bg_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 25.0
+expand_margin_top = 25.0
+expand_margin_right = 25.0
+expand_margin_bottom = 25.0
+
+[node name="participants_list" type="Control" node_paths=PackedStringArray("participant_container", "payout_all_button", "confirm_pay_button", "confirmation_panel", "wallet_listing", "confirmed_amount", "wallet_balance")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -16,8 +28,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("1_017km")
 script = ExtResource("1_vw63r")
 participant_container = NodePath("CenterContainer/VBoxContainer/ScrollContainer/VBoxContainer")
+payout_all_button = NodePath("CenterContainer/VBoxContainer/HBoxContainer/payout_button")
+confirm_pay_button = NodePath("CenterContainer/confirmation_panel/VBoxContainer/confirm_payment")
+confirmation_panel = NodePath("CenterContainer/confirmation_panel")
+wallet_listing = NodePath("CenterContainer/confirmation_panel/VBoxContainer/wallet")
+confirmed_amount = NodePath("CenterContainer/confirmation_panel/VBoxContainer/total_amount")
+wallet_balance = NodePath("CenterContainer/confirmation_panel/VBoxContainer/balance")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -28,9 +47,9 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 offset_left = 410.0
-offset_top = 257.0
+offset_top = 229.0
 offset_right = 1510.0
-offset_bottom = 823.0
+offset_bottom = 850.0
 
 [node name="header" type="Label" parent="CenterContainer/VBoxContainer"]
 offset_right = 1100.0
@@ -82,3 +101,72 @@ offset_bottom = 566.0
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/ScrollContainer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+offset_top = 570.0
+offset_right = 1100.0
+offset_bottom = 621.0
+alignment = 2
+
+[node name="payout_button" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+offset_left = 649.0
+offset_right = 1100.0
+offset_bottom = 51.0
+text = "PAYOUT ALL PARTICIPANTS"
+
+[node name="confirmation_panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2i(650, 200)
+offset_left = 635.0
+offset_top = 440.0
+offset_right = 1285.0
+offset_bottom = 640.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_t6vcj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/confirmation_panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="header" type="Label" parent="CenterContainer/confirmation_panel/VBoxContainer"]
+offset_right = 650.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "PAYOUT ALL PARTICIPANTS"
+horizontal_alignment = 1
+
+[node name="total_amount" type="Label" parent="CenterContainer/confirmation_panel/VBoxContainer"]
+offset_top = 33.0
+offset_right = 650.0
+offset_bottom = 62.0
+grow_horizontal = 2
+text = "TOTAL AMOUNT: "
+horizontal_alignment = 1
+
+[node name="wallet" type="OptionButton" parent="CenterContainer/confirmation_panel/VBoxContainer"]
+offset_top = 66.0
+offset_right = 650.0
+offset_bottom = 88.0
+
+[node name="balance" type="Label" parent="CenterContainer/confirmation_panel/VBoxContainer"]
+offset_top = 92.0
+offset_right = 650.0
+offset_bottom = 121.0
+grow_horizontal = 2
+text = "BALANCE: "
+horizontal_alignment = 1
+
+[node name="spacer" type="Control" parent="CenterContainer/confirmation_panel/VBoxContainer"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 125.0
+offset_right = 650.0
+offset_bottom = 145.0
+size_flags_vertical = 3
+
+[node name="confirm_payment" type="Button" parent="CenterContainer/confirmation_panel/VBoxContainer"]
+offset_top = 149.0
+offset_right = 650.0
+offset_bottom = 200.0
+text = "PAY"

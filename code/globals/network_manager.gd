@@ -5,7 +5,7 @@ var _client = WebSocketClient.new()
 var event_code
 
 var timeout_timer = Timer.new()
-
+var is_connected : bool = false
 
 # signals
 signal participant_entered(participant)
@@ -36,10 +36,12 @@ func connect_to_server(code):
 func disconnect_from_server():
 	_client.disconnect_from_host()
 	PlayerManager.in_event = false
+	is_connected = false
 
 func _close_request(code, reason):
 	print("closed with code: ", code, " and reason: ", reason)
 	StateManager.change_network_state(StateManager.NETWORK_STATE.CLOSED)
+	is_connected = false
 
 func _connected(proto):
 	print('connected to server!', proto)
@@ -58,6 +60,8 @@ func _connected(proto):
 	# update our network state to connected
 	StateManager.change_network_state(StateManager.NETWORK_STATE.CONNECTED)
 	
+	is_connected = true
+	
 	# get the class
 	get_event(event_code)
 	
@@ -66,6 +70,7 @@ func _connected(proto):
 func _closed(was_clean_close = false):
 	print('connection closed', was_clean_close)
 	StateManager.change_network_state(StateManager.NETWORK_STATE.CLOSED)
+	is_connected = false
 	
 func _process(_delta):
 	_client.poll()
@@ -123,9 +128,46 @@ func _on_timeout_timer_timeout():
 	StateManager.change_network_state(StateManager.NETWORK_STATE.DISCONNECTED)
 
 func _send_data(data):
-	# print('sending data: ', data)
-	_client.get_peer(1).put_packet(data.to_ascii_buffer())
+	if is_connected:
+		# print('sending data: ', data)
+		_client.get_peer(1).put_packet(data.to_ascii_buffer())
 	
+	
+### PARTICIPANT NETWORK FUNCTIONS ###
+func raise_hand(value, facilitator):
+	var json = JSON.new()
+	var data = json.stringify({
+		"action" : "class",
+		"op" : "broadcast",
+		"payload" : {
+			"data" : {
+				"action" : "raise_hand",
+				"value" : value,
+				"participant" : PlayerManager.player
+			},
+		},
+		"participants" : [facilitator]
+	})
+	_send_data(data)
+
+
+func send_comment(comment, facilitator):
+	var json = JSON.new()
+	var data = json.stringify({
+		"action" : "class",
+		"op" : "broadcast",
+		"payload" : {
+			"data" : {
+				"action" : "send_comment",
+				"comment" : comment,
+				"name" : PlayerManager.player.name
+			},
+		},
+		"participants" : [facilitator]
+	})
+	_send_data(data)
+
+
 ### CLASS NETWORK FUNCTIONS ###
 func create_event(code, title):
 	var json = JSON.new()

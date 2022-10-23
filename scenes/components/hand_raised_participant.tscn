@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://80e64ofquwo7"]
+
+[ext_resource type="Texture2D" uid="uid://psafpad0gupl" path="res://art/ui/wallet_wizard.png" id="1_hiudc"]
+[ext_resource type="Script" path="res://scenes/components/hand_raised_participant.gd" id="1_jyu6c"]
+
+[node name="participant" type="VBoxContainer" node_paths=PackedStringArray("avatar_button", "name_label")]
+texture_filter = 1
+offset_right = 252.0
+offset_bottom = 97.0
+script = ExtResource("1_jyu6c")
+avatar_button = NodePath("avatar_button")
+name_label = NodePath("name_label")
+
+[node name="avatar_button" type="TextureButton" parent="."]
+custom_minimum_size = Vector2i(64, 64)
+offset_right = 252.0
+offset_bottom = 64.0
+texture_normal = ExtResource("1_hiudc")
+texture_pressed = ExtResource("1_hiudc")
+texture_hover = ExtResource("1_hiudc")
+stretch_mode = 5
+
+[node name="name_label" type="Label" parent="."]
+offset_top = 68.0
+offset_right = 252.0
+offset_bottom = 94.0
+text = "CHRISTIAN GREWELL III"
+horizontal_alignment = 1

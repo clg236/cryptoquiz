@@ -5,17 +5,18 @@ extends Control
 
 ### SCENES ###
 @export var start_page: String = "res://scenes/start_screen.tscn"
-@export var faculty_app: String = "res://scenes/faculty/faculty_app.tscn"
-@export var student_app: String = "res://scenes/student/student_app.tscn"
-@export var faculty_quiz_mode : String = "res://scenes/faculty/quiz/faculty_quiz_mode.tscn"
-@export var student_quiz_countdown : String = "res://scenes/student/quiz/student_quiz_countdown.tscn"
-@export var student_quiz_mode : String = "res://scenes/student/quiz/student_quiz_mode.tscn"
-@export var student_quiz_complete : String = "res://scenes/student/quiz/student_quiz_complete.tscn"
+@export var faculty_app: String = "res://scenes/facilitator/faculty_app.tscn"
+@export var student_app: String = "res://scenes/participant/student_app.tscn"
+@export var faculty_quiz_mode : String = "res://scenes/facilitator/quiz/faculty_quiz_mode.tscn"
+@export var student_quiz_countdown : String = "res://scenes/participant/quiz/student_quiz_countdown.tscn"
+@export var student_quiz_mode : String = "res://scenes/participant/quiz/student_quiz_mode.tscn"
+@export var student_quiz_complete : String = "res://scenes/participant/quiz/student_quiz_complete.tscn"
 @export var registration : String = "res://scenes/registration.tscn"
 @export var home : String = "res://scenes/start_screen.tscn"
 @export var create_event : String = "res://scenes/create_event.tscn"
 @export var join_event : String = "res://scenes/join_event.tscn"
-@export var edit_quiz : String = "res://scenes/faculty/quiz/edit_quiz.tscn"
+@export var edit_quiz : String = "res://scenes/facilitator/quiz/edit_quiz.tscn"
+@export var payout_scene : String = "res://scenes/facilitator/payout.tscn"
 
 var logged_in : bool = false
 var current_scene

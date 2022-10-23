@@ -65,11 +65,11 @@ func _on_save_quiz_button_pressed():
 					'correct' : child.correct_4.is_pressed()
 					}
 				answers.append(answer)
-				
+			
 			var question = {
 				'title' : question_title,
-				'time' : int(question_time),
-				'reward' : float(question_reward),
+				'time' : question_time,
+				'reward' : question_reward,
 				'answers' : answers
 			}
 			questions.append(question)

@@ -1,0 +1,327 @@
+[gd_scene load_steps=18 format=3 uid="uid://ch33c218o3c77"]
+
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="1_iufq5"]
+[ext_resource type="Script" path="res://code/student_app.gd" id="2_85vr6"]
+[ext_resource type="Script" path="res://code/wallet_component.gd" id="3_7pxn7"]
+[ext_resource type="Script" path="res://scenes/participant/home.gd" id="4_l3pj3"]
+[ext_resource type="Texture2D" uid="uid://dyeaupeyx2b5x" path="res://art/stars/Star 31.png" id="4_v7ytp"]
+[ext_resource type="Texture2D" uid="uid://bga420qd4ttrf" path="res://art/stars/Star 13.png" id="5_oourg"]
+[ext_resource type="Texture2D" uid="uid://j045oflbcmf1" path="res://art/ui/logo.png" id="6_pgdim"]
+[ext_resource type="Texture2D" uid="uid://d153gijdbmjfs" path="res://art/ui/student_icons/button_background.png" id="7_fc3v3"]
+[ext_resource type="Texture2D" uid="uid://biyuc8esmorp1" path="res://art/ui/student_icons/button_background_pressed.png" id="8_h0v2n"]
+[ext_resource type="Texture2D" uid="uid://b44hvudo7n7km" path="res://art/ui/student_icons/button_background_hover.png" id="9_rff7b"]
+[ext_resource type="Texture2D" uid="uid://psafpad0gupl" path="res://art/ui/wallet_wizard.png" id="10_546im"]
+[ext_resource type="Texture2D" uid="uid://c8a0gy64f7j0d" path="res://art/ui/send_message_normal.png" id="11_eoufy"]
+[ext_resource type="Texture2D" uid="uid://dkoem41n7uq83" path="res://art/ui/home_icon.png" id="12_aybw8"]
+[ext_resource type="Texture2D" uid="uid://bjtp7631tqrt2" path="res://art/ui/send_message_pressed.png" id="12_qc0iq"]
+[ext_resource type="Texture2D" uid="uid://bdcvr1lxtsasf" path="res://art/ui/open_trash.png" id="13_3q8bk"]
+[ext_resource type="Texture2D" uid="uid://dklsisai22re0" path="res://art/ui/send_message_hover.png" id="13_m46uj"]
+
+[sub_resource type="Curve" id="Curve_2ilid"]
+_data = [Vector2(0.149137, 0), 0.0, 0.0, 0, 0, Vector2(0.403454, 0.993865), 0.0, 0.0, 0, 0, Vector2(0.717425, 1), 0.0, 0.0, 0, 0, Vector2(0.99843, 0.0368098), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="student_app" type="Control" node_paths=PackedStringArray("home", "classes", "wallet")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_iufq5")
+script = ExtResource("2_85vr6")
+home = NodePath("home")
+classes = NodePath("classes")
+wallet = NodePath("wallet")
+
+[node name="wallet" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="wallet_component" type="Control" parent="wallet" node_paths=PackedStringArray("wallet_list", "balance", "account", "wallet_info", "to_address", "send_amount", "send_button")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 680.0
+offset_top = 240.0
+offset_right = 1760.0
+offset_bottom = 720.0
+mouse_filter = 2
+script = ExtResource("3_7pxn7")
+wallet_list = NodePath("wallet/wallet_container/wallet list")
+balance = NodePath("wallet/wallet_info/VBoxContainer/balance/balance")
+account = NodePath("wallet/wallet_info/VBoxContainer/account/account")
+wallet_info = NodePath("wallet/wallet_info")
+to_address = NodePath("transaction_container/to_address")
+send_amount = NodePath("transaction_container/send_amount")
+send_button = NodePath("transaction_container/send_button")
+
+[node name="wallet" type="HBoxContainer" parent="wallet/wallet_component"]
+offset_top = 48.0
+offset_right = 796.0
+offset_bottom = 134.0
+
+[node name="wallet_container" type="VBoxContainer" parent="wallet/wallet_component/wallet"]
+custom_minimum_size = Vector2i(400, 0)
+offset_right = 400.0
+offset_bottom = 86.0
+
+[node name="wallet list" type="ItemList" parent="wallet/wallet_component/wallet/wallet_container"]
+offset_right = 400.0
+offset_bottom = 8.0
+auto_height = true
+fixed_column_width = 300
+
+[node name="wallet_info" type="VBoxContainer" parent="wallet/wallet_component/wallet"]
+offset_left = 404.0
+offset_right = 599.0
+offset_bottom = 86.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="wallet/wallet_component/wallet/wallet_info"]
+offset_right = 195.0
+offset_bottom = 86.0
+
+[node name="header" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer"]
+offset_right = 195.0
+offset_bottom = 26.0
+text = "WALLET INFORMATION"
+
+[node name="account" type="HBoxContainer" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer"]
+offset_top = 30.0
+offset_right = 195.0
+offset_bottom = 56.0
+
+[node name="account_label" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer/account"]
+offset_right = 71.0
+offset_bottom = 26.0
+text = "account: "
+
+[node name="account" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer/account"]
+offset_left = 75.0
+offset_right = 195.0
+offset_bottom = 26.0
+text = "1X21245059235"
+horizontal_alignment = 1
+
+[node name="balance" type="HBoxContainer" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer"]
+offset_top = 60.0
+offset_right = 195.0
+offset_bottom = 86.0
+
+[node name="balance_label" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer/balance"]
+offset_right = 69.0
+offset_bottom = 26.0
+text = "balance: "
+
+[node name="balance" type="Label" parent="wallet/wallet_component/wallet/wallet_info/VBoxContainer/balance"]
+offset_left = 73.0
+offset_right = 96.0
+offset_bottom = 26.0
+text = "1.0"
+horizontal_alignment = 1
+
+[node name="transaction_container" type="HBoxContainer" parent="wallet/wallet_component"]
+offset_top = 176.0
+offset_right = 677.0
+offset_bottom = 207.0
+
+[node name="to_address" type="LineEdit" parent="wallet/wallet_component/transaction_container"]
+custom_minimum_size = Vector2i(300, 0)
+offset_right = 300.0
+offset_bottom = 31.0
+placeholder_text = "to address"
+
+[node name="send_amount" type="LineEdit" parent="wallet/wallet_component/transaction_container"]
+custom_minimum_size = Vector2i(100, 0)
+offset_left = 304.0
+offset_right = 404.0
+offset_bottom = 31.0
+placeholder_text = "amount"
+
+[node name="send_button" type="Button" parent="wallet/wallet_component/transaction_container"]
+offset_left = 408.0
+offset_right = 459.0
+offset_bottom = 31.0
+text = "SEND"
+
+[node name="home" type="Control" parent="." node_paths=PackedStringArray("hand_button", "send_comment_button", "comment_text", "treasure_amount")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("4_l3pj3")
+hand_button = NodePath("MarginContainer/HBoxContainer/hand_container/HBoxContainer/CenterContainer/big_button")
+send_comment_button = NodePath("buttons/comment_button")
+comment_text = NodePath("buttons/comment_box")
+treasure_amount = NodePath("MarginContainer/HBoxContainer/balance_container/MarginContainer/VBoxContainer/treasure_label")
+
+[node name="red_stars" type="CPUParticles2D" parent="home"]
+position = Vector2(968, 496)
+lifetime = 15.0
+speed_scale = 3.0
+local_coords = true
+texture = ExtResource("4_v7ytp")
+emission_shape = 3
+emission_rect_extents = Vector2(1920, 1080)
+direction = Vector2(100, 100)
+spread = 100.0
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_2ilid")
+
+[node name="yellow_stars" type="CPUParticles2D" parent="home"]
+position = Vector2(968, 496)
+lifetime = 15.0
+speed_scale = 3.0
+local_coords = true
+texture = ExtResource("5_oourg")
+emission_shape = 3
+emission_rect_extents = Vector2(1920, 1080)
+direction = Vector2(100, 100)
+spread = 100.0
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_2ilid")
+
+[node name="MarginContainer" type="MarginContainer" parent="home"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="home/MarginContainer"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="balance_container" type="CenterContainer" parent="home/MarginContainer/HBoxContainer"]
+offset_right = 958.0
+offset_bottom = 1080.0
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="home/MarginContainer/HBoxContainer/balance_container"]
+offset_left = 375.0
+offset_top = 473.0
+offset_right = 583.0
+offset_bottom = 606.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="home/MarginContainer/HBoxContainer/balance_container/MarginContainer"]
+offset_right = 208.0
+offset_bottom = 133.0
+
+[node name="logo" type="TextureRect" parent="home/MarginContainer/HBoxContainer/balance_container/MarginContainer/VBoxContainer"]
+offset_right = 208.0
+offset_bottom = 100.0
+texture = ExtResource("6_pgdim")
+stretch_mode = 5
+
+[node name="treasure_label" type="Label" parent="home/MarginContainer/HBoxContainer/balance_container/MarginContainer/VBoxContainer"]
+offset_top = 104.0
+offset_right = 208.0
+offset_bottom = 133.0
+text = "TREASURE: 1.215 ETH"
+horizontal_alignment = 1
+
+[node name="hand_container" type="CenterContainer" parent="home/MarginContainer/HBoxContainer"]
+offset_left = 962.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="home/MarginContainer/HBoxContainer/hand_container"]
+offset_left = 379.0
+offset_top = 476.0
+offset_right = 579.0
+offset_bottom = 604.0
+
+[node name="CenterContainer" type="CenterContainer" parent="home/MarginContainer/HBoxContainer/hand_container/HBoxContainer"]
+offset_right = 128.0
+offset_bottom = 128.0
+
+[node name="big_button" type="TextureButton" parent="home/MarginContainer/HBoxContainer/hand_container/HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2i(128, 128)
+offset_right = 128.0
+offset_bottom = 128.0
+texture_normal = ExtResource("7_fc3v3")
+texture_pressed = ExtResource("8_h0v2n")
+texture_hover = ExtResource("9_rff7b")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="avatar" type="TextureRect" parent="home/MarginContainer/HBoxContainer/hand_container/HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2i(48, 48)
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 88.0
+offset_bottom = 88.0
+texture = ExtResource("10_546im")
+stretch_mode = 5
+
+[node name="yes_button" type="TextureButton" parent="home/MarginContainer/HBoxContainer/hand_container/HBoxContainer"]
+custom_minimum_size = Vector2i(32, 32)
+offset_left = 132.0
+offset_right = 164.0
+offset_bottom = 128.0
+texture_normal = ExtResource("12_aybw8")
+stretch_mode = 5
+
+[node name="no_button" type="TextureButton" parent="home/MarginContainer/HBoxContainer/hand_container/HBoxContainer"]
+custom_minimum_size = Vector2i(32, 32)
+offset_left = 168.0
+offset_right = 200.0
+offset_bottom = 128.0
+texture_normal = ExtResource("13_3q8bk")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="buttons" type="VBoxContainer" parent="home"]
+anchors_preset = -1
+anchor_left = 0.716667
+anchor_top = 0.580556
+anchor_right = 0.952083
+anchor_bottom = 0.752778
+offset_top = -3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="comment_box" type="TextEdit" parent="home/buttons"]
+custom_minimum_size = Vector2i(200, 150)
+offset_right = 451.0
+offset_bottom = 150.0
+focus_neighbor_left = NodePath("../comment_button")
+focus_neighbor_top = NodePath("../comment_button")
+focus_neighbor_right = NodePath("../comment_button")
+focus_neighbor_bottom = NodePath("../comment_button")
+focus_next = NodePath("../comment_button")
+placeholder_text = "COMMENT OR QUESTION?"
+scroll_fit_content_height = true
+
+[node name="comment_button" type="TextureButton" parent="home/buttons"]
+offset_top = 160.0
+offset_right = 451.0
+offset_bottom = 192.0
+texture_normal = ExtResource("11_eoufy")
+texture_pressed = ExtResource("12_qc0iq")
+texture_hover = ExtResource("13_m46uj")
+stretch_mode = 4
+
+[node name="classes" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2

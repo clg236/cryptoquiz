@@ -9,6 +9,8 @@ extends CanvasLayer
 @export var financials_icon : Texture2D
 @export var students_icon : Texture2D
 
+signal end_class()
+
 signal menu_changed(item)
 var menu_created : bool = false
 
@@ -25,20 +27,25 @@ func create_menu():
 			menu.add_icon_item(classes_icon, 'CLASSES')
 			menu.add_icon_item(quizzes_icon, 'QUIZZES')
 			menu.add_icon_item(students_icon, 'PARTICIPANTS')
-			menu.add_icon_item(financials_icon, 'FINANCIALS')
+			logout_button.text = 'END CLASS'
 		else:
 			page_heading.text = 'HOME'
 			menu.add_icon_item(home_icon, 'HOME')
 			menu.add_icon_item(classes_icon, 'CLASSES')
 			menu.add_icon_item(financials_icon, 'WALLET')
+			logout_button.text = 'LEAVE CLASS'
 	
 func _on_menu_selected(index):
 	page_heading.text = menu.get_item_text(index)
 	emit_signal("menu_changed", menu.get_item_text(index))
 	
 func _on_logout_button_pressed():
-	UIManager.change_scene(UIManager.start_page)
-	NetworkManager.disconnect_from_server()
+	menu_created = false
+	if PlayerManager.player.role == 'facilitator':
+		emit_signal("end_class")
+	else:
+		UIManager.change_scene(UIManager.start_page)
+		NetworkManager.disconnect_from_server()
 
 func remove_items():
 	menu.clear()
