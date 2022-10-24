@@ -46,6 +46,7 @@ func _on_network_state_changed(state):
 		quiz_list.visible = false
 
 func _on_quiz_recieved(quizzes):
+	quiz_list.clear()
 	if quizzes.size() == 0:
 		quiz_list.visible = false
 		error_label.visible = true
@@ -78,7 +79,7 @@ func _on_start_button_pressed():
 	UIManager.change_scene(UIManager.faculty_quiz_mode)
 
 func _on_create_quiz_button_pressed():
-	UIManager.change_scene("res://scenes/faculty/quiz/create_quiz.tscn")
+	UIManager.change_scene("res://scenes/facilitator/quiz/create_quiz.tscn")
 
 func _on_edit_quiz_button_pressed():
 	QuizManager.current_quiz = selected_quiz
@@ -90,8 +91,9 @@ func _on_delete_button_pressed():
 		NetworkManager.delete_quiz(selected_quiz.quizTitle)
 		# clear all the items
 		quiz_list.clear()
+		
 		# refresh the quiz list in 2 secs
-		await get_tree().create_timer(2000).timeout
+		await get_tree().create_timer(1).timeout
 		NetworkManager.list_all_quizzes()
 	else:
 		error_label.text = 'please select a quiz to delete!'

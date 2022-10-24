@@ -25,7 +25,7 @@ var countdown_time = 2
 var quiz
 var current_question_num = 1
 var current_question
-var answer_scene = preload("res://scenes/student/quiz/answer.tscn")
+var answer_scene = preload("res://scenes/participant/quiz/answer.tscn")
 var quiz_participant_row = preload("res://scenes/components/quiz_participant.tscn")
 var question_timer
 var chosen_answer_index
@@ -69,7 +69,6 @@ func _on_quiz_recieved(quiz):
 	QuizManager.current_quiz = quiz
 	
 func _on_start_quiz_pressed():
-	# print('pressed!')
 	if ready_to_quiz:
 		# send all participants the start_quiz broadcast
 		for participant in ParticipantManager.participants.participants:
@@ -95,7 +94,6 @@ func _on_participant_ready(participant):
 			ready_participant_container.add_child(p)
 			p.participant_name.text = ParticipantManager.participants.participants[participant].name
 			p.participant_address.text = participant
-	# print('a participanty is ready: ', participant)
 	
 	# remove the corresponding participant from our not ready container
 	for not_ready in not_ready_participant_container.get_children():
@@ -112,11 +110,11 @@ func populate_question():
 	question_title.text = current_question.title
 	question_reward.text = 'REWARD: ' + str(current_question.reward)
 	for answer in current_question.answers:
-		#print('answer in current answers: ', answer)
+		print('answer in current answers: ', answer)
 		var a = answer_scene.instantiate()
 		choice_container.add_child(a)
 		#print('answer: ', answer)
-		a.text = '[center]' + answer.answer + '[/center]'
+		a.text = '[center]' + answer.title + '[/center]'
 	# start the timer
 	question_timer = Timer.new()
 	add_child(question_timer)

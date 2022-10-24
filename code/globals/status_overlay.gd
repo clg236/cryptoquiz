@@ -25,7 +25,7 @@ var last_balance
 
 func _ready():
 	# signal connectsion
-	StateManager.connect("network_state_changed", _on_network_state_changed)
+	NetworkManager.connect('connected', _on_connected)
 	WalletOperations.connect("address_updated", _on_address_updated)
 	WalletOperations.connect("balance_updated", _on_balance_updated)
 	
@@ -87,12 +87,11 @@ func _on_balance_timer_timeout():
 func _on_animation_finished():
 	chest.stop()
 	
-# state handlers
-func _on_network_state_changed(new_state):
+# when we are connected
+func _on_connected():
 	# stop the dot tween if we are not connecting
-	if new_state != StateManager.NETWORK_STATE.CONNECTING:
-		dot_tween.stop()
-	status_label.text = 'CONNECTION STATUS: ' + StateManager.NETWORK_STATE.keys()[new_state]
+	dot_tween.stop()
+	status_label.text = 'CONNECTION STATUS: CONNECTED'
 
 
 func show_status(status):

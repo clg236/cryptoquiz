@@ -52,6 +52,7 @@ func _on_menu_changed(item):
 			participants.visible = false
 
 		'QUIZZES':
+			NetworkManager.list_all_quizzes()
 			home.visible = false
 			classes.visible = false
 			quizzes.visible = true

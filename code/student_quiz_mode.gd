@@ -18,7 +18,7 @@ extends Control
 
 @export var quiz_timeout : int = 5
 
-var answer_scene = preload("res://scenes/student/quiz/answer.tscn")
+var answer_scene = preload("res://scenes/participant/quiz/answer.tscn")
 var current_question 
 var current_question_num = 1
 var chosen_answer_index
@@ -78,7 +78,7 @@ func populate_question():
 		#print('answer in current answers: ', answer)
 		var a = answer_scene.instantiate()
 		choice_container.add_child(a)
-		a.text = '[center]' + answer.answer + '[/center]'
+		a.text = '[center]' + answer.title + '[/center]'
 		a.connect("answer_chosen", _on_answer_chosen)
 	# start the timer
 	question_timer = Timer.new()
@@ -101,6 +101,7 @@ func _on_submit_button_pressed():
 	submit_button.disabled = true
 		
 func check_answer():
+	await get_tree().create_timer(5).timeout
 	current_question_num += 1
 	# what did the player choose?
 	if chosen_answer_index != null:

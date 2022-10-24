@@ -37,31 +37,27 @@ func _ready():
 func read_wallet_directory():
 	var accounts = []
 	var files = []
-	var dir = Directory.new()
-	dir.open("res://Wallets/")
-	dir.list_dir_begin()
-	
-	while true:
-		var file = dir.get_next()
-		if file == '':
-			break
-		elif not file.begins_with('.'):
-			# read the file
-			var account = File.new()
-			#print(file)
-			var error = account.open('res://Wallets/' + file,File.READ)
-			if error != OK:
-				printerr("Couldn't open file for read: %s, error code: %s." % [file, error])
-				break
-			var text = account.get_as_text()
-			var json = JSON.new()
-			json.parse(text)
-			var data = json.get_data()
-			accounts.append(data)
-			account.close()
-			files.append(file)
-	dir.list_dir_end()
-	return accounts
+	var dir = DirAccess.open("res://Wallets/")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				pass
+			elif file_name.begins_with('Ethereum'):
+				print("Found wallet file: " + file_name)
+				var file = FileAccess.open('res://Wallets/' + file_name,FileAccess.READ)
+				var text = file.get_as_text()
+				var json = JSON.new()
+				json.parse(text)
+				var data = json.get_data()
+				accounts.append(data)
+				files.append(file_name)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+		return accounts
+	else:
+		print("An error occurred when trying to access the path.")
 	
 func _on_class_list_recieved(data):
 	
