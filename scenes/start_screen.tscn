@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cjtirufyto2i0"]
+[gd_scene load_steps=16 format=3 uid="uid://cjtirufyto2i0"]
 
 [ext_resource type="Script" path="res://code/start_screen.gd" id="1_m6xs3"]
 [ext_resource type="Texture2D" uid="uid://dyeaupeyx2b5x" path="res://art/stars/Star 31.png" id="2_4fg04"]
@@ -9,6 +9,7 @@
 [ext_resource type="Shader" path="res://shaders/screentone_transition.gdshader" id="7_iy1qv"]
 [ext_resource type="Texture2D" uid="uid://d1nnckm6g8o6f" path="res://art/animated_characters/hermit_crawling.png" id="8_361td"]
 [ext_resource type="Script" path="res://code/player.gd" id="8_dlrc3"]
+[ext_resource type="PackedScene" uid="uid://c32y4uuyv0p1q" path="res://levels/start.tscn" id="10_det3b"]
 
 [sub_resource type="Curve" id="Curve_cdr5j"]
 _data = [Vector2(0, 0.245399), 0.0, 0.0, 0, 0, Vector2(0.319066, 1), 1.14967, 1.14967, 0, 0, Vector2(0.719844, 0.98773), -0.869896, -0.869896, 0, 0, Vector2(1, 0.226994), 0.0, 0.0, 0, 0]
@@ -185,6 +186,9 @@ mouse_filter = 2
 texture_filter = 1
 position = Vector2(680, 856)
 script = ExtResource("8_dlrc3")
+
+[node name="start" parent="player" instance=ExtResource("10_det3b")]
+position = Vector2(-16, 8)
 
 [node name="Camera2d" type="Camera2D" parent="player"]
 position = Vector2(0, -104)
