@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://vv7prbxwd2mx"]
+[gd_scene load_steps=9 format=3 uid="uid://vv7prbxwd2mx"]
 
 [ext_resource type="Script" path="res://code/join_event.gd" id="1_ns3n4"]
 [ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="2_ficva"]
 [ext_resource type="Texture2D" uid="uid://d1nnckm6g8o6f" path="res://art/animated_characters/hermit_crawling.png" id="2_rryo7"]
+[ext_resource type="Texture2D" uid="uid://dj63vtd5cwkyy" path="res://art/backgrounds/PNG/bg.png" id="3_guvbm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iddxv"]
 atlas = ExtResource("2_rryo7")
@@ -53,9 +54,16 @@ connecting_label = NodePath("connecting_screen/connecting_label")
 bark_label = NodePath("connecting_screen/bark")
 retry_button = NodePath("error_screen/CenterContainer/VBoxContainer/retry_button")
 
+[node name="bg" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_guvbm")
+
 [node name="join" type="CenterContainer" parent="."]
 visible = false
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -63,14 +71,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="join"]
-layout_mode = 2
-offset_left = 870.0
-offset_top = 340.0
-offset_right = 1050.0
-offset_bottom = 740.0
+offset_left = 861.0
+offset_top = 334.0
+offset_right = 1059.0
+offset_bottom = 746.0
 
 [node name="headers" type="Label" parent="join/VBoxContainer"]
-layout_mode = 2
 offset_right = 180.0
 offset_bottom = 29.0
 theme = ExtResource("2_ficva")
@@ -78,7 +84,6 @@ text = "JOIN AN EVENT"
 horizontal_alignment = 1
 
 [node name="name_field" type="LineEdit" parent="join/VBoxContainer"]
-layout_mode = 2
 offset_top = 33.0
 offset_right = 180.0
 offset_bottom = 76.0
@@ -86,7 +91,6 @@ theme = ExtResource("2_ficva")
 placeholder_text = "name"
 
 [node name="event_code_field" type="LineEdit" parent="join/VBoxContainer"]
-layout_mode = 2
 offset_top = 80.0
 offset_right = 180.0
 offset_bottom = 123.0
@@ -95,14 +99,13 @@ placeholder_text = "event code"
 
 [node name="spacer2" type="Control" parent="join/VBoxContainer"]
 custom_minimum_size = Vector2i(0, 50)
-layout_mode = 2
+layout_mode = 3
 anchors_preset = 0
 offset_top = 127.0
 offset_right = 180.0
 offset_bottom = 177.0
 
 [node name="headers2" type="Label" parent="join/VBoxContainer"]
-layout_mode = 2
 offset_top = 181.0
 offset_right = 180.0
 offset_bottom = 210.0
@@ -110,7 +113,6 @@ theme = ExtResource("2_ficva")
 text = "CHOOSE A WALLET"
 
 [node name="wallet_dropdown" type="OptionButton" parent="join/VBoxContainer"]
-layout_mode = 2
 offset_top = 214.0
 offset_right = 180.0
 offset_bottom = 236.0
@@ -118,14 +120,13 @@ theme = ExtResource("2_ficva")
 
 [node name="spacer" type="Control" parent="join/VBoxContainer"]
 custom_minimum_size = Vector2i(0, 50)
-layout_mode = 2
+layout_mode = 3
 anchors_preset = 0
 offset_top = 240.0
 offset_right = 180.0
 offset_bottom = 290.0
 
 [node name="join_button" type="Button" parent="join/VBoxContainer"]
-layout_mode = 2
 offset_top = 294.0
 offset_right = 180.0
 offset_bottom = 345.0
@@ -133,7 +134,6 @@ theme = ExtResource("2_ficva")
 text = "JOIN"
 
 [node name="cancel_button" type="Button" parent="join/VBoxContainer"]
-layout_mode = 2
 offset_top = 349.0
 offset_right = 180.0
 offset_bottom = 400.0
@@ -142,14 +142,13 @@ text = "CANCEL"
 
 [node name="connecting_screen" type="Control" parent="."]
 visible = false
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="connecting_label" type="Label" parent="connecting_screen"]
 custom_minimum_size = Vector2i(300, 0)
-layout_mode = 0
 offset_left = 72.0
 offset_top = 944.0
 offset_right = 372.0
@@ -166,7 +165,6 @@ playing = true
 
 [node name="bark" type="Label" parent="connecting_screen"]
 visible = false
-layout_mode = 0
 offset_left = 584.0
 offset_top = 944.0
 offset_right = 682.0
@@ -176,7 +174,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_lxj00")
 
 [node name="error_screen" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -184,7 +182,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="error_screen"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -192,23 +189,20 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="error_screen/CenterContainer"]
-layout_mode = 2
-offset_left = 762.0
-offset_top = 483.0
-offset_right = 1158.0
-offset_bottom = 596.0
+offset_left = 750.0
+offset_top = 482.0
+offset_right = 1170.0
+offset_bottom = 598.0
 
 [node name="Label" type="Label" parent="error_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-offset_right = 396.0
+offset_right = 420.0
 offset_bottom = 58.0
 text = "OPPS! 
 NO EVENT WITH THAT CODE WAS FOUND."
 horizontal_alignment = 1
 
 [node name="retry_button" type="Button" parent="error_screen/CenterContainer/VBoxContainer"]
-layout_mode = 2
 offset_top = 62.0
-offset_right = 396.0
-offset_bottom = 113.0
+offset_right = 420.0
+offset_bottom = 116.0
 text = "RETURN"

@@ -1,0 +1,281 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxq0qtsebf2sa"]
+
+[ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="1_dm2hq"]
+[ext_resource type="Script" path="res://scenes/test/menu.gd" id="1_vlcui"]
+[ext_resource type="Texture2D" uid="uid://psafpad0gupl" path="res://art/ui/wallet_wizard.png" id="3_ukueu"]
+[ext_resource type="Texture2D" uid="uid://bvmhpablqiu4h" path="res://art/ui/chest_closed.png" id="4_705yr"]
+[ext_resource type="Texture2D" uid="uid://48kdb7r8etr2" path="res://art/ui/quiz_icon.png" id="5_ef221"]
+[ext_resource type="Texture2D" uid="uid://ca54pupvsape6" path="res://art/ui/logo_small.png" id="6_0ts1d"]
+[ext_resource type="Texture2D" uid="uid://j045oflbcmf1" path="res://art/ui/logo.png" id="7_pagbn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlgcu"]
+bg_color = Color(0.870588, 0.85098, 0.815686, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+expand_margin_left = 100.0
+shadow_color = Color(0.172549, 0.654902, 0.780392, 0.0941176)
+
+[node name="menu" type="Control" node_paths=PackedStringArray("menu_button", "close_button", "menu_container")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_dm2hq")
+script = ExtResource("1_vlcui")
+menu_button = NodePath("menu_button")
+close_button = NodePath("menu_container/menu_panel/close_button")
+menu_container = NodePath("menu_container")
+
+[node name="menu_container" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2i(500, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -488.0
+offset_right = 12.0
+grow_vertical = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="menu_panel" type="Panel" parent="menu_container"]
+offset_top = 50.0
+offset_right = 450.0
+offset_bottom = 1030.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wlgcu")
+
+[node name="MarginContainer" type="MarginContainer" parent="menu_container/menu_panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="profile" type="VBoxContainer" parent="menu_container/menu_panel/MarginContainer"]
+offset_top = 25.0
+offset_right = 425.0
+offset_bottom = 955.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="profile_circle2" type="Polygon2D" parent="menu_container/menu_panel/MarginContainer/profile"]
+position = Vector2(95, -14)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(72, 5, 88, 88, 168, 96, 192, 16)
+
+[node name="profile_circle" type="Polygon2D" parent="menu_container/menu_panel/MarginContainer/profile"]
+position = Vector2(88, -19)
+color = Color(0, 0.890196, 1, 1)
+polygon = PackedVector2Array(72, 5, 88, 88, 168, 96, 192, 16)
+
+[node name="avatar" type="TextureRect" parent="menu_container/menu_panel/MarginContainer/profile"]
+custom_minimum_size = Vector2i(64, 64)
+offset_right = 425.0
+offset_bottom = 64.0
+texture = ExtResource("3_ukueu")
+stretch_mode = 5
+
+[node name="spacer" type="Control" parent="menu_container/menu_panel/MarginContainer/profile"]
+custom_minimum_size = Vector2i(0, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 64.0
+offset_right = 425.0
+offset_bottom = 114.0
+
+[node name="name" type="Label" parent="menu_container/menu_panel/MarginContainer/profile"]
+offset_top = 114.0
+offset_right = 425.0
+offset_bottom = 161.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 48
+text = "CHRISTIAN GREWELL"
+horizontal_alignment = 1
+
+[node name="level_container" type="HBoxContainer" parent="menu_container/menu_panel/MarginContainer/profile"]
+offset_top = 161.0
+offset_right = 425.0
+offset_bottom = 194.0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="level" type="Label" parent="menu_container/menu_panel/MarginContainer/profile/level_container"]
+offset_left = 112.0
+offset_right = 212.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "LEVEL 1"
+horizontal_alignment = 1
+
+[node name="level2" type="Label" parent="menu_container/menu_panel/MarginContainer/profile/level_container"]
+offset_left = 227.0
+offset_right = 313.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(1, 0.0627451, 0.686275, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "wizard"
+horizontal_alignment = 1
+
+[node name="spacer4" type="Control" parent="menu_container/menu_panel/MarginContainer/profile"]
+custom_minimum_size = Vector2i(0, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 194.0
+offset_right = 425.0
+offset_bottom = 244.0
+
+[node name="score_container" type="HBoxContainer" parent="menu_container/menu_panel/MarginContainer/profile"]
+offset_top = 244.0
+offset_right = 425.0
+offset_bottom = 306.0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="level" type="Label" parent="menu_container/menu_panel/MarginContainer/profile/score_container"]
+offset_left = 59.0
+offset_right = 235.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 64
+text = "SCORE:"
+horizontal_alignment = 1
+
+[node name="level2" type="Label" parent="menu_container/menu_panel/MarginContainer/profile/score_container"]
+offset_left = 250.0
+offset_right = 366.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(1, 0.0627451, 0.686275, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 64
+text = "1000"
+horizontal_alignment = 1
+
+[node name="spacer2" type="Control" parent="menu_container/menu_panel/MarginContainer/profile"]
+custom_minimum_size = Vector2i(0, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 306.0
+offset_right = 425.0
+offset_bottom = 406.0
+
+[node name="MarginContainer" type="MarginContainer" parent="menu_container/menu_panel/MarginContainer/profile"]
+offset_top = 406.0
+offset_right = 425.0
+offset_bottom = 470.0
+theme_override_constants/margin_left = 50
+
+[node name="treasure" type="HBoxContainer" parent="menu_container/menu_panel/MarginContainer/profile/MarginContainer"]
+offset_left = 50.0
+offset_right = 425.0
+offset_bottom = 64.0
+theme_override_constants/separation = 50
+
+[node name="TextureRect" type="TextureRect" parent="menu_container/menu_panel/MarginContainer/profile/MarginContainer/treasure"]
+custom_minimum_size = Vector2i(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_705yr")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="menu_container/menu_panel/MarginContainer/profile/MarginContainer/treasure"]
+offset_left = 114.0
+offset_top = 8.0
+offset_right = 303.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 48
+text = "TREASURE"
+vertical_alignment = 1
+
+[node name="spacer3" type="Control" parent="menu_container/menu_panel/MarginContainer/profile"]
+custom_minimum_size = Vector2i(0, 25)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 470.0
+offset_right = 425.0
+offset_bottom = 495.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="menu_container/menu_panel/MarginContainer/profile"]
+offset_top = 495.0
+offset_right = 425.0
+offset_bottom = 559.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 0
+
+[node name="treasure" type="HBoxContainer" parent="menu_container/menu_panel/MarginContainer/profile/MarginContainer2"]
+offset_left = 50.0
+offset_right = 425.0
+offset_bottom = 64.0
+theme_override_constants/separation = 50
+
+[node name="TextureRect" type="TextureRect" parent="menu_container/menu_panel/MarginContainer/profile/MarginContainer2/treasure"]
+custom_minimum_size = Vector2i(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_ef221")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="menu_container/menu_panel/MarginContainer/profile/MarginContainer2/treasure"]
+offset_left = 114.0
+offset_top = 8.0
+offset_right = 228.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 48
+text = "STATS"
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="menu_container/menu_panel/MarginContainer/profile"]
+offset_top = 559.0
+offset_right = 425.0
+offset_bottom = 930.0
+size_flags_vertical = 3
+theme_override_constants/margin_left = 25
+
+[node name="Button" type="Button" parent="menu_container/menu_panel/MarginContainer/profile/MarginContainer3"]
+offset_left = 25.0
+offset_top = 317.0
+offset_right = 425.0
+offset_bottom = 371.0
+size_flags_vertical = 10
+text = "LOG OUT"
+icon = ExtResource("6_0ts1d")
+
+[node name="close_button" type="Button" parent="menu_container/menu_panel"]
+offset_left = 384.0
+offset_top = 22.0
+offset_right = 428.0
+offset_bottom = 76.0
+text = "X"
+
+[node name="menu_button" type="TextureButton" parent="."]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 132.0
+offset_bottom = 132.0
+texture_normal = ExtResource("7_pagbn")

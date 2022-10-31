@@ -42,8 +42,10 @@ WalletOperations="*res://code/ethereum/wallet_operations.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/borderless=true
 mouse_cursor/custom_image="res://art/ui/cursor.png"
 window/stretch/mode="canvas_items"
+window/stretch/aspect="ignore"
 
 [dotnet]
 
@@ -51,5 +53,5 @@ project/assembly_name="cq"
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.0470588, 0.0235294, 0.121569, 1)
+environment/defaults/default_clear_color=Color(0.0980392, 0.0352941, 0.0862745, 1)
 vulkan/rendering/back_end=1

@@ -1,15 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://cjtirufyto2i0"]
+[gd_scene load_steps=20 format=3 uid="uid://cjtirufyto2i0"]
 
 [ext_resource type="Script" path="res://code/start_screen.gd" id="1_m6xs3"]
 [ext_resource type="Texture2D" uid="uid://dyeaupeyx2b5x" path="res://art/stars/Star 31.png" id="2_4fg04"]
+[ext_resource type="Texture2D" uid="uid://b60hbjycftb6p" path="res://art/backgrounds/PNG/01.png" id="2_g6ieh"]
 [ext_resource type="Texture2D" uid="uid://j045oflbcmf1" path="res://art/ui/logo.png" id="2_v50iy"]
 [ext_resource type="Texture2D" uid="uid://bga420qd4ttrf" path="res://art/stars/Star 13.png" id="3_evy7j"]
+[ext_resource type="Texture2D" uid="uid://cadaa8ejkvwtb" path="res://art/backgrounds/PNG/02.png" id="4_h5dq8"]
 [ext_resource type="Theme" uid="uid://crjtfys55hclx" path="res://scenes/theme.tres" id="5_j05gb"]
-[ext_resource type="FontFile" uid="uid://b0qm1quen1jfy" path="res://fonts/m5x7.ttf" id="6_3x0hi"]
+[ext_resource type="Texture2D" uid="uid://dkark4t3rfk3s" path="res://art/backgrounds/PNG/03.png" id="6_8jxjj"]
+[ext_resource type="Texture2D" uid="uid://dku3ww2n0ba6m" path="res://art/backgrounds/PNG/04.png" id="7_4scbj"]
 [ext_resource type="Shader" path="res://shaders/screentone_transition.gdshader" id="7_iy1qv"]
+[ext_resource type="Texture2D" uid="uid://djifa8d56yxip" path="res://art/backgrounds/PNG/05.png" id="8_42irt"]
 [ext_resource type="Texture2D" uid="uid://d1nnckm6g8o6f" path="res://art/animated_characters/hermit_crawling.png" id="8_361td"]
 [ext_resource type="Script" path="res://code/player.gd" id="8_dlrc3"]
-[ext_resource type="PackedScene" uid="uid://c32y4uuyv0p1q" path="res://levels/start.tscn" id="10_det3b"]
+[ext_resource type="Texture2D" uid="uid://b5raqpqwhqw3w" path="res://art/backgrounds/PNG/06.png" id="9_lc10m"]
 
 [sub_resource type="Curve" id="Curve_cdr5j"]
 _data = [Vector2(0, 0.245399), 0.0, 0.0, 0, 0, Vector2(0.319066, 1), 1.14967, 1.14967, 0, 0, Vector2(0.719844, 0.98773), -0.869896, -0.869896, 0, 0, Vector2(1, 0.226994), 0.0, 0.0, 0, 0]
@@ -40,6 +44,7 @@ animations = [{
 }]
 
 [node name="start_screen" type="Control" node_paths=PackedStringArray("title_text", "home_screen", "transition", "join_event_button", "create_event_button")]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,6 +62,19 @@ create_event_button = NodePath("CanvasLayer/home_screen/VBoxContainer/HBoxContai
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(1920, 0)
+
+[node name="background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_g6ieh")
+ignore_texture_size = true
+stretch_mode = 6
 
 [node name="red_stars" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer"]
 texture_filter = 2
@@ -78,6 +96,18 @@ scale_amount_curve = SubResource("Curve_cdr5j")
 motion_scale = Vector2(0.75, 0.75)
 motion_mirroring = Vector2(1920, 0)
 
+[node name="background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer2"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_h5dq8")
+stretch_mode = 6
+
 [node name="yellow_stars" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer2"]
 texture_filter = 2
 position = Vector2(968, 496)
@@ -94,14 +124,82 @@ scale_amount_min = 0.5
 scale_amount_max = 0.5
 scale_amount_curve = SubResource("Curve_cdr5j")
 
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.75, 0.75)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer3"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8jxjj")
+stretch_mode = 6
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.75, 0.75)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer4"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_4scbj")
+stretch_mode = 6
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.75, 0.75)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer5"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_42irt")
+stretch_mode = 6
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.75, 0.75)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer6"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_lc10m")
+stretch_mode = 6
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="home_screen" type="Control" parent="CanvasLayer"]
 texture_filter = 1
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_j05gb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/home_screen"]
 layout_mode = 1
@@ -110,10 +208,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 721.5
-offset_top = 271.0
-offset_right = 1158.5
-offset_bottom = 769.0
+offset_left = -315.0
+offset_top = -249.0
+offset_right = 315.0
+offset_bottom = 249.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
@@ -122,7 +220,7 @@ theme_override_constants/separation = 10
 texture_filter = 1
 custom_minimum_size = Vector2i(200, 200)
 layout_mode = 2
-offset_right = 625.0
+offset_right = 630.0
 offset_bottom = 200.0
 texture = ExtResource("2_v50iy")
 stretch_mode = 5
@@ -130,11 +228,10 @@ stretch_mode = 5
 [node name="title_text" type="Label" parent="CanvasLayer/home_screen/VBoxContainer"]
 layout_mode = 2
 offset_top = 210.0
-offset_right = 625.0
-offset_bottom = 270.0
+offset_right = 630.0
+offset_bottom = 316.0
 theme = ExtResource("5_j05gb")
-theme_override_fonts/font = ExtResource("6_3x0hi")
-theme_override_font_sizes/font_size = 72
+theme_override_font_sizes/font_size = 112
 text = "CRYPTOQUIZ"
 horizontal_alignment = 1
 
@@ -142,23 +239,24 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2i(0, 50)
 layout_mode = 2
 anchors_preset = 0
-offset_top = 280.0
-offset_right = 625.0
-offset_bottom = 330.0
+offset_top = 326.0
+offset_right = 630.0
+offset_bottom = 376.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/home_screen/VBoxContainer"]
 layout_mode = 2
-offset_top = 340.0
-offset_right = 625.0
-offset_bottom = 391.0
+offset_top = 386.0
+offset_right = 630.0
+offset_bottom = 440.0
 theme_override_constants/separation = 25
 alignment = 1
 
 [node name="join_event_button" type="Button" parent="CanvasLayer/home_screen/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2i(300, 0)
 layout_mode = 2
-offset_right = 300.0
-offset_bottom = 51.0
+offset_left = 2.0
+offset_right = 302.0
+offset_bottom = 54.0
 focus_mode = 0
 theme = ExtResource("5_j05gb")
 text = "JOIN EVENT"
@@ -166,9 +264,9 @@ text = "JOIN EVENT"
 [node name="create_event_button" type="Button" parent="CanvasLayer/home_screen/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2i(300, 0)
 layout_mode = 2
-offset_left = 325.0
-offset_right = 625.0
-offset_bottom = 51.0
+offset_left = 327.0
+offset_right = 627.0
+offset_bottom = 54.0
 focus_mode = 0
 theme = ExtResource("5_j05gb")
 text = "CREATE EVENT"
@@ -187,15 +285,12 @@ texture_filter = 1
 position = Vector2(680, 856)
 script = ExtResource("8_dlrc3")
 
-[node name="start" parent="player" instance=ExtResource("10_det3b")]
-position = Vector2(-16, 8)
-
 [node name="Camera2d" type="Camera2D" parent="player"]
-position = Vector2(0, -104)
+position = Vector2(280, -320)
 current = true
-zoom = Vector2(2, 2)
 
 [node name="AnimatedSprite2d" type="AnimatedSprite2D" parent="player"]
+visible = false
 frames = SubResource("SpriteFrames_dk0ff")
 speed_scale = 2.0
 playing = true
